@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 // @route GET api/books/:id
 // @description Get single book by id
 // @access Public
-router.get('/:id', (req, res) => {
+router.get(':id', (req, res) => {
   Book.findById(req.params.id)
     .then(book => res.json(book))
     .catch(err => res.status(404).json({ nobookfound: 'No Book found' }));

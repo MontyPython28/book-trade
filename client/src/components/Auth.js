@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import "./App.css";
-import Axios from "axios";
 
-function App() {
+import Axios from "axios";
+const serverURL = "http://localhost:4000";
+
+function Auth() {
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [loginUsername, setLoginUsername] = useState("");
@@ -16,7 +17,7 @@ function App() {
         password: registerPassword,
       },
       withCredentials: true,
-      url: "http://localhost:4000/register",
+      url: serverURL + "/register",
     }).then((res) => console.log(res));
   };
   const login = () => {
@@ -27,14 +28,14 @@ function App() {
         password: loginPassword,
       },
       withCredentials: true,
-      url: "http://localhost:4000/login",
+      url: serverURL + "/login",
     }).then((res) => console.log(res));
   };
   const getUser = () => {
     Axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:4000/user",
+      url: serverURL + "/user",
     }).then((res) => {
       setData(res.data);
       console.log(res.data);
@@ -77,4 +78,4 @@ function App() {
   );
 }
 
-export default App;
+export default Auth;

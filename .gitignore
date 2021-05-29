@@ -5,3 +5,5 @@ node_modules/
 .idea/
 .vscode/
 config/default.json
+server/.env
+server/node_modules
