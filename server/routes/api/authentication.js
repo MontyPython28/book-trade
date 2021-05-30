@@ -35,13 +35,18 @@ router.post("/register", (req, res) => {
           password: hashedPassword,
         });
         await newUser.save();
-        res.send("User Created");
+        res.send("user created");
       }
     });
 });
 
 router.get("/user", (req, res) => {
-    res.send(req.user); // The req.user stores the entire user that has been authenticated inside of it.
+    res.send(req.user.username); // The req.user stores the entire user that has been authenticated inside of it.
+});
+
+router.get('/logout', function(req, res){
+  req.logout();
+  res.send(req.body.username + 'logged out');
 });
 
 module.exports = router;
