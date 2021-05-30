@@ -12,16 +12,18 @@ class ShowBookList extends Component {
     };
   }
 
+  baseUrl = process.env.baseURL || "http://localhost:8082";
+
   componentDidMount() {
     axios
-      .get('http://localhost:8082/api/books')
+      .get(this.baseUrl + '/api/books')
       .then(res => {
         this.setState({
           books: res.data
         })
       })
       .catch(err =>{
-        console.log('Error from ShowBookList');
+        console.log(err);
       })
   };
 
