@@ -26,13 +26,12 @@ app.use(express.static(path.join(__dirname, "client", "build")))
 
 app.get('/', (req, res) => res.send('Hello world!'));
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }); // for MongoDB
-
 // use Routes
 app.use('/api/books', books);
 
 const port = process.env.PORT || 8082;
 
+// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }); // for MongoDB
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));

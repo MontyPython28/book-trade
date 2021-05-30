@@ -9,7 +9,7 @@ class CreateBook extends Component {
     super();
     this.state = {
       title: '',
-      modulecode: '',
+      isbn:'',
       author:'',
       description:'',
       publisher:''
@@ -87,17 +87,6 @@ class CreateBook extends Component {
                     onChange={this.onChange}
                   />
                 </div>
-                
-                <div className='form-group'>
-                  <input
-                    type='text'
-                    placeholder='ISBN'
-                    name='isbn'
-                    className='form-control'
-                    value={this.state.isbn}
-                    onChange={this.onChange}
-                  />
-                </div>
 
                 <br />
 
@@ -122,7 +111,7 @@ class CreateBook extends Component {
                     onChange={this.onChange}
                   />
                 </div>
-                
+
                 <div className='form-group'>
                   <input
                     type='text'
