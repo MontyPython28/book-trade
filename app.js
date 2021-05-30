@@ -6,7 +6,6 @@ const express = require('express');
 const connectDB = require('./config/db');
 var cors = require('cors');
 const path = require("path"); //for Heroku
-const proxy = require('http-proxy-middleware'); //trying for serverside
 
 // routes
 const books = require('./routes/api/books');
@@ -38,8 +37,3 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 }); //for Heroku
 app.listen(port, () => console.log(`Server running on port ${port}`));
-
-module.exports = function(app) {
-    // add other server routes to path array
-    app.use(proxy(['/api' ], { target: 'http://localhost:8082' }));
-}
