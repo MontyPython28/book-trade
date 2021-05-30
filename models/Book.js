@@ -5,7 +5,7 @@ const BookSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  isbn: {
+  modulecode: {
     type: String,
     required: true
   },
@@ -15,9 +15,6 @@ const BookSchema = new mongoose.Schema({
   },
   description: {
     type: String
-  },
-  published_date: {
-    type: Date
   },
   publisher: {
     type: String

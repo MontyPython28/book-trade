@@ -11,7 +11,6 @@ class UpdateBookInfo extends Component {
       isbn: '',
       author: '',
       description: '',
-      published_date: '',
       publisher: ''
     };
   }
@@ -27,7 +26,6 @@ class UpdateBookInfo extends Component {
           isbn: res.data.isbn,
           author: res.data.author,
           description: res.data.description,
-          published_date: res.data.published_date,
           publisher: res.data.publisher
         })
       })
@@ -48,7 +46,6 @@ class UpdateBookInfo extends Component {
       isbn: this.state.isbn,
       author: this.state.author,
       description: this.state.description,
-      published_date: this.state.published_date,
       publisher: this.state.publisher
     };
 
@@ -133,17 +130,6 @@ class UpdateBookInfo extends Component {
               />
             </div>
 
-            <div className='form-group'>
-            <label htmlFor="published_date">Published Date</label>
-              <input
-                type='date'
-                placeholder='published_date'
-                name='published_date'
-                className='form-control'
-                value={this.state.published_date}
-                onChange={this.onChange}
-              />
-            </div>
             <div className='form-group'>
             <label htmlFor="publisher">Publisher</label>
               <input
