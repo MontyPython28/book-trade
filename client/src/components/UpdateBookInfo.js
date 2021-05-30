@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
+import Navbar from './Navbar';
 
 class UpdateBookInfo extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class UpdateBookInfo extends Component {
   componentDidMount() {
     // console.log("Print id: " + this.props.match.params.id);
     axios
-      .get('/api/books/'+this.props.match.params.id)
+      .get('http://localhost:4000/api/books/'+this.props.match.params.id)
       .then(res => {
         // this.setState({...this.state, book: res.data})
         this.setState({
@@ -50,7 +51,11 @@ class UpdateBookInfo extends Component {
     };
 
     axios
+<<<<<<< HEAD
       .put('/api/books/'+this.props.match.params.id, data)
+=======
+      .put('http://localhost:4000/api/books/'+this.props.match.params.id, data)
+>>>>>>> 7e9d211... ready with login/signup/logout
       .then(res => {
         this.props.history.push('/show-book/'+this.props.match.params.id);
       })
@@ -66,6 +71,7 @@ class UpdateBookInfo extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
+              <Navbar/>
               <br />
               <Link to="/" className="btn btn-outline-warning float-left">
                   Show Book List

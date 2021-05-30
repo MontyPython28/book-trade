@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
+import Navbar from './Navbar';
 
 
 class CreateBook extends Component {
@@ -32,7 +33,7 @@ class CreateBook extends Component {
     };
 
     axios
-      .post('/api/books', data)
+      .post('http://localhost:4000/api/books', data)
       .then(res => {
         this.setState({
           title: '',
@@ -54,6 +55,7 @@ class CreateBook extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
+              <Navbar/>
               <br />
               <Link to="/" className="btn btn-outline-warning float-left">
                   Show Book List

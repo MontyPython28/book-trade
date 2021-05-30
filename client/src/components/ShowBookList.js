@@ -3,6 +3,8 @@ import '../App.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import BookCard from './BookCard';
+import  Navbar  from './Navbar';
+
 
 class ShowBookList extends Component {
   constructor(props) {
@@ -16,7 +18,7 @@ class ShowBookList extends Component {
 
   componentDidMount() {
     axios
-      .get('/api/books') //ADD http://localhost:8082 when developing (same for all other axios requests)
+      .get('http://localhost:4000/api/books')
       .then(res => {
         this.setState({
           books: res.data
@@ -47,6 +49,7 @@ class ShowBookList extends Component {
           <div className="row">
             <div className="col-md-12">
               <br />
+              <Navbar/>
               <h2 className="display-4 text-center">Books List</h2>
             </div>
 

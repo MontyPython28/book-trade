@@ -12,11 +12,16 @@ require("../../config/passportConfig")(passport);
 router.post("/login", (req, res, next) => {
     passport.authenticate("local", (err, user, info) => {
       if (err) throw err;
-      if (!user) res.send("No User Exists");
+      if (!user) res.send({
+        loginAttempt: false,
+      });
       else {
         req.logIn(user, (err) => {
           if (err) throw err;
-          res.send("Successfully Authenticated");
+          res.send({
+            loginAttempt: true,
+            userId: req.user.username
+          });
           console.log(req.user);
         });
       }
@@ -26,7 +31,11 @@ router.post("/login", (req, res, next) => {
 router.post("/register", (req, res) => {
     User.findOne({ username: req.body.username }, async (err, doc) => {
       if (err) throw err;
-      if (doc) res.send("User Already Exists");
+      if (doc) 
+        res.send({
+          signupAttempt: false,
+          userId: req.body.username
+        });
       if (!doc) {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
   
@@ -35,14 +44,17 @@ router.post("/register", (req, res) => {
           password: hashedPassword,
         });
         await newUser.save();
-        res.send("user created");
+        res.send({
+          signupAttempt: true,
+          userId: req.body.username
+        });
       }
     });
 });
 
-router.get("/user", (req, res) => {
-    res.send(req.user.username); // The req.user stores the entire user that has been authenticated inside of it.
-});
+router.get("/user", (req, res) => { 
+      res.send(req.user.username); // The req.user stores the entire user that has been authenticated inside of it.
+  });
 
 router.get('/logout', function(req, res){
   req.logout();

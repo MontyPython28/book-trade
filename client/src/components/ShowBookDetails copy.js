@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
+import Navbar from './Navbar';
 
 class showBookDetails extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class showBookDetails extends Component {
   componentDidMount() {
     // console.log("Print id: " + this.props.match.params.id);
     axios
-      .get('/api/books/'+this.props.match.params.id)
+      .get('http://localhost:4000/api/books/'+this.props.match.params.id)
       .then(res => {
         // console.log("Print-showBookDetails-API-response: " + res.data);
         this.setState({
@@ -28,7 +29,11 @@ class showBookDetails extends Component {
 
   onDeleteClick (id) {
     axios
+<<<<<<< HEAD:client/src/components/ShowBookDetails.js
       .delete('/api/books/'+id)
+=======
+      .delete('http://localhost:4000/api/books/'+id)
+>>>>>>> 7e9d211... ready with login/signup/logout:client/src/components/ShowBookDetails copy.js
       .then(res => {
         this.props.history.push("/");
       })
@@ -86,6 +91,7 @@ class showBookDetails extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-10 m-auto">
+              <Navbar/>
               <br /> <br />
               <Link to="/" className="btn btn-outline-warning float-left">
                   Show Book List
