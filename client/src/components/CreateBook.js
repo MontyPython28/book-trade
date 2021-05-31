@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
 import Navbar from './Navbar';
+import {useAuth} from './context/AuthContext'
 
 
 class CreateBook extends Component {
+  serverURL = 'http://localhost:4000'; 
+
   constructor() {
     super();
     this.state = {
@@ -21,7 +24,7 @@ class CreateBook extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
 
     const data = {
@@ -33,7 +36,7 @@ class CreateBook extends Component {
     };
 
     axios
-      .post('http://localhost:4000/api/books', data)
+      .post(this.serverURL + '/api/books', data)
       .then(res => {
         this.setState({
           title: '',

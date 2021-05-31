@@ -21,10 +21,12 @@ const Navbar = () => {
     }
 
     return (  
-        <div className="w-100 text-center mt-2 ">
-            <p className="float-left">{currentUser}</p>
+        <div>
+            <h2 className="float-left">{currentUser}</h2>
             <Button className="float-right" variant='link' onClick={handleLogout}>Log Out</Button>
+            <br/><br/>
         </div>     
+
      );
 }
  

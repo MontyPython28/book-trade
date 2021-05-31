@@ -4,9 +4,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import BookCard from './BookCard';
 import  Navbar  from './Navbar';
-
+import {useAuth} from './context/AuthContext';
 
 class ShowBookList extends Component {
+  serverURL = 'http://localhost:4000';
   constructor(props) {
     super(props);
     this.state = {
@@ -18,7 +19,7 @@ class ShowBookList extends Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:4000/api/books')
+      .get(this.serverURL + '/api/books')
       .then(res => {
         this.setState({
           books: res.data

@@ -8,7 +8,7 @@ import PrivateRoute from './PrivateRoute'
 import ShowBookList from "./ShowBookList";
 import CreateBook from "./CreateBook";
 import UpdateBookInfo from "./UpdateBookInfo";
-import ShowBookDetails from "./ShowBookDetails copy";
+import ShowBookDetails from "./ShowBookDetails";
 
 
 function App() {

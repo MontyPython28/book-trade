@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
 import Navbar from './Navbar';
+import {useAuth} from './context/AuthContext';
 
 class showBookDetails extends Component {
+  serverURL = 'http://localhost:4000';
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +18,7 @@ class showBookDetails extends Component {
   componentDidMount() {
     // console.log("Print id: " + this.props.match.params.id);
     axios
-      .get('http://localhost:4000/api/books/'+this.props.match.params.id)
+      .get(this.serverURL + '/api/books/'+this.props.match.params.id)
       .then(res => {
         // console.log("Print-showBookDetails-API-response: " + res.data);
         this.setState({
@@ -29,11 +32,7 @@ class showBookDetails extends Component {
 
   onDeleteClick (id) {
     axios
-<<<<<<< HEAD:client/src/components/ShowBookDetails.js
-      .delete('/api/books/'+id)
-=======
-      .delete('http://localhost:4000/api/books/'+id)
->>>>>>> 7e9d211... ready with login/signup/logout:client/src/components/ShowBookDetails copy.js
+      .delete(this.serverURL + '/api/books/'+id)
       .then(res => {
         this.props.history.push("/");
       })

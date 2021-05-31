@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Axios from 'axios'
+import React, { useEffect, useState, useContext } from 'react';
+import Axios from 'axios';
 
 
 const AuthContext = React.createContext()
@@ -9,9 +9,10 @@ export function useAuth() {
 }
 
 export function AuthProvider({children}) {
-    const [currentUser, setCurrentUser] = useState(null)
-    const [loading, setLoading] = useState(true)
-    const [loggedin, setLoggedin] = useState(false)
+    const [currentUser, setCurrentUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [loggedin, setLoggedin] = useState(false);
+    const serverURL = 'http://localhost:4000';
 
     async function signup(email, password) {
         const res = await Axios({
@@ -21,19 +22,14 @@ export function AuthProvider({children}) {
                 password: password,
             },
             withCredentials: true,
-            url: "http://localhost:4000/register",
+            url: serverURL + '/register',
         });
         
-        async function signup2() {
-            console.log(res.data.signupAttempt);
-            if(res.data.signupAttempt) {
-                setCurrentUser(res.data.userId);
-                setLoggedin(true);
-                console.log(currentUser + 'signed up and logged in');
-            } else throw new Error("signup failed"); 
-        }
-        
-        await signup2();
+        if(res.data.signupAttempt) {
+            setCurrentUser(res.data.userId);
+            setLoggedin(true);
+            console.log(currentUser + 'signed up and logged in');
+        } else throw new Error("signup failed");
     };
 
     async function login(email, password) {
@@ -45,18 +41,14 @@ export function AuthProvider({children}) {
                 password: password,
             },
             withCredentials: true,
-            url: "http://localhost:4000/login",
+            url: serverURL + '/login',
         });
         
-        async function login2() {     
-            if(res.data.loginAttempt) {
-                setCurrentUser(res.data.userId);
-                setLoggedin(true);
-                console.log(currentUser + 'logged in');
-            } else throw new Error("login failed"); 
-        }
-
-        await login2();
+        if(res.data.loginAttempt) {
+            setCurrentUser(res.data.userId);
+            setLoggedin(true);
+            console.log(currentUser + 'logged in');
+        } else throw new Error("login failed");      
 
     };
 
@@ -64,7 +56,7 @@ export function AuthProvider({children}) {
         const res = await Axios({
             method: "GET",
             withCredentials: true,
-            url: "http://localhost:4000/logout",
+            url: serverURL + '/logout',
         });
         
         setLoggedin(false)
@@ -75,15 +67,15 @@ export function AuthProvider({children}) {
         const res = await  Axios({
             method: "GET",
             withCredentials: true,
-            url: "http://localhost:4000/user",
+            url: serverURL + '/user',
           });
         
         setCurrentUser(res.data);
-        console.log(res.data);
+        console.log('current user: ' + res.data);
     };
 
     useEffect(() => {
-        setCurrentUser();
+        if(loggedin) getUser()
         setLoading(false);
     }, [])
     
