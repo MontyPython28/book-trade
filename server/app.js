@@ -11,6 +11,9 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+//-----------------------------------------HEROKU
+app.use(express.static(path.join(__dirname, "client", "build")));
+
 
 //---------------------------------------Connect Database
 connectDB();
@@ -32,7 +35,9 @@ app.use(session ({
 }));
 //related to express-sessions
 app.use(cookieParser('awonderfulworld'));
-
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 //---------------------------------------END OF MIDDLEWARE
 

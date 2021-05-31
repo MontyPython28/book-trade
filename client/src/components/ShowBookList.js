@@ -19,7 +19,7 @@ class ShowBookList extends Component {
 
   componentDidMount() {
     axios
-      .get(this.serverURL + '/api/books')
+      .get('/api/books')
       .then(res => {
         this.setState({
           books: res.data
