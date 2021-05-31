@@ -68,7 +68,7 @@ class UpdateBookInfo extends Component {
             <div className="col-md-8 m-auto">
               <br />
               <Link to="/" className="btn btn-outline-warning float-left">
-                  Show BooK List
+                  Show Book List
               </Link>
             </div>
             <div className="col-md-8 m-auto">
@@ -95,10 +95,10 @@ class UpdateBookInfo extends Component {
             <br />
 
             <div className='form-group'>
-            <label htmlFor="isbn">ISBN</label>
+            <label htmlFor="isbn">Module Code</label>
               <input
                 type='text'
-                placeholder='ISBN'
+                placeholder='Module Code'
                 name='isbn'
                 className='form-control'
                 value={this.state.isbn}
@@ -131,10 +131,10 @@ class UpdateBookInfo extends Component {
             </div>
 
             <div className='form-group'>
-            <label htmlFor="publisher">Publisher</label>
+            <label htmlFor="publisher">Images</label>
               <input
                 type='text'
-                placeholder='Publisher of this Book'
+                placeholder='Images'
                 name='publisher'
                 className='form-control'
                 value={this.state.publisher}

@@ -64,7 +64,7 @@ class showBookDetails extends Component {
           </tr>
           <tr>
             <th scope="row">3</th>
-            <td>ISBN</td>
+            <td>Module Code</td>
             <td>{ book.isbn }</td>
           </tr>
           <tr>
@@ -74,7 +74,7 @@ class showBookDetails extends Component {
           </tr>
           <tr>
             <th scope="row">6</th>
-            <td>Description</td>
+            <td>Images</td>
             <td>{ book.description }</td>
           </tr>
         </tbody>

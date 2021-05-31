@@ -80,7 +80,7 @@ class CreateBook extends Component {
                 <div className='form-group'>
                   <input
                     type='text'
-                    placeholder='ISBN'
+                    placeholder='Module Code'
                     name='isbn'
                     className='form-control'
                     value={this.state.isbn}
@@ -115,7 +115,7 @@ class CreateBook extends Component {
                 <div className='form-group'>
                   <input
                     type='text'
-                    placeholder='Publisher of this Book'
+                    placeholder='Images'
                     name='publisher'
                     className='form-control'
                     value={this.state.publisher}
