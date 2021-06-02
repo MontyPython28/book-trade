@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 //-----------------------------Imports
 const passportLocal = require("passport-local").Strategy;
 const session = require('express-session');
@@ -8,15 +10,18 @@ const books = require('./routes/api/books');
 const authentication = require('./routes/api/authentication');
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const path = require("path"); //for Heroku
 
 const app = express();
 
-//-----------------------------------------HEROKU
-app.use(express.static(path.join(__dirname, "client", "build")));
-
+/*
+app.use(express.static(path.join(__dirname, "client", "build"))); //for Heroku
+*/
 
 //---------------------------------------Connect Database
 connectDB();
+
+app.get('/', (req, res) => res.send('Hello world!'));
 
 //---------------------------------------MIDDLEWARE
 app.use(bodyParser.json());
@@ -35,9 +40,12 @@ app.use(session ({
 }));
 //related to express-sessions
 app.use(cookieParser('awonderfulworld'));
+
+/*
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.join(__dirname, "client", "build", "index.html")); //for Heroku
 });
+*/
 
 //---------------------------------------END OF MIDDLEWARE
 

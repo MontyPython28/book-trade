@@ -15,11 +15,9 @@ class ShowBookList extends Component {
     };
   }
 
-  // baseUrl = process.env.baseURL || "http://localhost:8082";
-
   componentDidMount() {
     axios
-      .get('/api/books')
+      .get(this.serverURL + '/api/books')
       .then(res => {
         this.setState({
           books: res.data
