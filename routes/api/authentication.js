@@ -10,46 +10,48 @@ require("../../config/passportConfig")(passport);
 
 
 router.post("/login", (req, res, next) => {
-    passport.authenticate("local", (err, user, info) => {
-      if (err) throw err;
-      if (!user) res.send({
-        loginAttempt: false,
-      });
-      else {
-        req.logIn(user, (err) => {
-          if (err) throw err;
-          res.send({
-            loginAttempt: true,
-            userId: req.user.username
-          });
-          console.log(req.user);
+  const userIdWithNusExtension = req.body.username + '@u.nus.edu';
+  passport.authenticate("local", (err, user, info) => {
+    if (err) throw err;
+    if (!user) res.send({
+      loginAttempt: false,
+    });
+    else {
+      req.logIn(user, (err) => {
+        if (err) throw err;
+        res.send({
+          loginAttempt: true,
+          userId: req.user.username
         });
-      }
-    })(req, res, next);
+        console.log(req.user);
+      });
+    }
+  })(req, res, next);
 });
 
 router.post("/register", (req, res) => {
-    User.findOne({ username: req.body.username }, async (err, doc) => {
-      if (err) throw err;
-      if (doc) 
-        res.send({
-          signupAttempt: false,
-          userId: req.body.username
-        });
-      if (!doc) {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-  
-        const newUser = new User({
-          username: req.body.username,
-          password: hashedPassword,
-        });
-        await newUser.save();
-        res.send({
-          signupAttempt: true,
-          userId: req.body.username
-        });
-      }
-    });
+  const userIdWithNusExtension = req.body.username + '@u.nus.edu';
+  User.findOne({ username: userIdWithNusExtension }, async (err, doc) => {
+    if (err) throw err;
+    if (doc) 
+      res.send({
+        signupAttempt: false,
+        userId: userIdWithNusExtension
+      });
+    if (!doc) {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+      const newUser = new User({
+        username: userIdWithNusExtension,
+        password: hashedPassword,
+      });
+      await newUser.save();
+      res.send({
+        signupAttempt: true,
+        userId: userIdWithNusExtension
+      });
+    }
+  });
 });
 
 router.get("/user", (req, res) => { 
