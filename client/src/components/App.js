@@ -22,9 +22,9 @@ function App() {
                 <PrivateRoute exact path='/' component={ShowBookList} />
                 <Route path='/signup' component={Signup} />
                 <Route path='/login' component={Login} />
-                <Route path='/create-book' component={CreateBook} />
-                <Route path='/edit-book/:id' component={UpdateBookInfo} />
-                <Route path='/show-book/:id' component={ShowBookDetails} />
+                <PrivateRoute path='/create-book' component={CreateBook} />
+                <PrivateRoute path='/edit-book/:id' component={UpdateBookInfo} />
+                <PrivateRoute path='/show-book/:id' component={ShowBookDetails} />
               </Switch>
             </AuthProvider>
           </Router>

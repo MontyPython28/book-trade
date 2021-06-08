@@ -11,7 +11,6 @@ export function useAuth() {
 export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [loggedin, setLoggedin] = useState(false);
     const serverURL = 'http://localhost:4000';
 
     async function signup(email, password) {
@@ -27,7 +26,6 @@ export function AuthProvider({children}) {
         
         if(res.data.signupAttempt) {
             setCurrentUser(res.data.userId);
-            setLoggedin(true);
             console.log(currentUser + 'signed up and logged in');
         } else throw new Error("signup failed");
     };
@@ -46,7 +44,6 @@ export function AuthProvider({children}) {
         
         if(res.data.loginAttempt) {
             setCurrentUser(res.data.userId);
-            setLoggedin(true);
             console.log(currentUser + 'logged in');
         } else throw new Error("login failed");      
 
@@ -59,7 +56,6 @@ export function AuthProvider({children}) {
             url: serverURL + '/logout',
         });
         
-        setLoggedin(false)
         console.log(res + 'logged out');
     };
 
@@ -70,18 +66,23 @@ export function AuthProvider({children}) {
             url: serverURL + '/user',
           });
         
-        setCurrentUser(res.data);
-        console.log('current user: ' + res.data);
+        if(res.data.loggedin) {
+            setCurrentUser(res.data.username);
+        } else {
+            setCurrentUser(res.data.username);
+        }
     };
 
+
+   
+
     useEffect(() => {
-        if(loggedin) getUser()
+        getUser();
         setLoading(false);
     }, [])
     
 
     const value = {
-        loggedin,
         currentUser,
         signup,
         login,

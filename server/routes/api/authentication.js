@@ -55,12 +55,27 @@ router.post("/register", (req, res) => {
 });
 
 router.get("/user", (req, res) => { 
-      res.send(req.user.username); // The req.user stores the entire user that has been authenticated inside of it.
-  });
+  
+  if (req.isAuthenticated()) {
+    console.log('authentic request');
+    res.send({
+      username: req.user.username,
+      loggedin: true
+    }); // The req.user stores the entire user that has been authenticated inside of it.
+  } else {  
+    console.log('inauthentic request!!')
+    res.send({
+      username: null,
+      loggedin: false
+    });
+  } 
+});
 
 router.get('/logout', function(req, res){
   req.logout();
   res.send(req.body.username + 'logged out');
 });
+
+
 
 module.exports = router;
