@@ -21,13 +21,14 @@ app.use(express.static(path.join(__dirname, "client", "build"))); //for Heroku
 //---------------------------------------Connect Database
 connectDB();
 
-app.get('/', (req, res) => res.send('Hello world!'));
+app.get('/', (req, res) => res.send('go to the logs'));
 
 //---------------------------------------MIDDLEWARE
+app.use(cors({ origin: true, credentials: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //lets all websites access this server ig(?)
-app.use(cors({ origin: true, credentials: true }));
+
 
 //dunno what that does
 app.use(express.json({ extended: false }));

@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { Route, Redirect } from 'react-router-dom'
 
 const PrivateRoute = ({component: Component, ...rest}) => {
-    const serverURL = 'http://localhost:4000';
+    const serverURL = 'https://nusbooktrade.herokuapp.com';
     const [loggedin, setLoggedin] = useState(true);
     async function getUser() {
         const res = await  Axios({
