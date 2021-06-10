@@ -11,14 +11,16 @@ class UpdateBookInfo extends Component {
       isbn: '',
       author: '',
       description: '',
-      publisher: ''
+      publisher: '',
+      file_path: '',
+      file_mimetype: ''
     };
   }
 
   componentDidMount() {
     // console.log("Print id: " + this.props.match.params.id);
     axios
-      .get('/api/books/'+this.props.match.params.id)
+      .get('http://localhost:8082/api/books/'+this.props.match.params.id) //ADD http://localhost:8082 when developing (same for all other axios requests)
       .then(res => {
         // this.setState({...this.state, book: res.data})
         this.setState({
@@ -26,11 +28,13 @@ class UpdateBookInfo extends Component {
           isbn: res.data.isbn,
           author: res.data.author,
           description: res.data.description,
-          publisher: res.data.publisher
+          publisher: res.data.publisher,
+          file_path: res.data.file_path,
+          file_mimetype: res.data.file_mimetype
         })
       })
       .catch(err => {
-        console.log("Error from UpdateBookInfo");
+        console.log("Error from UpdateBookInfo", err);
       })
   };
 
@@ -46,11 +50,13 @@ class UpdateBookInfo extends Component {
       isbn: this.state.isbn,
       author: this.state.author,
       description: this.state.description,
-      publisher: this.state.publisher
+      publisher: this.state.publisher,
+      file_path: this.state.file_path,
+      file_mimetype: this.state.file_mimetype
     };
 
     axios
-      .put('/api/books/'+this.props.match.params.id, data)
+      .put('http://localhost:8082/api/books/'+this.props.match.params.id, data) //ADD http://localhost:8082 when developing (same for all other axios requests)
       .then(res => {
         this.props.history.push('/show-book/'+this.props.match.params.id);
       })

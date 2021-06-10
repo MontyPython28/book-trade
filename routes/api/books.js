@@ -1,8 +1,39 @@
+const path = require('path'); //for images
 const express = require('express');
+const { v4: uuidv4 } = require('uuid'); //for images
 const router = express.Router();
+const multer = require('multer'); //for images
 
 // Load Book model
 const Book = require('../../models/Book');
+
+
+// for images
+const upload = multer({
+  storage: multer.diskStorage({
+    destination(req, file, cb) {
+      cb(null, './client/public/images'); //cb(null, './files');
+    },
+    filename(req, file, cb) {
+      cb(null, `${new Date().getTime()}_${file.originalname}`);
+    }
+  }),
+  limits: {
+    fileSize: 1000000 // max file size 1MB = 1000000 bytes
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpeg|jpg|png|pdf|doc|docx|xlsx|xls)$/)) {
+      return cb(
+        new Error(
+          'only upload files with jpg, jpeg, png, pdf, doc, docx, xslx, xls format.'
+        )
+      );
+    }
+    cb(undefined, true); // continue with upload
+  }
+});
+
+//end
 
 // @route GET api/books/test
 // @description tests books route
@@ -30,11 +61,31 @@ router.get('/:id', (req, res) => {
 // @route GET api/books
 // @description add/save book
 // @access Public
-router.post('/', (req, res) => {
-  Book.create(req.body)
-    .then(book => res.json({ msg: 'Book added successfully' }))
-    .catch(err => res.status(400).json({ error: 'Unable to add this book' }));
-});
+router.post('/', upload.single('file'), (req, res) => {
+  try {
+    const { title, isbn, author, description, publisher } = req.body;
+    const { path, mimetype } = req.file;
+    const book = new Book({
+      title,
+      isbn,
+      author,
+      description,
+      publisher,
+      file_path: path,
+      file_mimetype: mimetype
+    });
+    book.save();
+    res.send('file uploaded successfully.');
+  } catch (error) {
+    res.status(400).send('Error while uploading file. Try again later.');
+  }
+},
+(error, req, res, next) => {
+  if (error) {
+    res.status(500).send(error.message);
+  }
+}
+);
 
 // @route GET api/books/:id
 // @description Update book

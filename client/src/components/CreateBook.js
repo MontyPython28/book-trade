@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
+import Dropzone from 'react-dropzone';
 import axios from 'axios';
 
 
@@ -12,7 +13,14 @@ class CreateBook extends Component {
       isbn:'',
       author:'',
       description:'',
-      publisher:''
+      publisher:'',
+
+      // for image uploading
+      file: null,
+      previewSrc: '',
+      errorMsg : '', 
+      isPreviewAvailable:false, 
+      dropRef: React.createRef()
     };
   }
 
@@ -23,50 +31,66 @@ class CreateBook extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const data = {
-      title: this.state.title,
-      isbn: this.state.isbn,
-      author: this.state.author,
-      description: this.state.description,
-      publisher: this.state.publisher
-    };
+    const data = new FormData();
+    data.append('title', this.state.title);
+    data.append('isbn', this.state.isbn);
+    data.append('author', this.state.author);
+    data.append('description', this.state.description);
+    data.append('publisher', this.state.publisher);
+    data.append('file', this.state.file); // for image
 
     axios
-      .post('/api/books', data)
+      .post('http://localhost:8082/api/books', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        } //changed for image
+      }) //ADD http://localhost:8082 when developing (same for all other axios requests)
       .then(res => {
         this.setState({
           title: '',
           isbn:'',
           author:'',
           description:'',
-          publisher:''
+          publisher:'',
+          file:null //changed for image
         })
         this.props.history.push('/');
       })
       .catch(err => {
-        console.log(err);
+        console.log('Error:', err.response.data);
       })
+  };
+
+  onDrop = (files) => {
+    const [uploadedFile] = files;
+    this.setState({file: uploadedFile});
+  
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      this.setState({previewSrc: fileReader.result});
+    };
+    fileReader.readAsDataURL(uploadedFile);
+    this.setState({isPreviewAvailable: uploadedFile.name.match(/\.(jpeg|jpg|png)$/)});
   };
 
   render() {
     return (
-      <div className="CreateBook">
+      <div className="CreateBoo">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
               <br />
-              <Link to="/" className="btn btn-outline-warning float-left">
+              <Link to="/" className="button is-primary float-left">
                   Show Book List
               </Link>
             </div>
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Add Book</h1>
-              <p className="lead text-center">
-                  Create New Book
-              </p>
+              <h1 className="subtitle is-3 has-text-centered">Create Book</h1>
 
               <form noValidate onSubmit={this.onSubmit}>
-                <div className='form-group'>
+              <div class="field">
+                <label class="label">Title</label>
+                  <div class="control">
                   <input
                     type='text'
                     placeholder='Title of the Book'
@@ -75,6 +99,7 @@ class CreateBook extends Component {
                     value={this.state.title}
                     onChange={this.onChange}
                   />
+                  </div>
                 </div>
 
                 <div className='form-group'>
@@ -123,9 +148,35 @@ class CreateBook extends Component {
                   />
                 </div>
 
+                <div className="form-control">
+                  <Dropzone onDrop={this.onDrop}>
+                    {({ getRootProps, getInputProps }) => (
+                      <div {...getRootProps({ className: 'drop-zone' })} ref={this.state.dropRef}>
+                        <input {...getInputProps()} />
+                        <p className='form-control'>Drag and drop a file OR click here to select a file</p>
+                        {this.state.file && (
+                          <div>
+                            <strong>Selected file:</strong> {this.state.file.name}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </Dropzone>
+                  {this.state.previewSrc ? (
+                    this.state.isPreviewAvailable ? (
+                      <div className="card-image">
+                      <figure class="image is-3by4">
+                        <img src={this.state.previewSrc} alt="Preview" />
+                      </figure>
+                      </div>
+                    ) : ( <p className="preview-message">No preview available for this file</p>)
+                  ) : (<p className="preview-message">Image preview will be shown here after selection</p>)
+                  }
+                </div>
+                
                 <input
                     type="submit"
-                    className="btn btn-outline-warning btn-block mt-4"
+                    className="button is-success is-medium is-outlined fa-align-center"
                 />
               </form>
           </div>

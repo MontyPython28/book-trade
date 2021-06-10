@@ -19,6 +19,15 @@ const BookSchema = new mongoose.Schema({
   publisher: {
     type: String
   },
+  // Additions for images
+  file_path: {
+    type: String,
+    required: true
+  },
+  file_mimetype: {
+    type: String,
+    required: true
+  }, //END
   updated_date: {
     type: Date,
     default: Date.now

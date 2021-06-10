@@ -12,11 +12,9 @@ class ShowBookList extends Component {
     };
   }
 
-  // baseUrl = process.env.baseURL || "http://localhost:8082";
-
   componentDidMount() {
     axios
-      .get('/api/books') //ADD http://localhost:8082 when developing (same for all other axios requests)
+      .get('http://localhost:8082/api/books') //ADD http://localhost:8082 when developing (same for all other axios requests)
       .then(res => {
         this.setState({
           books: res.data
@@ -42,29 +40,28 @@ class ShowBookList extends Component {
     }
 
     return (
-      <div className="ShowBookList">
+      <div>
         <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <br />
-              <h2 className="display-4 text-center">Books List</h2>
-            </div>
-
-            <div className="col-md-11">
-              <Link to="/create-book" className="btn btn-outline-warning float-right">
-                + Add New Book
-              </Link>
-              <br />
-              <br />
-              <hr />
-            </div>
-
-          </div>
-
-          <div className="list">
-                {bookList}
+          <br />
+          <div className="columns">
+          <div className="column has-background-info is-focused">
+            <h2 className="title is-1 has-text-white">Hello, Username</h2>
+            <h2 className="subtitle is-3 has-text-light">Welcome to Booktrade!</h2>
           </div>
         </div>
+          <br />
+          <Link to="/create-book" className="button is-primary">
+              Add New Book
+            </Link>
+        </div>
+
+
+          <div className="container">
+            <div className = "list">
+                {bookList}
+            </div>
+          </div>
+        
       </div>
     );
   }

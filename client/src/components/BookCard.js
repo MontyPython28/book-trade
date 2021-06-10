@@ -4,20 +4,31 @@ import '../App.css';
 
 
 // "https://commapress.co.uk/books/the-book-of-cairo/cairo-provisional-v3/image%2Fspan3" original link for image
+// "/images/BookShelf.PNG"
+
 const BookCard = (props) => {
     const  book  = props.book;
+    const patt1 = /images[^]*/g;
+    let filepath = '';
+    try {
+        filepath = ('\\' + book.file_path.match(patt1));
+    } catch {
+        filepath = "/images/BookShelf.PNG";
+    } 
 
     return(
-        <div className="card-container">
-            <img src= "/images/BookShelf.PNG" alt="" />
-            <div className="desc">
-                <h2>
+        <div className="card">
+            <div className="card-image">
+            <figure class="image is-3by4">
+                <img src= {filepath} alt="" /> </figure>
+            </div>
+            <div className="card-content">
+                <h2 className="title is-5">
                     <Link to={`/show-book/${book._id}`}>
                         { book.title }
                     </Link>
                 </h2>
-                <h3>{book.author}</h3>
-                <p>{book.description}</p>
+                <p className="subtitle is-6">{book.isbn}</p>
             </div>
         </div>
     )
