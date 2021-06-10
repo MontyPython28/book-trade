@@ -12,11 +12,7 @@ const PrivateRoute = ({component: Component, ...rest}) => {
             url: serverURL + '/user',
           });
         
-        if(res.data.loggedin) {
-            setLoggedin(true);
-        } else {
-            setLoggedin(false)
-        }
+        setLoggedin(true);
         console.log(loggedin);
     };
 
