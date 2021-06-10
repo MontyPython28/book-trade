@@ -37,7 +37,7 @@ app.use(express.json({ extended: false }));
 app.use(session ({
     secret: 'awonderfulworld',
     resave: true,
-    saveUnitialized: true,
+    saveUnitialized: false,
     cookie: { 
         secure: true,
         sameSite: 'none'     
