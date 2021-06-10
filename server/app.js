@@ -38,6 +38,10 @@ app.use(session ({
     secret: 'awonderfulworld',
     resave: true,
     saveUnitialized: true,
+    cookie: { 
+        secure: true,
+        sameSite: 'none'     
+    }
 }));
 //related to express-sessions
 app.use(cookieParser('awonderfulworld'));

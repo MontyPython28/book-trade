@@ -8,19 +8,9 @@ const bcrypt = require("bcryptjs");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: true }));
-router.use(cors({ origin: true, credentials: true }));
+
 router.use(passport.initialize());
 router.use(passport.session());
-//sth to do with marking cookies for a session or sth
-router.use(session ({
-  secret: 'awonderfulworld',
-  resave: true,
-  saveUnitialized: true,
-}));
-//related to express-sessions
-router.use(cookieParser('awonderfulworld'));
 require("../../config/passportConfig")(passport);
 
 
@@ -81,7 +71,7 @@ router.get("/user", (req, res) => {
     console.log('inauthentic request!!')
     res.send({
       username: null,
-      loggedin: true
+      loggedin: false
     });
   } 
 });
