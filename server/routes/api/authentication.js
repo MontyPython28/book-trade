@@ -1,11 +1,16 @@
 const express = require('express');
 const session = require('express-session');
+const cors = require('cors');
 const cookieParser = require("cookie-parser");
 const router = express.Router();
 const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
+const bodyParser = require("body-parser");
 const passport = require("passport");
 
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
+router.use(cors({ origin: true, credentials: true }));
 router.use(passport.initialize());
 router.use(passport.session());
 //sth to do with marking cookies for a session or sth
