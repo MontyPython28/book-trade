@@ -81,7 +81,7 @@ router.get("/user", (req, res) => {
     console.log('inauthentic request!!')
     res.send({
       username: null,
-      loggedin: false
+      loggedin: true
     });
   } 
 });
