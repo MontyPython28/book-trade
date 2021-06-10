@@ -1,4 +1,6 @@
 const express = require('express');
+const session = require('express-session');
+const cookieParser = require("cookie-parser");
 const router = express.Router();
 const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
@@ -6,6 +8,14 @@ const passport = require("passport");
 
 router.use(passport.initialize());
 router.use(passport.session());
+//sth to do with marking cookies for a session or sth
+router.use(session ({
+  secret: 'awonderfulworld',
+  resave: true,
+  saveUnitialized: true,
+}));
+//related to express-sessions
+router.use(cookieParser('awonderfulworld'));
 require("../../config/passportConfig")(passport);
 
 
