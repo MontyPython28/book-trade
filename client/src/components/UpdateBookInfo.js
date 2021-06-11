@@ -6,11 +6,7 @@ import Navbar from './Navbar';
 import {useAuth} from './context/AuthContext';
 
 class UpdateBookInfo extends Component {
-<<<<<<< HEAD
   serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-=======
-  serverURL = 'https://nusbooktrade.herokuapp.com';
->>>>>>> b77ee845daa4b11beef8c85a2d925c5d99d64363
 
   constructor(props) {
     super(props);
@@ -19,26 +15,25 @@ class UpdateBookInfo extends Component {
       isbn: '',
       author: '',
       description: '',
-      publisher: ''
+      publisher: '',
+      buttonClass: 'button is-info is-medium is-outlined is-fullwidth'
     };
   }
 
   componentDidMount() {
-    // console.log("Print id: " + this.props.match.params.id);
     axios
       .get(this.serverURL + '/api/books/' + this.props.match.params.id)
       .then(res => {
-        // this.setState({...this.state, book: res.data})
         this.setState({
           title: res.data.title,
           isbn: res.data.isbn,
           author: res.data.author,
           description: res.data.description,
-          publisher: res.data.publisher
+          publisher: res.data.publisher,
         })
       })
       .catch(err => {
-        console.log("Error from UpdateBookInfo");
+        console.log("Error from UpdateBookInfo", err);
       })
   };
 
@@ -48,13 +43,13 @@ class UpdateBookInfo extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-
+    this.setState({buttonClass: 'button is-info is-medium is-outlined is-fullwidth is-loading'});
     const data = {
       title: this.state.title,
       isbn: this.state.isbn,
       author: this.state.author,
       description: this.state.description,
-      publisher: this.state.publisher
+      publisher: this.state.publisher,
     };
 
     axios
@@ -70,91 +65,92 @@ class UpdateBookInfo extends Component {
 
   render() {
     return (
-      <div className="UpdateBookInfo">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <Navbar/>
+      <div className="container">
+        <div className="columns">
+          <div className="column is-three-fifths is-offset-one-fifth">
               <br />
-              <Link to="/" className="btn btn-outline-warning float-left">
+              <Link to="/" className="button is-primary float-left">
                   Show Book List
               </Link>
-            </div>
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Edit Book</h1>
-              <p className="lead text-center">
-                  Update Book's Info
-              </p>
-            </div>
-          </div>
+              <br />
+              <h1 className="subtitle is-3 has-text-centered">Edit Book</h1>
 
-          <div className="col-md-8 m-auto">
-          <form noValidate onSubmit={this.onSubmit}>
-            <div className='form-group'>
-              <label htmlFor="title">Title</label>
-              <input
-                type='text'
-                placeholder='Title of the Book'
-                name='title'
-                className='form-control'
-                value={this.state.title}
-                onChange={this.onChange}
-              />
-            </div>
+            <form noValidate onSubmit={this.onSubmit}>
+              <div className="field">
+                <label className="label">Title</label>
+                <div className="control">
+                  <input
+                    type='text'
+                    placeholder='Title of the Book'
+                    name='title'
+                    className='input'
+                    value={this.state.title}
+                    onChange={this.onChange}
+                  />
+                </div>
+              </div>
+
+              <div className="field">
+                <label className="label">Module Code</label>
+                <div className="control">
+                  <input
+                    type='text'
+                    placeholder='Module Code'
+                    name='isbn'
+                    className='input'
+                    value={this.state.isbn}
+                    onChange={this.onChange}
+                  />
+                </div>
+              </div>
+
+              <div className="field">
+                <label className="label">Author</label>
+                <div className="control">
+                  <input
+                    type='text'
+                    placeholder='Author'
+                    name='author'
+                    className='input'
+                    value={this.state.author}
+                    onChange={this.onChange}
+                  />
+                </div>
+              </div>
+
+              <div className="field">
+                <label className="label">Description</label>
+                <div className="control">
+                  <textarea
+                    type='text'
+                    placeholder='Describe this book'
+                    name='description'
+                    className='textarea'
+                    value={this.state.description}
+                    onChange={this.onChange}
+                  />
+                </div>
+              </div>
+
+              <div className="field">
+              <label className="label has-text-success">Price (in SGD)</label>
+                <div className="control">
+                  <input
+                    type='text'
+                    placeholder='Price'
+                    name='publisher'
+                    className='input is-success'
+                    value={this.state.publisher}
+                    onChange={this.onChange}
+                  />
+                </div>
+              </div>
             <br />
-
-            <div className='form-group'>
-            <label htmlFor="isbn">Module Code</label>
-              <input
-                type='text'
-                placeholder='Module Code'
-                name='isbn'
-                className='form-control'
-                value={this.state.isbn}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className='form-group'>
-            <label htmlFor="author">Author</label>
-              <input
-                type='text'
-                placeholder='Author'
-                name='author'
-                className='form-control'
-                value={this.state.author}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className='form-group'>
-            <label htmlFor="description">Description</label>
-              <input
-                type='text'
-                placeholder='Describe this book'
-                name='description'
-                className='form-control'
-                value={this.state.description}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <div className='form-group'>
-            <label htmlFor="publisher">Images</label>
-              <input
-                type='text'
-                placeholder='Images'
-                name='publisher'
-                className='form-control'
-                value={this.state.publisher}
-                onChange={this.onChange}
-              />
-            </div>
-
-            <button type="submit" className="btn btn-outline-info btn-lg btn-block">Update Book</button>
+            <button type="submit" className={this.state.buttonClass}>
+              Update
+            </button>
             </form>
           </div>
-
         </div>
       </div>
     );

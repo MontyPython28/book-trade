@@ -26,7 +26,7 @@ class showBookDetails extends Component {
         })
       })
       .catch(err => {
-        console.log("Error from ShowBookDetails: " + err);
+        console.log(err);
       })
   };
 
@@ -48,15 +48,7 @@ class showBookDetails extends Component {
     const { book } = this.state;
     console.log(book.title);
     let BookItem = <div>
-      <table className="table table-hover table-dark">
-        {/* <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead> */}
+      <table className="table is-bordered is-striped">
         <tbody>
           <tr>
             <th scope="row">1</th>
@@ -65,69 +57,61 @@ class showBookDetails extends Component {
           </tr>
           <tr>
             <th scope="row">2</th>
-            <td>Author</td>
-            <td>{ book.author }</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
             <td>Module Code</td>
             <td>{ book.isbn }</td>
           </tr>
           <tr>
-            <th scope="row">4</th>
-            <td>Publisher</td>
-            <td>{ book.publisher }</td>
+            <th scope="row">3</th>
+            <td>Author</td>
+            <td>{ book.author }</td>
           </tr>
           <tr>
-            <th scope="row">6</th>
-            <td>Images</td>
+            <th scope="row">4</th>
+            <td>Description</td>
             <td>{ book.description }</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>Price (in SGD)</td>
+            <td>{ book.publisher }</td>
           </tr>
         </tbody>
       </table>
     </div>
 
     return (
-      <div className="ShowBookDetails">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-10 m-auto">
-              <Navbar/>
-              <br /> <br />
-              <Link to="/" className="btn btn-outline-warning float-left">
+      <div className="container">
+        <div className = "columns">
+          <div className="column is-three-fifths is-offset-one-fifth">
+              <br />
+              <Link to="/" className="button is-primary">
                   Show Book List
               </Link>
-            </div>
-            <br />
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Book's Record</h1>
-              <p className="lead text-center">
-                  View Book's Info
-              </p>
-              <hr /> <br />
-            </div>
-          </div>
-          <div>
-            { BookItem }
-          </div>
-
-          <div className="row">
-            <div className="col-md-6">
-              <button type="button" className="btn btn-outline-danger btn-lg btn-block" onClick={this.onDeleteClick.bind(this,book._id)}>Delete Book</button><br />
-            </div>
-
-            <div className="col-md-6">
-              <Link to={`/edit-book/${book._id}`} className="btn btn-outline-info btn-lg btn-block">
-                    Edit Book
-              </Link>
               <br />
+              <h1 className="subtitle is-3 has-text-centered">View Book Info</h1>
+              <br />
+              <div className="box">
+              <div className="columns">
+                <div className="column is-two-thirds">
+                  { BookItem }
+                </div>
+                <div className="column is-one-third">
+                <figure className="image is-3by4">
+                  <img src= {book.avatar} alt="" /> </figure>
+                </div>
+                </div>
+              </div>
+            <div className="columns is-centred">
+              <div className = "column has-text-centered is-half">
+              <Link to={`/edit-book/${book._id}`} className="button is-info is-outlined is-fullwidth">
+                      Edit Book
+              </Link>
+              </div>
+              <div className = "column has-text-centered is-half">
+                <button type="button" className="button is-danger is-outlined is-fullwidth" onClick={this.onDeleteClick.bind(this,book._id)}>Delete Book</button>
+              </div>
             </div>
-
           </div>
-            {/* <br />
-            <button type="button" class="btn btn-outline-info btn-lg btn-block">Edit Book</button>
-            <button type="button" class="btn btn-outline-danger btn-lg btn-block">Delete Book</button> */}
-
         </div>
       </div>
     );

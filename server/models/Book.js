@@ -19,6 +19,15 @@ const BookSchema = new mongoose.Schema({
   publisher: {
     type: String
   },
+  // Additions for images
+  avatar: {
+    type: String,
+    required: true
+  },
+  cloudinary_id: {
+    type: String,
+    required: true
+  }, //END
   updated_date: {
     type: Date,
     default: Date.now

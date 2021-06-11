@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
+import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import Navbar from './Navbar';
 import {useAuth} from './context/AuthContext'
@@ -16,7 +17,17 @@ class CreateBook extends Component {
       isbn:'',
       author:'',
       description:'',
-      publisher:''
+      publisher:'',
+
+      //for CSS of button
+      buttonClass: 'button is-success is-medium is-outlined is-fullwidth',
+
+      // for image uploading
+      file: null,
+      previewSrc: '',
+      errorMsg : '', 
+      isPreviewAvailable:false, 
+      dropRef: React.createRef()
     };
   }
 
@@ -26,114 +37,168 @@ class CreateBook extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    //for CSS of button
+    this.setState({buttonClass: 'button is-success is-medium is-outlined is-fullwidth is-loading'});
 
-    const data = {
-      title: this.state.title,
-      isbn: this.state.isbn,
-      author: this.state.author,
-      description: this.state.description,
-      publisher: this.state.publisher
-    };
+    const data = new FormData();
+    data.append('title', this.state.title);
+    data.append('isbn', this.state.isbn);
+    data.append('author', this.state.author);
+    data.append('description', this.state.description);
+    data.append('publisher', this.state.publisher);
+    data.append('file', this.state.file); // for image
 
     axios
-      .post(this.serverURL + '/api/books', data)
+      .post(this.serverURL + '/api/books', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        } //changed for image
+      }) //ADD http://localhost:8082 when developing (same for all other axios requests)
       .then(res => {
         this.setState({
           title: '',
           isbn:'',
           author:'',
           description:'',
-          publisher:''
+          publisher:'',
+          file:null //changed for image
         })
         this.props.history.push('/');
       })
       .catch(err => {
-        console.log(err);
+        console.log('Error:', err);
       })
+  };
+
+  onDrop = (files) => {
+    const [uploadedFile] = files;
+    this.setState({file: uploadedFile});
+  
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      this.setState({previewSrc: fileReader.result});
+    };
+    fileReader.readAsDataURL(uploadedFile);
+    this.setState({isPreviewAvailable: uploadedFile.name.match(/\.(jpeg|jpg|png)$/)});
   };
 
   render() {
     return (
-      <div className="CreateBook">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <Navbar/>
-              <br />
-              <Link to="/" className="btn btn-outline-warning float-left">
-                  Show Book List
-              </Link>
-            </div>
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Add Book</h1>
-              <p className="lead text-center">
-                  Create New Book
-              </p>
+      <div className="container">
+        <div className="columns">
+          <div className="column is-three-fifths is-offset-one-fifth">
+            <br />
+            <Link to="/" className="button is-primary float-left">
+              Show Book List
+            </Link>
+            <br />
+            <h1 className="subtitle is-3 has-text-centered">Create Book</h1>
 
-              <form noValidate onSubmit={this.onSubmit}>
-                <div className='form-group'>
+            <form noValidate onSubmit={this.onSubmit}>
+              <div className="field">
+                <label className="label">Title</label>
+                <div className="control">
                   <input
                     type='text'
                     placeholder='Title of the Book'
                     name='title'
-                    className='form-control'
+                    className='input'
                     value={this.state.title}
                     onChange={this.onChange}
                   />
                 </div>
+              </div>
 
-                <div className='form-group'>
+              <div className="field">
+                <label className="label">Module Code</label>
+                <div className="control">
                   <input
                     type='text'
                     placeholder='Module Code'
                     name='isbn'
-                    className='form-control'
+                    className='input'
                     value={this.state.isbn}
                     onChange={this.onChange}
                   />
                 </div>
+              </div>
 
-                <br />
-
-                <div className='form-group'>
+              <div className="field">
+                <label className="label">Author</label>
+                <div className="control">
                   <input
                     type='text'
                     placeholder='Author'
                     name='author'
-                    className='form-control'
+                    className='input'
                     value={this.state.author}
                     onChange={this.onChange}
                   />
                 </div>
+              </div>
 
-                <div className='form-group'>
-                  <input
+              <div className="field">
+                <label className="label">Description</label>
+                <div className="control">
+                  <textarea
                     type='text'
                     placeholder='Describe this book'
                     name='description'
-                    className='form-control'
+                    className='textarea'
                     value={this.state.description}
                     onChange={this.onChange}
                   />
                 </div>
+              </div>
 
-                <div className='form-group'>
+              <div className="field">
+              <label className="label has-text-success">Price (in SGD)</label>
+                <div className="control">
                   <input
                     type='text'
-                    placeholder='Images'
+                    placeholder='Price'
                     name='publisher'
-                    className='form-control'
+                    className='input is-success'
                     value={this.state.publisher}
                     onChange={this.onChange}
                   />
                 </div>
+              </div>
 
-                <input
-                    type="submit"
-                    className="btn btn-outline-warning btn-block mt-4"
-                />
+              <div className="field">
+                <label className="label">Image</label>
+                <div className="control">
+                  <Dropzone onDrop={this.onDrop}>
+                    {({ getRootProps, getInputProps }) => (
+                      <div {...getRootProps({ className: 'drop-zone' })} ref={this.state.dropRef}>
+                        <input className="input" {...getInputProps()} />
+                        <p className='input is-focused'>Drag and drop a file OR click here to select a file</p>
+                        {this.state.file && (
+                          <div>
+                            <strong>Selected file:</strong> {this.state.file.name}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </Dropzone>
+                  </div>
+                  {this.state.previewSrc ? (
+                    this.state.isPreviewAvailable ? (
+                      <div className="card-image">
+                      <figure class="image is-3by4">
+                        <img src={this.state.previewSrc} alt="Preview" />
+                      </figure>
+                      </div>
+                    ) : ( <p className="box has-text-danger has-text-weight-bold">No preview available for this file</p>)
+                  ) : (<p className="box">Image preview will be shown here after selection</p>)
+                  }
+              </div>
+                
+              <br />
+                <button type="submit" className={this.state.buttonClass}>
+                    Submit
+                  </button>
               </form>
-          </div>
           </div>
         </div>
       </div>
