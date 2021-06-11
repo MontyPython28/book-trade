@@ -8,10 +8,9 @@ import '../App.css';
 
 const BookCard = (props) => {
     const  book  = props.book;
-    const patt1 = /images[^]*/g;
     let filepath = '';
     try {
-        filepath = ('\\' + book.file_path.match(patt1));
+        filepath = book.avatar;
     } catch {
         filepath = "/images/BookShelf.PNG";
     } 
@@ -19,7 +18,7 @@ const BookCard = (props) => {
     return(
         <div className="card">
             <div className="card-image">
-            <figure class="image is-3by4">
+            <figure className="image is-3by4">
                 <img src= {filepath} alt="" /> </figure>
             </div>
             <div className="card-content">
@@ -28,7 +27,15 @@ const BookCard = (props) => {
                         { book.title }
                     </Link>
                 </h2>
-                <p className="subtitle is-6">{book.isbn}</p>
+                <div className="columns">
+                  <div className="column is-half">
+                    <p className="subtitle is-6">{book.isbn}</p>
+                 </div>
+                 <div className="column is-half has-text-right">
+                    <p className="subtitle is-6 has-text-success has-text-weight-bold">
+                    {book.publisher} SGD</p>
+                 </div>
+                </div>
             </div>
         </div>
     )

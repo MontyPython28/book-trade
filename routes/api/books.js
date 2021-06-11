@@ -1,5 +1,6 @@
 const path = require('path'); //for images
 const express = require('express');
+const cloudinary = require('../../config/cloudinaryConfig');
 const { v4: uuidv4 } = require('uuid'); //for images
 const router = express.Router();
 const multer = require('multer'); //for images
@@ -7,22 +8,24 @@ const multer = require('multer'); //for images
 // Load Book model
 const Book = require('../../models/Book');
 
+//For file unlinking
+const fs = require('fs')
+const { promisify } = require('util')
+const unlinkAsync = promisify(fs.unlink)
 
-// for images
+
+//Multer configuration
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, cb) {
-      cb(null, './client/public/images'); //cb(null, './files');
+      cb(null, './files');
     },
     filename(req, file, cb) {
       cb(null, `${new Date().getTime()}_${file.originalname}`);
     }
   }),
-  limits: {
-    fileSize: 1000000 // max file size 1MB = 1000000 bytes
-  },
   fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(jpeg|jpg|png|pdf|doc|docx|xlsx|xls)$/)) {
+    if (!file.originalname.match(/\.(jpeg|jpg|png)$/)) {
       return cb(
         new Error(
           'only upload files with jpg, jpeg, png, pdf, doc, docx, xslx, xls format.'
@@ -61,21 +64,22 @@ router.get('/:id', (req, res) => {
 // @route GET api/books
 // @description add/save book
 // @access Public
-router.post('/', upload.single('file'), (req, res) => {
+router.post('/', upload.single('file'), async (req, res) => {
   try {
+    const result = await cloudinary.uploader.upload(req.file.path);
     const { title, isbn, author, description, publisher } = req.body;
-    const { path, mimetype } = req.file;
     const book = new Book({
       title,
       isbn,
       author,
       description,
       publisher,
-      file_path: path,
-      file_mimetype: mimetype
+      avatar: result.secure_url,
+      cloudinary_id: result.public_id
     });
-    book.save();
+    await book.save();
     res.send('file uploaded successfully.');
+    await unlinkAsync(req.file.path);
   } catch (error) {
     res.status(400).send('Error while uploading file. Try again later.');
   }
@@ -101,10 +105,18 @@ router.put('/:id', (req, res) => {
 // @route GET api/books/:id
 // @description Delete book by id
 // @access Public
-router.delete('/:id', (req, res) => {
-  Book.findByIdAndRemove(req.params.id, req.body)
-    .then(book => res.json({ mgs: 'Book entry deleted successfully' }))
-    .catch(err => res.status(404).json({ error: 'No such a book' }));
+router.delete('/:id', async (req, res) => {
+  try {
+    // Find user by id
+    let book = await Book.findById(req.params.id);
+    // Delete image from cloudinary
+    await cloudinary.uploader.destroy(book.cloudinary_id);
+    // Delete book from db
+    await book.remove();
+    res.json({ mgs: 'Book entry deleted successfully' });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;

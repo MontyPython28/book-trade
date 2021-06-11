@@ -20,11 +20,11 @@ const BookSchema = new mongoose.Schema({
     type: String
   },
   // Additions for images
-  file_path: {
+  avatar: {
     type: String,
     required: true
   },
-  file_mimetype: {
+  cloudinary_id: {
     type: String,
     required: true
   }, //END

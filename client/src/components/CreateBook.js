@@ -15,6 +15,9 @@ class CreateBook extends Component {
       description:'',
       publisher:'',
 
+      //for CSS of button
+      buttonClass: 'button is-success is-medium is-outlined is-fullwidth',
+
       // for image uploading
       file: null,
       previewSrc: '',
@@ -30,6 +33,8 @@ class CreateBook extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+    //for CSS of button
+    this.setState({buttonClass: 'button is-success is-medium is-outlined is-fullwidth is-loading'});
 
     const data = new FormData();
     data.append('title', this.state.title);
@@ -40,7 +45,7 @@ class CreateBook extends Component {
     data.append('file', this.state.file); // for image
 
     axios
-      .post('http://localhost:8082/api/books', data, {
+      .post('/api/books', data, {
         headers: {
           'Content-Type': 'multipart/form-data'
         } //changed for image
@@ -57,7 +62,7 @@ class CreateBook extends Component {
         this.props.history.push('/');
       })
       .catch(err => {
-        console.log('Error:', err.response.data);
+        console.log('Error:', err);
       })
   };
 
@@ -75,85 +80,95 @@ class CreateBook extends Component {
 
   render() {
     return (
-      <div className="CreateBoo">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <br />
-              <Link to="/" className="button is-primary float-left">
-                  Show Book List
-              </Link>
-            </div>
-            <div className="col-md-8 m-auto">
-              <h1 className="subtitle is-3 has-text-centered">Create Book</h1>
+      <div className="container">
+        <div className="columns">
+          <div className="column is-three-fifths is-offset-one-fifth">
+            <br />
+            <Link to="/" className="button is-primary float-left">
+              Show Book List
+            </Link>
+            <br />
+            <h1 className="subtitle is-3 has-text-centered">Create Book</h1>
 
-              <form noValidate onSubmit={this.onSubmit}>
-              <div class="field">
-                <label class="label">Title</label>
-                  <div class="control">
+            <form noValidate onSubmit={this.onSubmit}>
+              <div className="field">
+                <label className="label">Title</label>
+                <div className="control">
                   <input
                     type='text'
                     placeholder='Title of the Book'
                     name='title'
-                    className='form-control'
+                    className='input'
                     value={this.state.title}
                     onChange={this.onChange}
                   />
-                  </div>
                 </div>
+              </div>
 
-                <div className='form-group'>
+              <div className="field">
+                <label className="label">Module Code</label>
+                <div className="control">
                   <input
                     type='text'
                     placeholder='Module Code'
                     name='isbn'
-                    className='form-control'
+                    className='input'
                     value={this.state.isbn}
                     onChange={this.onChange}
                   />
                 </div>
+              </div>
 
-                <br />
-
-                <div className='form-group'>
+              <div className="field">
+                <label className="label">Author</label>
+                <div className="control">
                   <input
                     type='text'
                     placeholder='Author'
                     name='author'
-                    className='form-control'
+                    className='input'
                     value={this.state.author}
                     onChange={this.onChange}
                   />
                 </div>
+              </div>
 
-                <div className='form-group'>
-                  <input
+              <div className="field">
+                <label className="label">Description</label>
+                <div className="control">
+                  <textarea
                     type='text'
                     placeholder='Describe this book'
                     name='description'
-                    className='form-control'
+                    className='textarea'
                     value={this.state.description}
                     onChange={this.onChange}
                   />
                 </div>
+              </div>
 
-                <div className='form-group'>
+              <div className="field">
+              <label className="label has-text-success">Price (in SGD)</label>
+                <div className="control">
                   <input
                     type='text'
-                    placeholder='Images'
+                    placeholder='Price'
                     name='publisher'
-                    className='form-control'
+                    className='input is-success'
                     value={this.state.publisher}
                     onChange={this.onChange}
                   />
                 </div>
+              </div>
 
-                <div className="form-control">
+              <div className="field">
+                <label className="label">Image</label>
+                <div className="control">
                   <Dropzone onDrop={this.onDrop}>
                     {({ getRootProps, getInputProps }) => (
                       <div {...getRootProps({ className: 'drop-zone' })} ref={this.state.dropRef}>
-                        <input {...getInputProps()} />
-                        <p className='form-control'>Drag and drop a file OR click here to select a file</p>
+                        <input className="input" {...getInputProps()} />
+                        <p className='input is-focused'>Drag and drop a file OR click here to select a file</p>
                         {this.state.file && (
                           <div>
                             <strong>Selected file:</strong> {this.state.file.name}
@@ -162,6 +177,7 @@ class CreateBook extends Component {
                       </div>
                     )}
                   </Dropzone>
+                  </div>
                   {this.state.previewSrc ? (
                     this.state.isPreviewAvailable ? (
                       <div className="card-image">
@@ -169,17 +185,16 @@ class CreateBook extends Component {
                         <img src={this.state.previewSrc} alt="Preview" />
                       </figure>
                       </div>
-                    ) : ( <p className="preview-message">No preview available for this file</p>)
-                  ) : (<p className="preview-message">Image preview will be shown here after selection</p>)
+                    ) : ( <p className="box has-text-danger has-text-weight-bold">No preview available for this file</p>)
+                  ) : (<p className="box">Image preview will be shown here after selection</p>)
                   }
-                </div>
+              </div>
                 
-                <input
-                    type="submit"
-                    className="button is-success is-medium is-outlined fa-align-center"
-                />
+              <br />
+                <button type="submit" className={this.state.buttonClass}>
+                    Submit
+                  </button>
               </form>
-          </div>
           </div>
         </div>
       </div>
