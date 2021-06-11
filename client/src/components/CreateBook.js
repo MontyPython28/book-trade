@@ -7,7 +7,7 @@ import {useAuth} from './context/AuthContext'
 
 
 class CreateBook extends Component {
-  serverURL = 'http://localhost:4000'; 
+  serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
 
   constructor() {
     super();
