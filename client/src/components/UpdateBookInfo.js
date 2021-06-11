@@ -6,7 +6,11 @@ import Navbar from './Navbar';
 import {useAuth} from './context/AuthContext';
 
 class UpdateBookInfo extends Component {
+<<<<<<< HEAD
   serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+=======
+  serverURL = 'https://nusbooktrade.herokuapp.com';
+>>>>>>> b77ee845daa4b11beef8c85a2d925c5d99d64363
 
   constructor(props) {
     super(props);
