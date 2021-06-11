@@ -1,64 +1,38 @@
-require("dotenv").config();
-
-//-----------------------------Imports
-const passportLocal = require("passport-local").Strategy;
-const session = require('express-session');
+//---------------------------------------EXPRESS AND GLOBAL MIDDLEWARE IMPORTS
+require("dotenv").config();//loads environment variables into process.env
 const express = require('express');
-const connectDB = require('./config/db');
 const cors = require('cors');
-const books = require('./routes/api/books');
-const authentication = require('./routes/api/authentication');
-const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
-const path = require("path"); //for Heroku
+const connectDB = require('./config/db');
 
+//---------------------------------------CREATING APP
 const app = express();
 
-/*
-app.use(express.static(path.join(__dirname, "client", "build"))); //for Heroku
-*/
-
-//---------------------------------------Connect Database
+//---------------------------------------CONNECT DATABASE
 connectDB();
 
-app.get('/', (req, res) => res.send('go to the logs'));
+//---------------------------------------GLOBAL MIDDLEWARE
 
-//---------------------------------------MIDDLEWARE
+//i dont think anybody actually knows what cors does but its needed
 app.use(cors({ origin: true, credentials: true }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-//lets all websites access this server ig(?)
-
-
-//dunno what that does
+//same thing as bodyParser.json...parses json body content in a request...i think
 app.use(express.json({ extended: false }));
-
-//sth to do with marking cookies for a session or sth
-app.use(session ({
-    secret: 'awonderfulworld',
-    resave: true,
-    saveUnitialized: false,
-    cookie: { 
-        secure: true,
-        sameSite: 'none'     
-    }
-}));
-//related to express-sessions
-app.use(cookieParser('awonderfulworld'));
-
-/*
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html")); //for Heroku
-});
-*/
-
-//---------------------------------------END OF MIDDLEWARE
+//same thing as body-parser.urlencoded....decodes urlencoded components(no clue what those are) in received http requests...i think
+app.use(express.urlencoded());
 
 
-// use Routes
+//---------------------------------------GET ROUTES
+const books = require('./routes/api/books');
+const authentication = require('./routes/authentication');
+
 app.use('/api/books', books);
 app.use('', authentication);
 
+//---------------------------------------APP CONFIG
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
+
+//---------------------------------------WELCOME MESSAGE
+app.get('/', (req, res) => {
+    res.send("this is just a welcome message. pls go to server logs to understand how broken this all really is.")
+})
