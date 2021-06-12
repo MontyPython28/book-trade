@@ -44,6 +44,7 @@ class ShowBookList extends Component {
 
     return (
       <div>
+        <Navbar />
         <div className="container">
           <br />
           <div className="columns">

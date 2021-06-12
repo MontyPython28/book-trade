@@ -66,6 +66,7 @@ class UpdateBookInfo extends Component {
   render() {
     return (
       <div className="container">
+        <Navbar />
         <div className="columns">
           <div className="column is-three-fifths is-offset-one-fifth">
               <br />
