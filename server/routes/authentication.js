@@ -10,15 +10,25 @@ const passport = require("passport");
 const passportConfig = require('../config/passportConfig');
 
 //-----------------------------------------------MIDDLEWARE FOR SESSIONS AND AUTHENTICATION
+
+const logSessionId = function(req, res, next) {
+    if(req.user != null) {
+      console.log("user: " + req.user.username);
+      console.log("path: " + req.originalUrl);
+    }
+    next();
+}
+
 router.use(session ({
   secret: 'awonderfulworld',
   resave: false,
-  saveUnitialized: false
+  saveUnitialized: true
 }));
 router.use(cookieParser('awonderfulworld'));
 router.use(passport.initialize());
 router.use(passport.session());
 passportConfig(passport);
+//router.use(logSessionId);
 
 
 //-----------------------------------------------SETTING UP ROUTES
@@ -36,8 +46,8 @@ router.post("/login", (req, res, next) => {
           loginAttempt: true,
           userId: req.user.username
         });
-        console.log(req.user);
       });
+      console.log(req.user.username + " logged in.");
     }
   })(req, res, next);
 });
@@ -59,6 +69,7 @@ router.post("/register", (req, res) => {
         password: hashedPassword,
       });
       await newUser.save();
+      console.log(userIdWithNusExtension + " signed up.");
       res.send({
         signupAttempt: true,
         userId: userIdWithNusExtension
@@ -67,26 +78,31 @@ router.post("/register", (req, res) => {
   });
 });
 
-router.get("/user", (req, res) => { 
-  
+router.get("/user", (req, res) => {
+  if(req.user != null)
+    console.log(req.user.username + " is logged in.");
+  else 
+    console.log("No user is logged in.")
   if (req.isAuthenticated()) {
-    console.log('authentic request');
+    //console.log('authentic request!');
     res.send({
       username: req.user.username,
       loggedin: true
     }); // The req.user stores the entire user that has been authenticated inside of it.
   } else {  
-    console.log('inauthentic request!!')
+    //console.log('inauthentic request!!')
     res.send({
       username: null,
-      loggedin: true
+      loggedin: false
     });
   } 
 });
 
-router.get('/logout', function(req, res){
+router.get('/logout', function(req, res) {
+  if(req.isAuthenticated())
+    console.log(req.user.username + ' logged out.');
   req.logout();
-  res.send(req.body.username + 'logged out');
+  res.send(req.body.username + ' logged out');
 });
 
 

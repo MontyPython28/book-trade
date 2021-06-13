@@ -11,7 +11,7 @@ export function useAuth() {
 export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const serverURL = 'https://nusbooktrade.herokuapp.com'; //REPLACE
+    const serverURL = 'http://localhost:4000';         //'https://nusbooktrade.herokuapp.com'
 
     async function signup(email, password) {
         const res = await Axios({
@@ -77,7 +77,7 @@ export function AuthProvider({children}) {
    
 
     useEffect(() => {
-        getUser();
+        //getUser();
         setLoading(false);
     }, [])
     
