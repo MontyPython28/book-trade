@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import '../App.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import BookCard from './BookCard';
+import Header from './Header';
 
 class ShowBookList extends Component {
   constructor(props) {
@@ -41,26 +41,12 @@ class ShowBookList extends Component {
 
     return (
       <div>
+        <Header />
         <div className="container">
-          <br />
-          <div className="columns">
-          <div className="column has-background-info is-focused">
-            <h2 className="title is-1 has-text-white">Hello, Username</h2>
-            <h2 className="subtitle is-3 has-text-light">Welcome to Booktrade!</h2>
-          </div>
+          <ul className = "columns is-multiline">
+              {bookList}
+          </ul>
         </div>
-          <br />
-          <Link to="/create-book" className="button is-primary">
-              Add New Book
-            </Link>
-        </div>
-
-
-          <div className="container">
-            <div className = "list">
-                {bookList}
-            </div>
-          </div>
         
       </div>
     );

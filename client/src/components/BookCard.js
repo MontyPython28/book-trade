@@ -2,10 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
 
-
-// "https://commapress.co.uk/books/the-book-of-cairo/cairo-provisional-v3/image%2Fspan3" original link for image
-// "/images/BookShelf.PNG"
-
 const BookCard = (props) => {
     const  book  = props.book;
     let filepath = '';
@@ -16,6 +12,7 @@ const BookCard = (props) => {
     } 
 
     return(
+        <div className="column is-one-quarter">
         <div className="card">
             <div className="card-image">
             <figure className="image is-3by4">
@@ -27,16 +24,17 @@ const BookCard = (props) => {
                         { book.title }
                     </Link>
                 </h2>
-                <div className="columns">
-                  <div className="column is-half">
+                <div className="level">
+                  <div className="level-left">
                     <p className="subtitle is-6">{book.isbn}</p>
                  </div>
-                 <div className="column is-half has-text-right">
+                 <div className="level-right">
                     <p className="subtitle is-6 has-text-success has-text-weight-bold">
                     {book.publisher} SGD</p>
                  </div>
                 </div>
             </div>
+        </div>
         </div>
     )
 };
