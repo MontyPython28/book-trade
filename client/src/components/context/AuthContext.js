@@ -25,7 +25,7 @@ export function AuthProvider({children}) {
         });
         
         if(res.data.signupAttempt) {
-            setCurrentUser(res.data.userId);
+            //await setCurrentUser(res.data.userId);
             console.log(currentUser + 'signed up and logged in');
         } else throw new Error("signup failed");
     };
@@ -43,7 +43,7 @@ export function AuthProvider({children}) {
         });
         
         if(res.data.loginAttempt) {
-            setCurrentUser(res.data.userId);
+            await setCurrentUser(res.data.userId);
             console.log(currentUser + 'logged in');
         } else throw new Error("login failed");      
 
@@ -56,6 +56,7 @@ export function AuthProvider({children}) {
             url: serverURL + '/logout',
         });
         
+        await setCurrentUser(null);
         console.log(res + 'logged out');
     };
 
@@ -66,18 +67,15 @@ export function AuthProvider({children}) {
             url: serverURL + '/user',
           });
         
-        if(res.data.loggedin) {
-            setCurrentUser(res.data.username);
-        } else {
-            setCurrentUser(res.data.username);
-        }
+        await setCurrentUser(res.data.username);
+        console.log('context sets the current user as: ' + currentUser)
     };
 
 
    
 
-    useEffect(() => {
-        //getUser();
+    useEffect(async () => {
+        await getUser();
         setLoading(false);
     }, [])
     

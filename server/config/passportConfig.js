@@ -9,6 +9,12 @@ module.exports = function (passport) {
         if (err) throw err;
         if (!user) 
           return done(null, false, { message: 'Incorrect username.' });
+        
+        if(!user.confirmed) {
+          console.log(user.confirmed)
+          return done(null, false, { message: 'Email not confirmed.' });
+        }
+        
         bcrypt.compare(password, user.password, (err, result) => {
           if (err) throw err;
           if (result === true) {
@@ -21,15 +27,15 @@ module.exports = function (passport) {
     })
   );
 
-  passport.serializeUser((user, cb) => {
-    cb(null, user._id);
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
   });
-  passport.deserializeUser((id, cb) => {
-    User.findById({ _id: id }, (err, user) => {
-      const userInformation = {
-        username: user.username,
-      };
-      cb(err, userInformation);
-    });
+  
+  passport.deserializeUser((userId, done) => {
+    User.findById(userId)
+        .then((user) => {
+            done(null, user);
+        })
+        .catch(err => done(err))
   });
 };

@@ -1,37 +1,46 @@
 //-----------------------------------------------IMPORTING STUFF
-const express = require('express');
-const router = express.Router();
-
-const session = require('express-session');
-const cookieParser = require("cookie-parser");
+const router = require('express').Router();
+const passport = require("passport");
+const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
-const passport = require("passport");
-const passportConfig = require('../config/passportConfig');
 
-//-----------------------------------------------MIDDLEWARE FOR SESSIONS AND AUTHENTICATION
+//-----------------------------------------------NODEMAILER CONFIG
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: process.env.SENDING_GMAIL_ID,
+    pass: process.env.SENDING_GMAIL_PASSWORD,
+  },
+});
 
-const logSessionId = function(req, res, next) {
-    if(req.user != null) {
-      console.log("user: " + req.user.username);
-      console.log("path: " + req.originalUrl);
-    }
-    next();
-}
-
-router.use(session ({
-  secret: 'awonderfulworld',
-  resave: false,
-  saveUnitialized: true
-}));
-router.use(cookieParser('awonderfulworld'));
-router.use(passport.initialize());
-router.use(passport.session());
-passportConfig(passport);
-//router.use(logSessionId);
-
+const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 
 //-----------------------------------------------SETTING UP ROUTES
+router.get("/confirmation/:token", async (req, res) => {
+  //console.log('in the right route');
+  try {
+    const payload = jwt.verify(req.params.token, EMAIL_SECRET);
+    const username = payload.userIdWithNusExtension;
+    await User.updateOne(
+      {'username' : username }, 
+      { $set: { "confirmed" : true } }
+    );
+
+    const temp = await User.findOne({ username: username }, {_id:0, confirmed: 1});
+    const confir = temp.confirmed;
+    console.log(username + ' has confirmed status of: ' + confir);
+  } catch (e) {
+    console.log(e);
+    res.send('error');
+  }
+  
+  return res.redirect('http://localhost:3000/login'); //replace with login route
+});
+
+
+
 router.post("/login", (req, res, next) => {
   const userIdWithNusExtension = req.body.username + '@u.nus.edu';
   passport.authenticate("local", (err, user, info) => {
@@ -54,15 +63,49 @@ router.post("/login", (req, res, next) => {
 
 router.post("/register", (req, res) => {
   const userIdWithNusExtension = req.body.username + '@u.nus.edu';
+  
   User.findOne({ username: userIdWithNusExtension }, async (err, doc) => {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
     if (err) throw err;
-    if (doc) 
+    //if a pre-existing user is found
+    if (doc) {
       res.send({
         signupAttempt: false,
-        userId: userIdWithNusExtension
+        userId: userIdWithNusExtension,
+        reason: 'user alr exists'
       });
+    }
+
+    
+
     if (!doc) {
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      jwt.sign(
+        {
+          userIdWithNusExtension
+        },
+        EMAIL_SECRET,
+        {
+          expiresIn: '1d',
+        },
+        (err, emailToken) => {
+          const url = `http://localhost:4000/confirmation/${emailToken}`;
+  
+          if(process.env.STAGE == 'dev') {
+            transporter.sendMail({
+              to: process.env.RECEIVING_EMAIL_ID,
+              subject: 'Confirm Email',
+              html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
+            });
+          } else {
+            transporter.sendMail({
+              to: userIdWithNusExtension,
+              subject: 'Confirm Email',
+              html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
+            });
+          }
+
+        },
+      );
 
       const newUser = new User({
         username: userIdWithNusExtension,
@@ -81,16 +124,14 @@ router.post("/register", (req, res) => {
 router.get("/user", (req, res) => {
   if(req.user != null)
     console.log(req.user.username + " is logged in.");
-  else 
-    console.log("No user is logged in.")
   if (req.isAuthenticated()) {
-    //console.log('authentic request!');
+    console.log(req.user.username + " is logged in.");
     res.send({
       username: req.user.username,
       loggedin: true
     }); // The req.user stores the entire user that has been authenticated inside of it.
   } else {  
-    //console.log('inauthentic request!!')
+    console.log("No user is logged in.")
     res.send({
       username: null,
       loggedin: false

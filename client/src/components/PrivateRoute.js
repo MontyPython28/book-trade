@@ -1,31 +1,17 @@
 import React, {useState} from 'react'
 import Axios from 'axios';
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom';
+import {useAuth} from './context/AuthContext';
 
 const PrivateRoute = ({component: Component, ...rest}) => {
     const serverURL = 'http://localhost:4000'; //'https://nusbooktrade.herokuapp.com'; //CHANGE
-    const [loggedin, setLoggedin] = useState(true);
-    async function getUser() {
-        const res = await  Axios({
-            method: "GET",
-            withCredentials: true,
-            url: serverURL + '/user',
-          });
-        
-        if(res.data.loggedin) {
-            setLoggedin(true);
-        } else {
-            setLoggedin(false)
-        }
-        console.log(loggedin);
-    };
-
-    getUser();
+    const {currentUser} = useAuth();
+    
     return ( 
         <Route
             {...rest}
             render={props => {
-                return loggedin ? <Component {...props } /> : <Redirect to='/login'/>
+                return currentUser ? <Component {...props } /> : <Redirect to='/login'/>
             }}
         ></Route>
      )
