@@ -36,7 +36,7 @@ store.on('error', function(error) {
 app.use(session({
     secret: 'awonderfulworld',
     resave: false,
-    store: store,
+    //store: store,
     saveUnitialized: true,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24,
