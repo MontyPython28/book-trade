@@ -33,7 +33,7 @@ module.exports = function (passport) {
   });
   
   passport.deserializeUser((userId, done) => {
-    console.log('serializing current user');
+    console.log('deserializing current user');
     User.findById(userId)
         .then((user) => {
             done(null, user);
