@@ -11,7 +11,7 @@ module.exports = function (passport) {
           return done(null, false, { message: 'Incorrect username.' });
         
         if(!user.confirmed) {
-          console.log(user.confirmed)
+          //console.log(user.confirmed)
           return done(null, false, { message: 'Email not confirmed.' });
         }
         

@@ -88,7 +88,7 @@ router.post("/register", (req, res) => {
           expiresIn: '1d',
         },
         (err, emailToken) => {
-          const url = `http://localhost:4000/confirmation/${emailToken}`;
+          const url = ` https://nusbooktrade.herokuapp.com/confirmation/${emailToken}`;
   
           if(process.env.STAGE == 'dev') {
             transporter.sendMail({
@@ -122,8 +122,6 @@ router.post("/register", (req, res) => {
 });
 
 router.get("/user", (req, res) => {
-  if(req.user != null)
-    console.log(req.user.username + " is logged in.");
   if (req.isAuthenticated()) {
     console.log(req.user.username + " is logged in.");
     res.send({

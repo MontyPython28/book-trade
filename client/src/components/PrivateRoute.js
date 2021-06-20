@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 import {useAuth} from './context/AuthContext';
 
 const PrivateRoute = ({component: Component, ...rest}) => {
-    const serverURL = 'http://localhost:4000'; //'https://nusbooktrade.herokuapp.com'; //CHANGE
+    const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
     const {currentUser} = useAuth();
     
     return ( 

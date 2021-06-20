@@ -52,6 +52,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 passportConfig(passport);
 
+app.use((req, res, next) => {
+    console.log('session id is: ' + req.session.id);
+    next();
+});
+
 
 
 //---------------------------------------GET ROUTES
