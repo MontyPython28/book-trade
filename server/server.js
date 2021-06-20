@@ -52,10 +52,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 passportConfig(passport);
 
-app.use((req, res, next) => {
-    req.session.save(function(err) {
+app.use(async (req, res, next) => {
+    await req.session.save(function(err) {
         console.log('saving session explicitly. ')
-        console.log(err);
+        if(err)
+            console.log(err);
       })
     console.log('session id is: ' + req.session.id);
     next();
