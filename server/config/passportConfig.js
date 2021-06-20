@@ -28,10 +28,12 @@ module.exports = function (passport) {
   );
 
   passport.serializeUser((user, done) => {
-    done(null, user.id);
+    console.log('serializing current user');
+    done(null, user._id);
   });
   
   passport.deserializeUser((userId, done) => {
+    console.log('serializing current user');
     User.findById(userId)
         .then((user) => {
             done(null, user);
