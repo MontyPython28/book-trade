@@ -6,8 +6,8 @@ import Navbar from './Navbar';
 import {useAuth} from './context/AuthContext';
 
 class showBookDetails extends Component {
-  serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  
+  //serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+  serverURL = 'http://localhost:4000' 
   constructor(props) {
     super(props);
     this.state = {
