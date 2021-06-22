@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
-import sirwait from './SirWait'
 
 export default function Signup() {
   const NUSNETref = useRef()
@@ -24,7 +23,7 @@ export default function Signup() {
       setError("")
       setLoading(true)
       await signup(NUSNETref.current.value, passwordRef.current.value)
-      history.push("/wait")
+      history.push("/")
     } catch {
       setError("Failed to create an account")
     }

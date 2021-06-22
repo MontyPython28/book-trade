@@ -17,19 +17,22 @@ export function AuthProvider({ children }) {
     const serverURL = 'http://localhost:4000' 
     const email = NUSNETid + '@u.nus.edu';
 
-    await Axios({
-      method: "POST",
-      data: {
-          userEmail: email,
-          password: password
-      },
-      withCredentials: true,
-      url: serverURL + '/send-confirmation-email',
-    });
+    // await Axios({
+    //   method: "POST",
+    //   data: {
+    //       userEmail: email,
+    //       password: password
+    //   },
+    //   withCredentials: true,
+    //   url: serverURL + '/send-confirmation-email',
+    // });
+
+    return auth.createUserWithEmailAndPassword(email, password)
+
   }
 
   function login(NUSNETid, password) {
-    //const email = NUSNETid + '@u.nus.edu';
+    const email = NUSNETid + '@u.nus.edu';
     return auth.signInWithEmailAndPassword(NUSNETid, password)
   }
 
