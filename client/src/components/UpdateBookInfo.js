@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
 import Navbar from './Navbar';
-import {useAuth} from './context/AuthContext';
 
 class UpdateBookInfo extends Component {
   //serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
