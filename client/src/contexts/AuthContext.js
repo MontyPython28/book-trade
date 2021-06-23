@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       data: {
-          userEmail: NUSNETid,
+          userEmail: email,
           password: password
       },
       withCredentials: true,
@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
 
   function login(NUSNETid, password) {
     const email = NUSNETid + '@u.nus.edu';
-    return auth.signInWithEmailAndPassword(NUSNETid, password)
+    return auth.signInWithEmailAndPassword(email, password)
   }
 
   function logout() {
