@@ -21,6 +21,8 @@
     "react-scripts": "3.4.3"
   },
   "scripts": {
+    "css-build": "node-sass --omit-source-map-url src/mystyles.scss src/mystyles.css",
+    "css-watch": "npm run css-build -- --watch",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -40,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "node-sass": "^6.0.0"
   }
 }

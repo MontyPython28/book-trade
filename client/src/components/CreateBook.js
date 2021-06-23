@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import '../App.css';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import Navbar from './Navbar';
+import Header from './Header';
 
 
 class CreateBook extends Component {
-  //serverURL = 'http://localhost:4000'; //'https://nusbooktrade.herokuapp.com'; //CHANGE
+  // serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
   serverURL = 'http://localhost:4000'
   constructor() {
     super();
@@ -83,18 +82,14 @@ class CreateBook extends Component {
 
   render() {
     return (
-      <div className="container">
-        <Navbar />
+      <div>
+      <Header title="Add Book" />
+        <div className="container">
         <div className="columns">
           <div className="column is-three-fifths is-offset-one-fifth">
-            <br />
-            <Link to="/" className="button is-primary float-left">
-              Show Book List
-            </Link>
-            <br />
-            <h1 className="subtitle is-3 has-text-centered">Create Book</h1>
 
             <form noValidate onSubmit={this.onSubmit}>
+            <div className="box">
               <div className="field">
                 <label className="label">Title</label>
                 <div className="control">
@@ -185,7 +180,7 @@ class CreateBook extends Component {
                   {this.state.previewSrc ? (
                     this.state.isPreviewAvailable ? (
                       <div className="card-image">
-                      <figure class="image is-3by4">
+                      <figure className="image is-3by4">
                         <img src={this.state.previewSrc} alt="Preview" />
                       </figure>
                       </div>
@@ -193,13 +188,14 @@ class CreateBook extends Component {
                   ) : (<p className="box">Image preview will be shown here after selection</p>)
                   }
               </div>
-                
+              </div>  
               <br />
                 <button type="submit" className={this.state.buttonClass}>
                     Submit
                   </button>
               </form>
           </div>
+        </div>
         </div>
       </div>
     );

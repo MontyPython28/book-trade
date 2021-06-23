@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
-import Navbar from './Navbar';
+import Header from './Header';
 
 class UpdateBookInfo extends Component {
   //serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
@@ -65,18 +64,14 @@ class UpdateBookInfo extends Component {
 
   render() {
     return (
-      <div className="container">
-        <Navbar />
+      <div>
+        <Header title="Edit Book Details" />
+        <div  className="container">
         <div className="columns">
           <div className="column is-three-fifths is-offset-one-fifth">
-              <br />
-              <Link to="/" className="button is-primary float-left">
-                  Show Book List
-              </Link>
-              <br />
-              <h1 className="subtitle is-3 has-text-centered">Edit Book</h1>
 
             <form noValidate onSubmit={this.onSubmit}>
+            <div className="box">
               <div className="field">
                 <label className="label">Title</label>
                 <div className="control">
@@ -147,10 +142,12 @@ class UpdateBookInfo extends Component {
                 </div>
               </div>
             <br />
-            <button type="submit" className={this.state.buttonClass}>
+          </div>
+          <button type="submit" className={this.state.buttonClass}>
               Update
-            </button>
+          </button>
             </form>
+            </div>
           </div>
         </div>
       </div>

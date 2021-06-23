@@ -1,64 +1,80 @@
-import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
-import { useAuth } from "../contexts/AuthContext"
-import { Link, useHistory } from "react-router-dom"
+import React, { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { Link, useHistory } from "react-router-dom";
 
 export default function Signup() {
-  const NUSNETref = useRef()
-  const passwordRef = useRef()
-  const passwordConfirmRef = useRef()
-  const { signup } = useAuth()
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const history = useHistory()
+  const { signup } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  const [username, setUsername] = useState("");
+  const [psword, setPsword] = useState("");
+  const [pswordConfirm, setPswordConfirm] = useState("");
+
 
   async function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match")
+    if (psword !== pswordConfirm) {
+      return setError("Passwords do not match");
     }
 
     try {
-      setError("")
-      setLoading(true)
-      await signup(NUSNETref.current.value, passwordRef.current.value)
-      history.push("/wait")
+      setError("");
+      setLoading(true);
+      console.log(psword, pswordConfirm);
+      await signup(username, psword);
+      history.push("/wait");
     } catch {
-      setError("Failed to create an account")
+      setError("Failed to create an account");
     }
 
-    setLoading(false)
+    setLoading(false);
   }
 
   return (
-    <>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Sign Up</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="NUSNETid">
-              <Form.Label>NUSNET ID</Form.Label>
-              <Form.Control type="text" ref={NUSNETref} required />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
-            </Form.Group>
-            <Form.Group id="password-confirm">
-              <Form.Label>Password Confirmation</Form.Label>
-              <Form.Control type="password" ref={passwordConfirmRef} required />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Sign Up
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Already have an account? <Link to="/login">Log In</Link>
+    <div className="hero-body">
+      <div className="container">
+        <div className="column is-4 is-offset-4">
+          <h3 className="subtitle is-3 has-text-centered has-text-black"> Sign Up </h3>
+          {error && <div className="notification is-danger is-light">{error}</div>}
+          
+
+          <form className="box" onSubmit={handleSubmit}>
+            <div className="field">
+            <label className="label">NUSNET ID</label>
+            <div className="control">
+              <input className="input" type="text" placeholder="EXXXXXXX" 
+              onChange={(event) => setUsername(event.target.value)} />
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Password</label>
+            <div className="control">
+              <input className="input" type="password" placeholder="********" 
+                onChange={(event) => setPsword(event.target.value)} />
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Confirm Password</label>
+            <div className="control">
+              <input className="input" type="password" placeholder="********" 
+                onChange={(event) => setPswordConfirm(event.target.value)} />
+            </div>
+          </div>
+          <button className="button is-primary" type="submit" disabled={loading}>
+          <span className="icon is-small">
+            <i className="fas fa-user-plus"></i>
+            </span>
+            <span>Sign Up</span>
+          </button>
+        </form>
+
+        <div className="has-text-centered">
+          Already have an account? <Link to="/login">Login</Link>
+        </div>
+        </div>
       </div>
-    </>
+    </div>
   )
 }

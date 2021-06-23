@@ -1,55 +1,62 @@
-import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
-import { useAuth } from "../contexts/AuthContext"
-import { Link } from "react-router-dom"
+import React, { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 export default function ForgotPassword() {
-  const emailRef = useRef()
-  const { resetPassword } = useAuth()
-  const [error, setError] = useState("")
-  const [message, setMessage] = useState("")
-  const [loading, setLoading] = useState(false)
+  const { resetPassword } = useAuth();
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
 
   async function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      setMessage("")
-      setError("")
-      setLoading(true)
-      await resetPassword(emailRef.current.value)
-      setMessage("Check your inbox for further instructions")
+      setMessage("");
+      setError("");
+      setLoading(true);
+      await resetPassword(email);
+      setMessage("Check your inbox for further instructions");
     } catch {
-      setError("Failed to reset password")
+      setError("Failed to reset password");
     }
 
-    setLoading(false)
+    setLoading(false);
   }
 
   return (
-    <>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Password Reset</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          {message && <Alert variant="success">{message}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Reset Password
-            </Button>
-          </Form>
-          <div className="w-100 text-center mt-3">
-            <Link to="/login">Login</Link>
+    <div className="hero-body">
+      <div className="container">
+        <div className="column is-4 is-offset-4">
+          <h3 className="subtitle is-3 has-text-centered has-text-black"> Reset Password </h3>
+          {error && <div className="notification is-danger is-light">{error}</div>}
+          {message && <div className="notification is-success is-light">{message}</div>}
+          
+          <form className="box" onSubmit={handleSubmit}>
+            <div className="field">
+            <label className="label">Email (with extension)</label>
+            <div className="control">
+              <input className="input" type="text" placeholder="EXXXXXXX@u.nus.edu" 
+              onChange={(event) => setEmail(event.target.value)} />
+            </div>
           </div>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/signup">Sign Up</Link>
+          <button className="button is-primary" type="submit" disabled={loading}>
+          <span className="icon is-small">
+            <i className="fas fa-key"></i>
+            </span>
+            <span>Reset</span>
+          </button>
+        </form>
+
+        <div className="has-text-centered">
+          <Link to="/login">Login</Link>
+        </div>
+        <div className="has-text-centered">
+          Need an account? <Link to="/signup">Sign Up</Link>
+        </div>
+        </div>
       </div>
-    </>
+    </div>
   )
 }
