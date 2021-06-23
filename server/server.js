@@ -24,9 +24,9 @@ app.use(express.urlencoded({ extended: true }));
 
 //---------------------------------------GET ROUTES
 const books = require('./routes/api/books');
-//const confirmEmail = require('./routes/EmailConfirmation');
+const confirmEmail = require('./routes/EmailConfirmation');
 
-//app.use(confirmEmail);
+app.use(confirmEmail);
 app.use('/api/books', books);
 
 

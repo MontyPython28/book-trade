@@ -23,7 +23,7 @@ export default function Signup() {
       setError("")
       setLoading(true)
       await signup(NUSNETref.current.value, passwordRef.current.value)
-      history.push("/")
+      history.push("/wait")
     } catch {
       setError("Failed to create an account")
     }

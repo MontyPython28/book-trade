@@ -17,17 +17,18 @@ export function AuthProvider({ children }) {
     const serverURL = 'http://localhost:4000' 
     const email = NUSNETid + '@u.nus.edu';
 
-    // await Axios({
-    //   method: "POST",
-    //   data: {
-    //       userEmail: email,
-    //       password: password
-    //   },
-    //   withCredentials: true,
-    //   url: serverURL + '/send-confirmation-email',
-    // });
+    await Axios({
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      data: {
+          userEmail: NUSNETid,
+          password: password
+      },
+      withCredentials: true,
+      url: serverURL + '/send-confirmation-email',
+    });
 
-    return auth.createUserWithEmailAndPassword(email, password)
+    //return auth.createUserWithEmailAndPassword(email, password)
 
   }
 
