@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react"
-import { auth } from "../firebase"
+import { auth, cred } from "../firebase"
 import Axios from 'axios';
 
 
@@ -45,12 +45,13 @@ export function AuthProvider({ children }) {
     return auth.sendPasswordResetEmail(email)
   }
 
-  function updateEmail(email) {
-    return currentUser.updateEmail(email)
-  }
-
   function updatePassword(password) {
     return currentUser.updatePassword(password)
+  }
+
+  function reAuthUser(password) {
+    const credentials = cred.credential(currentUser.email, password);
+    return currentUser.reauthenticateWithCredential(credentials);
   }
 
   useEffect(() => {
@@ -68,8 +69,8 @@ export function AuthProvider({ children }) {
     signup,
     logout,
     resetPassword,
-    updateEmail,
-    updatePassword
+    updatePassword,
+    reAuthUser
   }
 
   return (
