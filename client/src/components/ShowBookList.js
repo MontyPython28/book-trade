@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import '../App.css';
+import '../mystyles.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import BookCard from './BookCard';
-import  Navbar  from './Navbar';
-import {useAuth} from './context/AuthContext';
+import  Header from './Header';
+
 
 class ShowBookList extends Component {
-  serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+  //serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+  serverURL = 'http://localhost:4000'
   constructor(props) {
     super(props);
     this.state = {
@@ -44,26 +45,12 @@ class ShowBookList extends Component {
 
     return (
       <div>
+        <Header title="View Book List" />
         <div className="container">
-          <br />
-          <div className="columns">
-          <div className="column has-background-info is-focused">
-            <h2 className="title is-1 has-text-white">Hello, Username</h2>
-            <h2 className="subtitle is-3 has-text-light">Welcome to Booktrade!</h2>
+          <div className = "columns is-multiline">
+              {bookList}
           </div>
         </div>
-          <br />
-          <Link to="/create-book" className="button is-primary">
-              Add New Book
-            </Link>
-        </div>
-
-
-          <div className="container">
-            <div className = "list">
-                {bookList}
-            </div>
-          </div>
         
       </div>
     );

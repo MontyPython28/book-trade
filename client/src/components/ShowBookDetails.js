@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
-import Navbar from './Navbar';
-import {useAuth} from './context/AuthContext';
+import Header from './Header';
+
 
 class showBookDetails extends Component {
-  serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  
+  //serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+  serverURL = 'http://localhost:4000' 
   constructor(props) {
     super(props);
     this.state = {
@@ -80,15 +80,12 @@ class showBookDetails extends Component {
     </div>
 
     return (
-      <div className="container">
+      <div>
+        <Header title="View Book Info" />
+        <div className="container">
         <div className = "columns">
           <div className="column is-three-fifths is-offset-one-fifth">
-              <br />
-              <Link to="/" className="button is-primary">
-                  Show Book List
-              </Link>
-              <br />
-              <h1 className="subtitle is-3 has-text-centered">View Book Info</h1>
+              
               <br />
               <div className="box">
               <div className="columns">
@@ -101,17 +98,21 @@ class showBookDetails extends Component {
                 </div>
                 </div>
               </div>
-            <div className="columns is-centred">
-              <div className = "column has-text-centered is-half">
+              <div className="columns is-centred">
+              <div className = "column has-text-centered is-third">
               <Link to={`/edit-book/${book._id}`} className="button is-info is-outlined is-fullwidth">
-                      Edit Book
+                  Edit Book
               </Link>
               </div>
-              <div className = "column has-text-centered is-half">
-                <button type="button" className="button is-danger is-outlined is-fullwidth" onClick={this.onDeleteClick.bind(this,book._id)}>Delete Book</button>
+              <div className = "column has-text-centered is-third">
+                <button type="button" className="button is-warning is-outlined is-fullwidth">Mark as Sold</button>
               </div>
+              <div className = "column has-text-centered is-third">
+                <button type="button" className="button is-danger is-outlined is-fullwidth" onClick={this.onDeleteClick.bind(this,book._id)}>Delete Book</button>
             </div>
           </div>
+          </div>
+        </div>
         </div>
       </div>
     );

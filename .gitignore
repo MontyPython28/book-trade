@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+.env
+*.orig
+.idea/
+.vscode/
+config/default.json
+server/.env
+server/node_modules/
+client/node_modules/
