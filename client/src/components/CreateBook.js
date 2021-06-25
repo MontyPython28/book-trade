@@ -15,7 +15,7 @@ class CreateBook extends Component {
       mcode:'',
       author:'',
       description:'',
-      price:0.0,
+      price:null,
 
       //for CSS of button
       buttonClass: 'button is-success is-medium is-outlined is-fullwidth',

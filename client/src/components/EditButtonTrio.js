@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"
 import axios from "axios";
@@ -6,19 +6,40 @@ import axios from "axios";
 const EditButtonTrio = (props) => {
   const { currentUser } = useAuth();
 
+  const [soldButtonClass, setSoldButtonClass] = useState('button is-warning is-outlined is-fullwidth');
+  const [deleteButtonClass, setDeleteButtonClass] = useState('button is-danger is-outlined is-fullwidth');
+
   const onDeleteClick = (id) => {
+    setDeleteButtonClass('button is-danger is-medium is-outlined is-fullwidth is-loading')
     axios
       .delete(props.serverURL + '/api/books/'+ id)
       .then(res => {
         props.history.push("/");
       })
       .catch(err => {
-        console.log("Error form ShowBookDetails_deleteClick");
+        console.log("Error from ShowBookDetails_deleteClick");
         console.log(err);
       })
   };
 
-  return currentUser && (props.email == currentUser.email)
+  const onSubmit = e => {
+    e.preventDefault();
+    setSoldButtonClass('button is-warning is-medium is-outlined is-fullwidth is-loading');
+    const data = {
+      sold: true
+    };
+
+    axios
+      .put(props.serverURL + '/api/books/' + props.id, data)
+      .then(res => {
+        props.history.push('/');
+      })
+      .catch(err => {
+        console.log("Error from ShowBookDetails_onSubmit!");
+      })
+  };
+
+  return currentUser && (props.email === currentUser.email)
   ? (
  <div className="columns is-centred">
     <div className = "column has-text-centered is-third">
@@ -27,10 +48,10 @@ const EditButtonTrio = (props) => {
     </Link>
     </div>
     <div className = "column has-text-centered is-third">
-      <button type="button" className="button is-warning is-outlined is-fullwidth">Mark as Sold</button>
+      <button type="button" className={soldButtonClass} onClick={onSubmit}>Mark as Sold</button>
     </div>
     <div className = "column has-text-centered is-third">
-      <button type="button" className="button is-danger is-outlined is-fullwidth" onClick={onDeleteClick.bind(this,props.id)}>Delete Permanently</button>
+      <button type="button" className={deleteButtonClass} onClick={onDeleteClick.bind(this,props.id)}>Delete Permanently</button>
   </div>
 </div>
     )

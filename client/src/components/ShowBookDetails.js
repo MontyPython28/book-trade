@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
 import Header from './Header';
@@ -68,7 +67,7 @@ class showBookDetails extends Component {
           <tr>
             <th scope="row">1</th>
             <td>Title</td>
-            <td>{ book.title }</td>
+            <td className="is-family-primary">{ book.title }</td>
           </tr>
           <tr>
             <th scope="row">2</th>

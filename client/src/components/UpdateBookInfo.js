@@ -33,7 +33,7 @@ class UpdateBookInfo extends Component {
           price: res.data.price.$numberDecimal, 
         });
         
-        if (this.props.currentUser.email == res.data.publisher) {
+        if (this.props.currentUser.email === res.data.publisher) {
           this.setState({ accessControls: true });
         }
       })

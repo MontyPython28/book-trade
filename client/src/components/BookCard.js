@@ -16,7 +16,7 @@ const BookCard = (props) => {
     } 
 
     return (
-        <div className = "column is-one-quarter">
+        <div className = "column is-one-fifth">
         <div className="card">
             <div className="card-image">
             <figure className="image is-3by4">
