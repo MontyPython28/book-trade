@@ -30,7 +30,7 @@ const BookCard = (props) => {
                 </h2>
                 <div className="columns">
                   <div className="column is-half">
-                    <p className="subtitle is-6">{book.isbn}</p>
+                    <p className="subtitle is-6">{book.mcode}</p>
                  </div>
                  <div className="column is-half has-text-right">
                     <p className="subtitle is-6 has-text-success has-text-weight-bold">

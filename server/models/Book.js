@@ -5,7 +5,7 @@ const BookSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  isbn: {
+  mcode: {
     type: String,
     required: true
   },
@@ -19,7 +19,15 @@ const BookSchema = new mongoose.Schema({
   publisher: {
     type: String
   },
-  // Additions for images
+  // Added just now
+  price: {
+    type: mongoose.Decimal128,
+    required: true
+  },
+  sold: {
+    type: Boolean,
+    required: true
+  }, // Additions for images
   avatar: {
     type: String,
     required: true

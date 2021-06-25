@@ -11,10 +11,10 @@ class UpdateBookInfo extends Component {
     super(props);
     this.state = {
       title: '',
-      isbn: '',
+      mcode: '',
       author: '',
       description: '',
-      publisher: '',
+      price: '',
       buttonClass: 'button is-info is-medium is-outlined is-fullwidth'
     };
   }
@@ -25,10 +25,10 @@ class UpdateBookInfo extends Component {
       .then(res => {
         this.setState({
           title: res.data.title,
-          isbn: res.data.isbn,
+          mcode: res.data.mcode,
           author: res.data.author,
           description: res.data.description,
-          publisher: res.data.publisher,
+          price: res.data.price.$numberDecimal, 
         })
       })
       .catch(err => {
@@ -45,10 +45,10 @@ class UpdateBookInfo extends Component {
     this.setState({buttonClass: 'button is-info is-medium is-outlined is-fullwidth is-loading'});
     const data = {
       title: this.state.title,
-      isbn: this.state.isbn,
+      mcode: this.state.mcode,
       author: this.state.author,
       description: this.state.description,
-      publisher: this.state.publisher,
+      price: this.state.price,
     };
 
     axios
@@ -92,9 +92,9 @@ class UpdateBookInfo extends Component {
                   <input
                     type='text'
                     placeholder='Module Code'
-                    name='isbn'
+                    name='mcode'
                     className='input'
-                    value={this.state.isbn}
+                    value={this.state.mcode}
                     onChange={this.onChange}
                   />
                 </div>
@@ -132,11 +132,11 @@ class UpdateBookInfo extends Component {
               <label className="label has-text-success">Price (in SGD)</label>
                 <div className="control">
                   <input
-                    type='text'
+                    type='number'
                     placeholder='Price'
-                    name='publisher'
+                    name='price'
                     className='input is-success'
-                    value={this.state.publisher}
+                    value={this.state.price}
                     onChange={this.onChange}
                   />
                 </div>

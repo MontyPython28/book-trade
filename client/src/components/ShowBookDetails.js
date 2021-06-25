@@ -11,7 +11,12 @@ class showBookDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      book: {}
+      title: '',
+      mcode: '',
+      author: '',
+      description: '',
+      publisher: '',
+      price: '',
     };
   }
 
@@ -22,12 +27,21 @@ class showBookDetails extends Component {
       .then(res => {
         console.log("Print-showBookDetails-API-response: " + res.data);
         this.setState({
-          book: res.data
-        })
+            _id: res.data._id,
+            title: res.data.title,
+            mcode: res.data.mcode,
+            author: res.data.author,
+            description: res.data.description,
+            publisher: res.data.publisher,
+            price: res.data.price.$numberDecimal,
+            avatar: res.data.avatar
+        });
+        console.log(this.state.book.price.$numberDecimal);
       })
       .catch(err => {
         console.log(err);
       })
+    
   };
 
   onDeleteClick (id) {
@@ -45,8 +59,8 @@ class showBookDetails extends Component {
 
   render() {
     
-    const { book } = this.state;
-    console.log(book.title);
+    const book = this.state;
+
     let BookItem = <div>
       <table className="table is-bordered is-striped">
         <tbody>
@@ -58,7 +72,7 @@ class showBookDetails extends Component {
           <tr>
             <th scope="row">2</th>
             <td>Module Code</td>
-            <td>{ book.isbn }</td>
+            <td>{ book.mcode }</td>
           </tr>
           <tr>
             <th scope="row">3</th>
@@ -73,6 +87,11 @@ class showBookDetails extends Component {
           <tr>
             <th scope="row">5</th>
             <td>Price (in SGD)</td>
+            <td>{ book.price }</td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>Seller</td>
             <td>{ book.publisher }</td>
           </tr>
         </tbody>

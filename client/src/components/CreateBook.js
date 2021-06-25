@@ -4,18 +4,18 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import Header from './Header';
 
-
 class CreateBook extends Component {
   // serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  serverURL = 'http://localhost:4000'
+  serverURL = 'http://localhost:4000';
+
   constructor() {
     super();
     this.state = {
       title: '',
-      isbn:'',
+      mcode:'',
       author:'',
       description:'',
-      publisher:'',
+      price:0.0,
 
       //for CSS of button
       buttonClass: 'button is-success is-medium is-outlined is-fullwidth',
@@ -40,25 +40,29 @@ class CreateBook extends Component {
 
     const data = new FormData();
     data.append('title', this.state.title);
-    data.append('isbn', this.state.isbn);
+    data.append('mcode', this.state.mcode);
     data.append('author', this.state.author);
     data.append('description', this.state.description);
-    data.append('publisher', this.state.publisher);
+    data.append('publisher', this.props.currentUser.email);
+    data.append('price', this.state.price);
+    data.append('sold', false);
     data.append('file', this.state.file); // for image
 
+    console.log(data);
     axios
       .post(this.serverURL + '/api/books', data, {
         headers: {
           'Content-Type': 'multipart/form-data'
         } //changed for image
-      }) //ADD http://localhost:8082 when developing (same for all other axios requests)
+        // schema_version: 2
+      })
       .then(res => {
         this.setState({
           title: '',
-          isbn:'',
+          mcode:'',
           author:'',
           description:'',
-          publisher:'',
+          price:0,
           file:null //changed for image
         })
         this.props.history.push('/');
@@ -77,10 +81,12 @@ class CreateBook extends Component {
       this.setState({previewSrc: fileReader.result});
     };
     fileReader.readAsDataURL(uploadedFile);
-    this.setState({isPreviewAvailable: uploadedFile.name.match(/\.(jpeg|jpg|png)$/)});
+    this.setState({isPreviewAvailable: uploadedFile.name.match(/\.(jpeg|jpg|png|JPEG|JPG|PNG)$/)});
   };
 
   render() {
+
+    console.log(this.props.currentUser.email);
     return (
       <div>
       <Header title="Add Book" />
@@ -110,9 +116,9 @@ class CreateBook extends Component {
                   <input
                     type='text'
                     placeholder='Module Code'
-                    name='isbn'
+                    name='mcode'
                     className='input'
-                    value={this.state.isbn}
+                    value={this.state.mcode}
                     onChange={this.onChange}
                   />
                 </div>
@@ -150,11 +156,11 @@ class CreateBook extends Component {
               <label className="label has-text-success">Price (in SGD)</label>
                 <div className="control">
                   <input
-                    type='text'
+                    type='number'
                     placeholder='Price'
-                    name='publisher'
+                    name='price'
                     className='input is-success'
-                    value={this.state.publisher}
+                    value={this.state.price}
                     onChange={this.onChange}
                   />
                 </div>

@@ -25,10 +25,10 @@ const upload = multer({
     }
   }),
   fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(jpeg|jpg|png)$/)) {
+    if (!file.originalname.match(/\.(jpeg|jpg|png|PNG|JPEG|JPG)$/)) {
       return cb(
         new Error(
-          'only upload files with jpg, jpeg, png, pdf, doc, docx, xslx, xls format.'
+          'only upload files with jpg, jpeg, png format.'
         )
       );
     }
@@ -66,17 +66,22 @@ router.get('/:id', (req, res) => {
 // @access Public
 router.post('/', upload.single('file'), async (req, res) => {
   try {
+    console.log('got here');
     const result = await cloudinary.uploader.upload(req.file.path);
-    const { title, isbn, author, description, publisher } = req.body;
+    const { title, mcode, author, description, publisher, price, sold } = req.body;
+    console.log('got all fields');
     const book = new Book({
       title,
-      isbn,
+      mcode,
       author,
       description,
       publisher,
+      price,
+      sold,
       avatar: result.secure_url,
       cloudinary_id: result.public_id
     });
+    console.log('Managed to do this');
     await book.save();
     res.send('file uploaded successfully.');
     await unlinkAsync(req.file.path);

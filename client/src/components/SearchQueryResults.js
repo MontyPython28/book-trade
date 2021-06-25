@@ -33,7 +33,7 @@ class SearchQueryResults extends Component {
     const newList = this.state.books.filter(book => {
       const search = this.props.match.params.query.toLowerCase();
       const title_lower = book.title.toLowerCase();
-      const mc_lower = book.isbn.toLowerCase();
+      const mc_lower = book.mcode.toLowerCase();
       return (title_lower.includes(search) || mc_lower.includes(search));
     });
   
