@@ -15,7 +15,9 @@ class UpdateBookInfo extends Component {
       author: '',
       description: '',
       price: '',
-      buttonClass: 'button is-info is-medium is-outlined is-fullwidth'
+
+      buttonClass: 'button is-info is-medium is-outlined is-fullwidth',
+      accessControls: false
     };
   }
 
@@ -29,7 +31,11 @@ class UpdateBookInfo extends Component {
           author: res.data.author,
           description: res.data.description,
           price: res.data.price.$numberDecimal, 
-        })
+        });
+        
+        if (this.props.currentUser.email == res.data.publisher) {
+          this.setState({ accessControls: true });
+        }
       })
       .catch(err => {
         console.log("Error from UpdateBookInfo", err);
@@ -64,6 +70,7 @@ class UpdateBookInfo extends Component {
 
   render() {
     return (
+      this.state.accessControls ? (
       <div>
         <Header title="Edit Book Details" />
         <div  className="container">
@@ -151,6 +158,7 @@ class UpdateBookInfo extends Component {
           </div>
         </div>
       </div>
+      ) : (<Header />)
     );
   }
 }

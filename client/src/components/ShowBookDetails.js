@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
 import Header from './Header';
+import EditButtonTrio from './EditButtonTrio';
 
 
 class showBookDetails extends Component {
@@ -45,7 +46,6 @@ class showBookDetails extends Component {
   };
 
   onDeleteClick (id) {
-    console.log(this.serverURL + '/api/books/'+ id);
     axios
       .delete(this.serverURL + '/api/books/'+ id)
       .then(res => {
@@ -53,6 +53,7 @@ class showBookDetails extends Component {
       })
       .catch(err => {
         console.log("Error form ShowBookDetails_deleteClick");
+        console.log(err);
       })
   };
 
@@ -117,19 +118,7 @@ class showBookDetails extends Component {
                 </div>
                 </div>
               </div>
-              <div className="columns is-centred">
-              <div className = "column has-text-centered is-third">
-              <Link to={`/edit-book/${book._id}`} className="button is-info is-outlined is-fullwidth">
-                  Edit Book
-              </Link>
-              </div>
-              <div className = "column has-text-centered is-third">
-                <button type="button" className="button is-warning is-outlined is-fullwidth">Mark as Sold</button>
-              </div>
-              <div className = "column has-text-centered is-third">
-                <button type="button" className="button is-danger is-outlined is-fullwidth" onClick={this.onDeleteClick.bind(this,book._id)}>Delete Book</button>
-            </div>
-          </div>
+            <EditButtonTrio email={book.publisher} id={book._id} serverURL={this.serverURL} history={this.props.history}/>
           </div>
         </div>
         </div>

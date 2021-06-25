@@ -12,7 +12,8 @@ class SearchQueryResults extends Component {
   constructor(props) {
     super(props); //this.props.match.params.query is the query name
     this.state = {
-      books: []
+      books: [],
+      setUp: false
     };
   }
 
@@ -20,9 +21,8 @@ class SearchQueryResults extends Component {
     axios
       .get(this.serverURL + '/api/books/')
       .then(res => {
-        this.setState({
-          books: res.data
-        })
+        this.setState({ books: res.data });
+        this.setState({ setUp: true });
       })
       .catch(err => {
         console.log(err);
@@ -48,6 +48,7 @@ class SearchQueryResults extends Component {
     }
 
     return (
+      this.state.setUp ? (
       <div>
         <Header title="Search Results" />
         <div className="container">
@@ -57,6 +58,7 @@ class SearchQueryResults extends Component {
           </ul>
         </div>
       </div>
+      ) : (<Header />)
     );
   }
 }

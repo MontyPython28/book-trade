@@ -15,7 +15,7 @@ const BookCard = (props) => {
         filepath = "/images/BookShelf.PNG";
     } 
 
-    return(
+    return (
         <div className = "column is-one-quarter">
         <div className="card">
             <div className="card-image">
@@ -23,18 +23,23 @@ const BookCard = (props) => {
                 <img src= {filepath} alt="" /> </figure>
             </div>
             <div className="card-content">
+                <div className="media">
+                <div className="media-content">
                 <h2 className="subtitle is-5">
                     <Link to={`/show-book/${book._id}`}>
                         { book.title }
                     </Link>
+                    <p className="subtitle is-7"> {book.publisher} </p>
                 </h2>
+                </div>
+                </div>
                 <div className="columns">
                   <div className="column is-half">
                     <p className="subtitle is-6">{book.mcode}</p>
                  </div>
                  <div className="column is-half has-text-right">
                     <p className="subtitle is-6 has-text-success has-text-weight-bold">
-                    {book.publisher} SGD</p>
+                    {book.price.$numberDecimal} SGD</p>
                  </div>
                 </div>
             </div>

@@ -19,7 +19,6 @@ const BookSchema = new mongoose.Schema({
   publisher: {
     type: String
   },
-  // Added just now
   price: {
     type: mongoose.Decimal128,
     required: true
