@@ -40,9 +40,9 @@ const Header = (props) => {
               <Link to="/create-book" className="navbar-item">
                 Add Book
               </Link>
-              <div className="navbar-item">
+              <Link to='/wishlist' className="navbar-item" >
                 My Wishlist
-              </div>
+              </Link>
             </div>
 
             <div className="navbar-end">
@@ -57,9 +57,9 @@ const Header = (props) => {
                   <Link to="/dashboard" className="navbar-item">
                     My Profile
                   </Link>
-                  <div className="navbar-item">
+                  <Link to='./listing' className="navbar-item">
                     My Listings
-                  </div>
+                  </Link>
                   <div className="navbar-item">
                     My History
                   </div>

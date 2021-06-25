@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import Header from "./Header";
+import axios from 'axios'
 
 export default function UpdateProfile() { 
-  const { currentUser, updatePassword, reAuthUser } = useAuth()
+  const serverURL = 'http://localhost:4000';
+  const { currentUser } = useAuth()
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false)
   const history = useHistory()
-  const [currentpsword, setCurrentpsword] = useState("");
-  const [psword, setPsword] = useState("");
-  const [pswordConfirm, setPswordConfirm] = useState("");
+  const [username, setUsername] = useState("");
+  const [aboutme, setAboutme] = useState("");
+  const [user, setUser] = useState({username: 'client-generic', aboutme: 'client-generic'});
 
   function timeout(delay) {
     return new Promise( res => setTimeout(res, delay) );
@@ -23,28 +25,44 @@ export default function UpdateProfile() {
     setLoading(true);
     setError("");
     
-    if (psword !== pswordConfirm) {
-      return setError("Passwords do not match");
-    } else {
-      reAuthUser(currentpsword).then(() => {
-        updatePassword(psword).then(async () => {
-          setSuccess('password has been reset! Redirecting to homepage...');
-          await timeout(5000); 
-          history.push("/")
-        })
-        .catch((error) => {
-          setError(error.message);
-        })
-        .finally(() => {
-          setLoading(false)
-        })
-      }).catch((error) => {
-        setError(error.message);
+    const data = {
+        user_email: currentUser.email,
+        username: username,
+        aboutme: aboutme
+    };
+
+    axios
+      .put(serverURL + '/update-user/' + currentUser.email, data)
+      .then(async () => {
+        setSuccess('User updated! Redirecting to homepage...');
+        await timeout(5000); 
+        history.push("/");
+      })
+      .catch(err => {
+        setError(err.message);
       }).finally(() => {
         setLoading(false)
       });
-    }
+    
   }
+
+  const fetchData = async () => {
+    await axios({
+      "method": "GET",
+      "url": serverURL + '/user-details/' + currentUser.email  
+    })
+    .then((response) => {
+      setUser(response.data);
+      
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   return (
     <div>
@@ -57,25 +75,20 @@ export default function UpdateProfile() {
           <h3 className="subtitle is-5">Email: {currentUser.email} </h3>
           <form onSubmit={handleSubmit}>
           <div className="box">
+          
           <div className="field">
-            <label className="label">Enter current password</label>
+            <label className="label">Enter username</label>
             <div className="control">
-              <input className="input" type="password" placeholder="********" 
-                onChange={(event) => setCurrentpsword(event.target.value)} />
+              <input className="input" type="text" placeholder={user.username}
+                onChange={(event) => setUsername(event.target.value)} />
             </div>
           </div>
+
           <div className="field">
-            <label className="label">New Password</label>
+            <label className="label">About me</label>
             <div className="control">
-              <input className="input" type="password" placeholder="********" 
-                onChange={(event) => setPsword(event.target.value)} />
-            </div>
-          </div>
-          <div className="field">
-            <label className="label">Confirm New Password</label>
-            <div className="control">
-              <input className="input" type="password" placeholder="********" 
-                onChange={(event) => setPswordConfirm(event.target.value)} />
+              <input className="input" type="text" placeholder={user.aboutme}
+                onChange={(event) => setAboutme(event.target.value)} />
             </div>
           </div>
           </div>

@@ -46,12 +46,17 @@ export default function Dashboard() {
               </div>
             </div>        
           <div className="columns is-centred">
-              <div className = "column has-text-centered is-half">
-              <Link to= "/update-profile"className="button is-info is-outlined is-fullwidth">
+              <div className = "column has-text-centered is-one-third">
+              <Link to= "/update-password"className="button is-info is-outlined is-fullwidth">
+                Update Password
+              </Link>
+              </div>
+              <div className = "column has-text-centered is-one-third">
+              <Link to= "/update-profile" className="button is-info is-outlined is-fullwidth">
                 Update Profile
               </Link>
               </div>
-              <div className = "column has-text-centered is-half">
+              <div className = "column has-text-centered is-one-third">
                 <button type="button" className="button is-dark is-outlined is-fullwidth" onClick={handleLogout}>Log Out</button>
             </div>
           </div>
