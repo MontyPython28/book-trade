@@ -4,8 +4,8 @@ import '../App.css';
 import Header from './Header';
 
 class UpdateBookInfo extends Component {
-  //serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  serverURL = 'http://localhost:4000'
+  
+  serverURL = process.env.REACT_APP_serverURL;
 
   constructor(props) {
     super(props);
