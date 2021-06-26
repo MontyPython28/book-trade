@@ -40,7 +40,7 @@ router.post('/add-to-wishlist/:user', (req, res) => {
       upsert: false
     })
     .then(user => {
-      //console.log(user.user_email);
+      console.log(user.wishlist);
       res.json({ msg: 'Updated successfully' })
     })
     .catch(err =>
@@ -51,13 +51,14 @@ router.post('/add-to-wishlist/:user', (req, res) => {
 router.post('/remove-from-wishlist/:user', (req, res) => {
   User.findOneAndUpdate(
     {user_email: req.params.user}, 
-    { $pull: { wishlist: [req.body.book_title] } },
+    { $pull: { wishlist: req.body.book_title } },
     {
       returnOriginal: false,
       upsert: false
     })
     .then(user => {
-      //console.log(user.user_email);
+      console.log(req.body.book_title)
+      console.log(user.wishlist);
       res.json({ msg: 'Updated successfully' })
     })
     .catch(err =>
