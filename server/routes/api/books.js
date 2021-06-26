@@ -4,6 +4,7 @@ const cloudinary = require('../../config/cloudinaryConfig');
 const { v4: uuidv4 } = require('uuid'); //for images
 const router = express.Router();
 const multer = require('multer'); //for images
+const User = require('../models/User');
 
 // Load Book model
 const Book = require('../../models/Book');
@@ -89,6 +90,14 @@ router.post('/', upload.single('file'), async (req, res) => {
     });
     //console.log('Managed to do this');
     await book.save();
+    User.findOneAndUpdate(
+      {user_email: publisher}, 
+      { $push: { listing: [title] } },
+      {
+        returnOriginal: false,
+        upsert: true
+      }
+    )
     res.send('file uploaded successfully.');
     await unlinkAsync(req.file.path);
   } catch (error) {
