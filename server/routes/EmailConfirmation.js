@@ -35,7 +35,7 @@ router.post("/send-confirmation-email", (req, res) => {
     const APP_NAME = 'nus-booktrade'
     const email = req.body.userEmail;
     const password = req.body.password;
-    console.log('sneding email to user')
+    console.log('sending email to user')
     //email sent to user
     jwt.sign(
         {

@@ -18,7 +18,7 @@ class showBookDetails extends Component {
       description: '',
       publisher: '',
       price: '',
-      wishlisted: 0
+      wishlisted: -1
     };
   }
 
@@ -133,9 +133,13 @@ class showBookDetails extends Component {
                 </div>
               </div>
             <EditButtonTrio email={book.publisher} id={book._id} serverURL={this.serverURL} history={this.props.history}/>
-            { this.state.wishlisted > 0
+            { this.state.wishlisted === 1
               ? <UnwishlistButton email={book.publisher} title={book.title} serverURL={this.serverURL} history={this.props.history}/>
-              : <WishlistButton email={book.publisher} title={book.title} serverURL={this.serverURL} history={this.props.history}/>
+              : <div></div>
+            }
+            { this.state.wishlisted === 0
+              ? <WishlistButton email={book.publisher} title={book.title} serverURL={this.serverURL} history={this.props.history}/>
+              : <div></div>
             }
           </div>
         </div>
