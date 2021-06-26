@@ -66,7 +66,7 @@ router.post('/remove-from-wishlist/:user', (req, res) => {
 });
 
 router.get('/check-wishlist/:title/:user', (req, res) => {
-  User.count(
+  User.countDocuments(
     {user_email: req.params.user, wishlist: req.params.title}
     )
     .then(count => {

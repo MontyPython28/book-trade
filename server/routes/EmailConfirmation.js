@@ -5,12 +5,14 @@ const { signup } = require('../config/firebase');
 
 //-----------------------------------------------NODEMAILER CONFIG
 const transporter = nodemailer.createTransport({
-  service: 'Gmail',
+  host: "mail.smtp2go.com",
+  port: 2525, // 8025, 587 and 25 can also be used.
   auth: {
-    user: 'sajalprivate0311@gmail.com',
-    pass: 'SAJJUhere#0311',
-  },
-});
+    user: "sajal_smtp",
+    pass: "IMnothere#0311"
+    }
+  });
+
 
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 
