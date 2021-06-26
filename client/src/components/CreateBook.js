@@ -6,7 +6,7 @@ import Header from './Header';
 
 class CreateBook extends Component {
   // serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  serverURL = process.env.REACT_APP_serverURL;
+  serverURL = 'http://localhost:4000';
 
   constructor() {
     super();
