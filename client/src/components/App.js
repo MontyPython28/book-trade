@@ -1,6 +1,6 @@
 import React from "react"
 import Signup from "./Signup"
-import { AuthProvider } from "../contexts/AuthContext"
+import { AuthProvider} from "../contexts/AuthContext"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
@@ -32,7 +32,7 @@ function App() {
               <Route path="/login" component={Login} />
               <Route path="/forgot-password" component={ForgotPassword} />
               <Route path='/search/:query' component={SearchQueryResults} />
-              <Route path='/show-book/:id' component={ShowBookDetails} />
+              <PrivateRoute path='/show-book/:id' component={ShowBookDetails} />
               <PrivateRoute path='/create-book' component={CreateBook} />
               <PrivateRoute path='/wishlist' component={wishlist} />
               <PrivateRoute path='/listing' component={listing} />

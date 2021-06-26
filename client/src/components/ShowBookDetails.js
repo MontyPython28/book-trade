@@ -3,6 +3,8 @@ import '../App.css';
 import axios from 'axios';
 import Header from './Header';
 import EditButtonTrio from './EditButtonTrio';
+import WishlistButton from './WishlistButton';
+import UnwishlistButton from './UnwishlistButton';
 
 
 class showBookDetails extends Component {
@@ -16,6 +18,7 @@ class showBookDetails extends Component {
       description: '',
       publisher: '',
       price: '',
+      wishlisted: 0
     };
   }
 
@@ -34,6 +37,19 @@ class showBookDetails extends Component {
             publisher: res.data.publisher,
             price: res.data.price.$numberDecimal,
             avatar: res.data.avatar
+        });
+        axios({
+          "method": "GET",
+          "url": this.serverURL + '/check-wishlist/' + this.state.title + '/' + this.props.currentUser.email 
+        })
+        .then((res) => {
+          this.setState({
+            wishlisted: res.data.count
+          });
+          console.log(this.state.wishlisted)
+        })
+        .catch((error) => {
+          console.log(error)
         });
         console.log(this.state.book.price.$numberDecimal);
       })
@@ -117,6 +133,10 @@ class showBookDetails extends Component {
                 </div>
               </div>
             <EditButtonTrio email={book.publisher} id={book._id} serverURL={this.serverURL} history={this.props.history}/>
+            { this.state.wishlisted > 0
+              ? <UnwishlistButton email={book.publisher} title={book.title} serverURL={this.serverURL} history={this.props.history}/>
+              : <WishlistButton email={book.publisher} title={book.title} serverURL={this.serverURL} history={this.props.history}/>
+            }
           </div>
         </div>
         </div>
