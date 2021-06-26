@@ -6,7 +6,7 @@ import Header from './Header';
 
 
 class SearchQueryResults extends Component {
-  serverURL = process.env.REACT_APP_serverURL;
+  serverURL = 'http://localhost:4000';
   
   constructor(props) {
     super(props); //this.props.match.params.query is the query name

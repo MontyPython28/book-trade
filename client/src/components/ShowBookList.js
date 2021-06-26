@@ -8,7 +8,7 @@ import  Header from './Header';
 
 class ShowBookList extends Component {
   //serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  serverURL = process.env.REACT_APP_serverURL;
+  serverURL = 'http://localhost:4000';
   constructor(props) {
     super(props);
     this.state = {

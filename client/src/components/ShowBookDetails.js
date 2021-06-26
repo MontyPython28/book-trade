@@ -6,7 +6,7 @@ import EditButtonTrio from './EditButtonTrio';
 
 
 class showBookDetails extends Component {
-  serverURL = process.env.REACT_APP_serverURL; 
+  serverURL = 'http://localhost:4000';
   constructor(props) {
     super(props);
     this.state = {

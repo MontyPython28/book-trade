@@ -5,7 +5,7 @@ import Header from './Header';
 
 class UpdateBookInfo extends Component {
   
-  serverURL = process.env.REACT_APP_serverURL;
+  serverURL = 'http://localhost:4000';
 
   constructor(props) {
     super(props);
