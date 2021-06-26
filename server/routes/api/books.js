@@ -4,7 +4,7 @@ const cloudinary = require('../../config/cloudinaryConfig');
 const { v4: uuidv4 } = require('uuid'); //for images
 const router = express.Router();
 const multer = require('multer'); //for images
-const User = require('../models/User');
+const User = require('../../models/User');
 
 // Load Book model
 const Book = require('../../models/Book');
