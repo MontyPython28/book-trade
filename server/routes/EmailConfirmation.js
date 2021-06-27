@@ -2,6 +2,7 @@ const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const { signup } = require('../config/firebase');
+const User = require('../models/User');
 
 //-----------------------------------------------NODEMAILER CONFIG
 const transporter = nodemailer.createTransport({
@@ -24,13 +25,42 @@ router.get("/confirmation/:token", async (req, res) => {
       const payload = jwt.verify(req.params.token, EMAIL_SECRET);
       const email = payload.email
       const password = payload.password
-      await signup(email, password);
+      User.countDocuments(
+        {user_email: email}
+        )
+        .then(count => {
+          if(count == 0) {
+            signup(email, password)
+            .then(
+              User.findOneAndUpdate(
+                {user_email: email}, 
+                {
+                  user_email: email
+                },
+              {
+                returnOriginal: false,
+                upsert: true
+              })
+              .then(user => {
+
+                console.log('user created: ' + user.user_email);
+                //res.json({ msg: 'Updated successfully' })
+              })
+              .catch(err => {
+                console.log('here too');
+                res.status(400).json({ error: err.message })
+              })
+            )}
+        })
+        .catch(err =>
+          res.status(400).json({ error: 'Unable to update the Database' })
+        );  
     } catch (e) {
       console.log(e);
       res.send('error');
     }
     
-    return res.redirect('http://localhost:3000'); //replace in prod
+    res.redirect('http://localhost:3000'); //replace in prod
 });
 
 router.post("/send-confirmation-email", (req, res) => {

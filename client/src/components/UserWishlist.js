@@ -9,6 +9,7 @@ const UserListing = () => {
     const serverURL = 'http://localhost:4000/';
     const {currentUser} = useAuth();
     let [listedBooks, setListedBooks] = useState();
+    const [loading, setLoading] = useState(true);
     
     const fetchData = async () => {
       await axios({
@@ -16,7 +17,8 @@ const UserListing = () => {
         "url": serverURL + 'api/books/' + currentUser.email + '/wishlist'  
       })
       .then((response) => {
-        setListedBooks(response.data)
+        setListedBooks(response.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error)
@@ -28,13 +30,15 @@ const UserListing = () => {
     }, [])
 
     let bookList;
-
-    if(!listedBooks) {
-      bookList = "There is no book record!";
-    } else {
-      bookList = listedBooks.map((book, k) =>
-        <BookCard book={book} key={k} />
-      );
+    
+    if(!loading) {
+      if(!listedBooks) {
+        bookList = "There is no book record!";
+      } else {
+        bookList = listedBooks.map((book, k) =>
+          <BookCard book={book} key={k} />
+        );
+      }
     }
 
     return ( 

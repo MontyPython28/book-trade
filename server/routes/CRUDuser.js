@@ -79,4 +79,14 @@ router.get('/check-wishlist/:title/:user', (req, res) => {
     );
 });
 
+// router.get('/delete-user/:user', (req, res) => {
+//   User.deleteOne(
+//     {user_email: req.params.user}
+//     )
+//     .catch(err => {
+//       console.log(err)
+//       res.send('dam it')
+//     });
+// });
+
 module.exports = router;
