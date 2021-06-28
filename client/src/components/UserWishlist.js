@@ -43,7 +43,7 @@ const UserListing = () => {
 
     return ( 
       <div>
-      <Header title="View Book List" />
+      <Header title="View My Listings" />
       <div className="container">
         <div className = "columns is-multiline">
             {bookList}

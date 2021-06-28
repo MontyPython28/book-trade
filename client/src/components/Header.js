@@ -6,11 +6,20 @@ import '../App.css';
 const Header = (props) => {
 
     const [searchInput, setSearchInput] = useState('');
+    const [isActive, setisActive] = useState(false);
 
     return(
       <div>
         <nav className="navbar" role="navigation" aria-label="main navigation">
           <div className="navbar-brand">
+
+          <a onClick={() => {setisActive(!isActive)}}
+                 role="button" className={`navbar-burger burger ${isActive ? 'is-active' : ''}`}
+                 aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
             <Link to="/" className="navbar-item">
               <img src="/images/Logo.png" width="170" height="40" alt="Logo"/>
             </Link>
@@ -25,14 +34,10 @@ const Header = (props) => {
               Search
             </Link>
             </div>
-            <div role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </div>
+            
           </div>
 
-          <div id="navbarBasicExample" className="navbar-menu">
+          <div id="navbarBasicExample" className={`navbar-menu ${isActive ? 'is-active' : ''}`}>
             <div className="navbar-start">
               <Link to="/" className="navbar-item">
                 Home
