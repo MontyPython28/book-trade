@@ -6,7 +6,8 @@ import  Header from './Header';
 
 
 const UserListing = () => {
-    const serverURL = 'http://localhost:4000/';
+  serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+  //serverURL = 'http://localhost:4000';
     const {currentUser} = useAuth();
     let [listedBooks, setListedBooks] = useState();
     const [loading, setLoading] = useState(true);
@@ -14,7 +15,7 @@ const UserListing = () => {
     const fetchData = async () => {
       await axios({
         "method": "GET",
-        "url": serverURL + 'api/books/' + currentUser.email + '/wishlist'  
+        "url": serverURL + '/api/books/' + currentUser.email + '/wishlist'  
       })
       .then((response) => {
         setListedBooks(response.data);

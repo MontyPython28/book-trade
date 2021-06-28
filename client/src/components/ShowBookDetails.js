@@ -8,7 +8,8 @@ import UnwishlistButton from './UnwishlistButton';
 
 
 class showBookDetails extends Component {
-  serverURL = 'http://localhost:4000';
+  serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+  //serverURL = 'http://localhost:4000';
   constructor(props) {
     super(props);
     this.state = {

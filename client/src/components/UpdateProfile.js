@@ -5,7 +5,8 @@ import Header from "./Header";
 import axios from 'axios'
 
 export default function UpdateProfile() { 
-  const serverURL = 'http://localhost:4000';
+  const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+  //serverURL = 'http://localhost:4000';
   const { currentUser } = useAuth()
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("");
