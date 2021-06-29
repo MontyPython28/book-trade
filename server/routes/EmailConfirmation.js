@@ -47,7 +47,7 @@ router.get("/confirmation/:token", async (req, res) => {
                 //res.json({ msg: 'Updated successfully' })
               })
               .catch(err => {
-                console.log('here too');
+                //console.log('here too');
                 res.status(400).json({ error: err.message })
               })
             )}
