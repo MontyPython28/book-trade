@@ -7,12 +7,15 @@ const User = require('../models/User');
 //-----------------------------------------------NODEMAILER CONFIG
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.mailgun.org",
+  host: "mail.smtp2go.com",
+  port: 2525, // 8025, 587 and 25 can also be used.
   auth: {
-    user: "postmaster@sandbox936a8e23bbaa42adb2577d20f65db15d.mailgun.org",
-    pass: "24e085dd6ac83cf1029cf826e68c0942-aff8aa95-83bf093c"
+    user: "sam_sound",
+    pass: "DVd4izRZ3wa6"
     }
   });
+
+
 
 
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
@@ -86,7 +89,10 @@ router.post("/send-confirmation-email", (req, res) => {
             from: `${APP_NAME} <noreply@firebase.com>`,
             subject: `CONFIRM EMAIL to sign up at ${APP_NAME}!`,
             html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
-          });
+          })
+          .then(
+            console.log('email sent to: '+ email)
+          );
         }
     );
     res.end();
