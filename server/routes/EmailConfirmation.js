@@ -5,12 +5,12 @@ const { signup } = require('../config/firebase');
 const User = require('../models/User');
 
 //-----------------------------------------------NODEMAILER CONFIG
+
 const transporter = nodemailer.createTransport({
-  host: "mail.smtp2go.com",
-  port: 2525, // 8025, 587 and 25 can also be used.
+  host: "smtp.mailgun.org",
   auth: {
-    user: "sajal_smtp",
-    pass: "IMnothere#0311"
+    user: "postmaster@sandbox936a8e23bbaa42adb2577d20f65db15d.mailgun.org",
+    pass: "24e085dd6ac83cf1029cf826e68c0942-aff8aa95-83bf093c"
     }
   });
 
@@ -67,7 +67,7 @@ router.post("/send-confirmation-email", (req, res) => {
     const APP_NAME = 'nus-booktrade'
     const email = req.body.userEmail;
     const password = req.body.password;
-    console.log('sending email to user')
+    //console.log('sending email to user')
     //email sent to user
     jwt.sign(
         {
