@@ -4,14 +4,15 @@ const nodemailer = require('nodemailer');
 const { signup } = require('../config/firebase');
 const User = require('../models/User');
 
+
 //-----------------------------------------------NODEMAILER CONFIG
 
 const transporter = nodemailer.createTransport({
-  host: "mail.smtp2go.com",
-  port: 2525, // 8025, 587 and 25 can also be used.
+  host: "smtp-relay.sendinblue.com",
+  port: 587, 
   auth: {
-    user: "sam_sound",
-    pass: "DVd4izRZ3wa6"
+    user: process.env.smtpUser,
+    pass: process.env.smtpPswd
     }
   });
 
@@ -86,13 +87,14 @@ router.post("/send-confirmation-email", (req, res) => {
   
           transporter.sendMail({
             to: email,
-            from: `${APP_NAME} <noreply@firebase.com>`,
+            from: `${APP_NAME} <noreply@booktrade.netlify.com>`,
             subject: `CONFIRM EMAIL to sign up at ${APP_NAME}!`,
             html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
           })
           .then(
             console.log('email sent to: '+ email)
           );
+
         }
     );
     res.end();
