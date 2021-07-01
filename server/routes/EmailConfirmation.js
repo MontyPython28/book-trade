@@ -64,7 +64,7 @@ router.get("/confirmation/:token", async (req, res) => {
       res.send('error');
     }
     
-    res.redirect('https://nusbooktrade.herokuapp.com'); //replace in prod
+    res.redirect('http://localhost:3000/'); //replace in prod
 });
 
 router.post("/send-confirmation-email", (req, res) => {
@@ -83,7 +83,7 @@ router.post("/send-confirmation-email", (req, res) => {
           expiresIn: '1d',
         },
         (err, emailToken) => {
-          const url = `https://nusbooktrade.herokuapp.com/confirmation/${emailToken}`;
+          const url = `http://localhost:4000/confirmation/${emailToken}`;
   
           transporter.sendMail({
             to: email,
