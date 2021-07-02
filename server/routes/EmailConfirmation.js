@@ -4,15 +4,19 @@ const nodemailer = require('nodemailer');
 const { signup } = require('../config/firebase');
 const User = require('../models/User');
 
+
 //-----------------------------------------------NODEMAILER CONFIG
+
 const transporter = nodemailer.createTransport({
-  host: "mail.smtp2go.com",
-  port: 2525, // 8025, 587 and 25 can also be used.
+  host: "smtp-relay.sendinblue.com",
+  port: 587, 
   auth: {
-    user: "sajal_smtp",
-    pass: "IMnothere#0311"
+    user: process.env.smtpUser,
+    pass: process.env.smtpPswd
     }
   });
+
+
 
 
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
@@ -47,7 +51,7 @@ router.get("/confirmation/:token", async (req, res) => {
                 //res.json({ msg: 'Updated successfully' })
               })
               .catch(err => {
-                console.log('here too');
+                //console.log('here too');
                 res.status(400).json({ error: err.message })
               })
             )}
@@ -60,14 +64,14 @@ router.get("/confirmation/:token", async (req, res) => {
       res.send('error');
     }
     
-    res.redirect('http://localhost:3000'); //replace in prod
+    res.redirect('http://localhost:3000/'); //replace in prod
 });
 
 router.post("/send-confirmation-email", (req, res) => {
     const APP_NAME = 'nus-booktrade'
     const email = req.body.userEmail;
     const password = req.body.password;
-    console.log('sending email to user')
+    //console.log('sending email to user')
     //email sent to user
     jwt.sign(
         {
@@ -83,10 +87,14 @@ router.post("/send-confirmation-email", (req, res) => {
   
           transporter.sendMail({
             to: email,
-            from: `${APP_NAME} <noreply@firebase.com>`,
+            from: `${APP_NAME} <noreply@booktrade.netlify.com>`,
             subject: `CONFIRM EMAIL to sign up at ${APP_NAME}!`,
             html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
-          });
+          })
+          .then(
+            console.log('email sent to: '+ email)
+          );
+
         }
     );
     res.end();
