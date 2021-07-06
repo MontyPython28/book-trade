@@ -14,5 +14,6 @@ const app = firebase.initializeApp({
 
 export default app;
 export const auth = app.auth();
-export const firestore = firebase.firestore();
+export const firestore1 = firebase.firestore();
+export const firestore2 = firebase.firestore;
 export const cred = firebase.auth.EmailAuthProvider;

@@ -3,19 +3,8 @@ import axios from 'axios'
 import { useAuth } from "../contexts/AuthContext";
 import Header from './Header';
 import {Link} from 'react-router-dom'
+import ChatLink from './ChatLink'
 
-function ChatLink(props) {
-  const { link } = props.link;
-  console.log('bruh moment')
-  return (<>
-    <div>
-      <h1>{link}</h1>
-      <Link to={`/chatroom/${link}`} >
-        {link}
-      </Link>
-    </div>
-  </>)
-}
 
 const SellingChats = () => {
     const serverURL = 'http://localhost:4000/';

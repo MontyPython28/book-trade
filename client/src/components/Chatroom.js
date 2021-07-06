@@ -1,31 +1,21 @@
 import React, {useRef, useState} from "react";
-import { firestore } from "../firebase";
+import { firestore1, firestore2 } from "../firebase";
 import {useAuth} from '../contexts/AuthContext'
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import ChatMessage from './ChatMessage'
 
-
-function ChatMessage(props) {
-    const { text, sender, currentUserEmail } = props.message;
-  
-    const messageClass = sender === currentUserEmail ? 'sent' : 'received';
-  
-    return (<>
-      <div className={`message ${messageClass}`}>
-        <p>{text}</p>
-      </div>
-    </>)
-}
 
 const Chatroom = (props) => {
   const dummy = useRef();
-  const messagesRef = firestore.collection('messages');
+  const messagesRef = firestore1.collection('messages');
   const roomId = props.match.params.roomId;
-  const query = messagesRef.whereEqualTo("roomId", roomId).orderBy('createdAt');
+  const query = messagesRef.where('roomId','==',roomId).orderBy('createdAt').limit(10);
 
   const {currentUser} = useAuth();
   const sender = currentUser.email;
 
   const [messages] = useCollectionData(query, { idField: 'id' });
+  console.log('retrieved messages: '+messages)
 
   const [formValue, setFormValue] = useState('');
 
@@ -37,7 +27,7 @@ const Chatroom = (props) => {
 
     await messagesRef.add({
       text: formValue,
-      createdAt: firestore.FieldValue.serverTimestamp(),
+      createdAt: firestore2.FieldValue.serverTimestamp(),
     //   uid,
     //   photoURL
       sender,
