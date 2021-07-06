@@ -60,6 +60,9 @@ const Header = (props) => {
                   <Link to='./listing' className="navbar-item">
                     My Listings
                   </Link>
+                  <Link to='./sellingchats' className="navbar-item">
+                    My Selling Links
+                  </Link>
                   <div className="navbar-item">
                     My History
                   </div>

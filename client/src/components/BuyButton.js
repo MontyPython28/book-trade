@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext"
 import axios from "axios";
 
+
 const WishlistButton = (props) => {
   const { currentUser } = useAuth();
   const [error, setError] = useState("")
@@ -18,13 +19,14 @@ const WishlistButton = (props) => {
     console.log(props.serverURL)
     setWishlistButtonClass('button is-warning is-medium is-outlined is-fullwidth is-loading');
     const data = {
-      book_title: props.title
+      book_title: props.title,
+      seller: props.email
     };
 
     axios
-      .post(props.serverURL + '/add-to-wishlist/' + currentUser.email, data)
+      .post(props.serverURL + '/buy/' + currentUser.email, data)
       .then(async (res) => {
-        setSuccess('Added to wishlist! Redirecting to homepage...');
+        setSuccess('Find the book in your negotiations! Redirecting to homepage...');
         await timeout(5000);
         props.history.push('/');
       })
@@ -43,7 +45,7 @@ const WishlistButton = (props) => {
   : (
     <div className="is-centred">
         <div className = "column has-text-centered is-third">
-            <button type="button" className={WishlistButtonClass} onClick={onSubmit}>Wishlist this book</button>
+            <button type="button" className={WishlistButtonClass} onClick={onSubmit}>Buy this book</button>
         </div>
         {error && <div className="notification is-danger is-light">{error}</div>}
         {success && <div className="notification is-success is-light">{success}</div>}

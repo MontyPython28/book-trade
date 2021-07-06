@@ -4,7 +4,9 @@ const user = new mongoose.Schema({
   user_email: {type: String },
   aboutme: {type: String, default: "generic"},
   wishlist: [{type: String}],
-  listing: [{type: String}]
+  listing: [{type: String}],
+  buyingchat: [{type: String}],
+  sellingchat: [{type: String}]
 });
 
 module.exports = mongoose.model("User", user);

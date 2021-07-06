@@ -16,6 +16,8 @@ import SearchQueryResults from "./SearchQueryResults";
 import sirwait from "./SirWait";
 import wishlist from './UserWishlist'
 import listing from './UserListing'
+import SellingChats from "./SellingChats";
+import Chatroom from "./Chatroom";
 
 
 function App() {
@@ -36,7 +38,9 @@ function App() {
               <PrivateRoute path='/create-book' component={CreateBook} />
               <PrivateRoute path='/wishlist' component={wishlist} />
               <PrivateRoute path='/listing' component={listing} />
-              <PrivateRoute path='/edit-book/:id' component={UpdateBookInfo} />         
+              <PrivateRoute path='/edit-book/:id' component={UpdateBookInfo} />
+              <PrivateRoute path='/sellingchats' component={SellingChats} />
+              <PrivateRoute path='/chatroom/:roomId' component={Chatroom} />         
             </Switch>
           </AuthProvider>
         </Router>

@@ -2,10 +2,10 @@ import React, {useEffect, useState}from "react"
 import axios from 'axios'
 import { useAuth } from "../contexts/AuthContext";
 import BookCard from "./BookCard";
-import  Header from './Header';
+import Header from './Header';
 
 
-const UserListing = () => {
+const UserWishlist = () => {
     const serverURL = 'http://localhost:4000/';
     const {currentUser} = useAuth();
     let [listedBooks, setListedBooks] = useState();
@@ -54,4 +54,4 @@ const UserListing = () => {
     );
 }
  
-export default UserListing;
+export default UserWishlist;

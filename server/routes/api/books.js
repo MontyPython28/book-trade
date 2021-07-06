@@ -101,12 +101,13 @@ router.post('/', upload.single('file'), async (req, res) => {
     });
     //console.log('Managed to do this');
     await book.save();
-    User.findOneAndUpdate(
+    console.log(title + ' created by ' + publisher);
+    await User.findOneAndUpdate(
       {user_email: publisher}, 
       { $push: { listing: [title] } },
       {
         returnOriginal: false,
-        upsert: true
+        upsert: false
       }
     )
     res.send('file uploaded successfully.');

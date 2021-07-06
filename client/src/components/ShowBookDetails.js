@@ -5,6 +5,7 @@ import Header from './Header';
 import EditButtonTrio from './EditButtonTrio';
 import WishlistButton from './WishlistButton';
 import UnwishlistButton from './UnwishlistButton';
+import BuyButton from './BuyButton'
 
 
 class showBookDetails extends Component {
@@ -141,6 +142,7 @@ class showBookDetails extends Component {
               ? <WishlistButton email={book.publisher} title={book.title} serverURL={this.serverURL} history={this.props.history}/>
               : <div></div>
             }
+            <BuyButton email={book.publisher} title={book.title} serverURL={this.serverURL} history={this.props.history}/>
           </div>
         </div>
         </div>

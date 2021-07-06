@@ -31,6 +31,15 @@ router.get('/user-details/:user', (req, res) => {
       .catch(err => res.status(404).json({nouserfound: 'No User found' }));
 });
 
+router.get('/selling-chats/:user', (req, res) => {
+  User.findOne({user_email: req.params.user})
+    .then(user => {
+      console.log(user.sellingchat)
+      res.json(user);
+    })
+    .catch(err => res.status(404).json({nouserfound: 'No User found' }));
+});
+
 router.post('/add-to-wishlist/:user', (req, res) => {
   User.findOneAndUpdate(
     {user_email: req.params.user}, 
@@ -46,6 +55,34 @@ router.post('/add-to-wishlist/:user', (req, res) => {
     .catch(err =>
       res.status(400).json({ error: 'Unable to update the Database' })
     );
+});
+
+router.post('/buy/:user', (req, res) => {
+  User.findOneAndUpdate(
+    {user_email: req.params.user}, 
+    { $push: { buyingchat: [req.body.book_title] } },
+    {
+      returnOriginal: false,
+      upsert: false
+    })
+    .then(user => {
+      console.log(user.buyingchat);
+      User.findOneAndUpdate(
+        {user_email: req.body.seller}, 
+        { $push: { sellingchat: [req.body.book_title] } },
+        {
+          returnOriginal: false,
+          upsert: false
+        })
+        .then(seller => {
+          console.log(seller.sellingchat);
+          res.json({ msg: 'Updated successfully' })
+        })
+    })
+    .catch(err =>
+      res.status(400).json({ error: 'Unable to update the Database' })
+    );
+  
 });
 
 router.post('/remove-from-wishlist/:user', (req, res) => {
