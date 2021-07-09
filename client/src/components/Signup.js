@@ -23,7 +23,7 @@ export default function Signup() {
       setError("");
       setLoading(true);
       console.log(psword, pswordConfirm);
-      await signup(username, psword);
+      await signup(username.toLowerCase(), psword);
       history.push("/wait");
     } catch {
       setError("Failed to create an account");

@@ -4,12 +4,12 @@ import { useAuth } from "../contexts/AuthContext";
 import BookCard from "./BookCard";
 import  Header from './Header';
 
-
 const UserListing = () => {
     const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
     //serverURL = 'http://localhost:4000';
     const {currentUser} = useAuth();
     let [listedBooks, setListedBooks] = useState();
+    const [setUp, setSetUp] = useState(false);
     
     const fetchData = async () => {
       await axios({
@@ -22,10 +22,11 @@ const UserListing = () => {
       .catch((error) => {
         console.log(error)
       });
+      setSetUp(true);
     }
     
     useEffect(() => {
-      fetchData()
+      fetchData();
     }, [])
 
     let bookList;
@@ -38,9 +39,9 @@ const UserListing = () => {
       );
     }
 
-    return ( 
+    return setUp ? ( 
       <div>
-      <Header title="View Book List" />
+      <Header title="My Listings" />
       <div className="container">
         <div className = "columns is-multiline">
             {bookList}
@@ -48,7 +49,7 @@ const UserListing = () => {
       </div>
       
     </div>
-    );
+    ) : (<Header title="My Listings" />);
 }
  
 export default UserListing;

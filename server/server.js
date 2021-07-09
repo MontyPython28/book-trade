@@ -1,6 +1,7 @@
 //---------------------------------------EXPRESS AND GLOBAL MIDDLEWARE IMPORTS
 require("dotenv").config();//loads environment variables into process.env
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const connectDB = require('./config/db');
 
@@ -24,11 +25,13 @@ app.use(express.urlencoded({ extended: true }));
 
 //---------------------------------------GET ROUTES
 const books = require('./routes/api/books');
+const posts = require('./routes/api/posts');
 const confirmEmail = require('./routes/EmailConfirmation');
 const CRUDuser = require('./routes/CRUDuser')
 
 app.use(confirmEmail);
 app.use('/api/books', books);
+app.use('/api/posts', posts);
 app.use(CRUDuser);
 
 
@@ -40,5 +43,5 @@ app.listen(port, () => console.log(`Server running on port ${port}`));
 
 //---------------------------------------WELCOME MESSAGE
 app.get('/', (req, res) => {
-    res.send("this is just a welcome message. pls go to server logs to understand how broken this all really is.")
+    res.sendFile(path.join(__dirname, '/signup.html'));
 })

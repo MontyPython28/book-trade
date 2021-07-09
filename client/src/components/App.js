@@ -16,6 +16,7 @@ import SearchQueryResults from "./SearchQueryResults";
 import sirwait from "./SirWait";
 import wishlist from './UserWishlist'
 import listing from './UserListing'
+import UserPosts from "./UserPosts";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
               <PrivateRoute path='/create-book' component={CreateBook} />
               <PrivateRoute path='/wishlist' component={wishlist} />
               <PrivateRoute path='/listing' component={listing} />
+              <PrivateRoute path='/my-posts' component={UserPosts} />
               <PrivateRoute path='/edit-book/:id' component={UpdateBookInfo} />         
             </Switch>
           </AuthProvider>

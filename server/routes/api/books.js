@@ -53,6 +53,15 @@ router.get('/', (req, res) => {
     .catch(err => res.status(404).json({ nobooksfound: 'No Books found' }));
 });
 
+// @route GET api/books
+// @description Get all NOT SOLD books
+// @access Public
+router.get('/forSale', (req, res) => {
+  Book.find({ sold: false })
+    .then(books => res.json(books))
+    .catch(err => res.status(404).json({ nobooksfound: 'No Books found' }));
+});
+
 router.get('/:user/listing', (req, res) => {
   Book.find({publisher: req.params.user})
     .then(books => res.json(books))

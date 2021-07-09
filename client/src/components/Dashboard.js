@@ -33,7 +33,6 @@ export default function Dashboard() {
   return (
     <>
       <Header title="My Profile" />
-      <br />
       <div className="container">
         <div className = "columns">
           <div className="column is-three-fifths is-offset-one-fifth">

@@ -52,10 +52,6 @@ class showBookDetails extends Component {
         .catch((error) => {
           console.log(error)
         });
-        console.log(this.state.book.price.$numberDecimal);
-      })
-      .catch(err => {
-        console.log(err);
       })
     
   };
@@ -120,8 +116,6 @@ class showBookDetails extends Component {
         <div className="container">
         <div className = "columns">
           <div className="column is-three-fifths is-offset-one-fifth">
-              
-              <br />
               <div className="box">
               <div className="columns">
                 <div className="column is-two-thirds">

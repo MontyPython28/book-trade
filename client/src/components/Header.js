@@ -13,13 +13,13 @@ const Header = (props) => {
         <nav className="navbar" role="navigation" aria-label="main navigation">
           <div className="navbar-brand">
 
-          <a onClick={() => {setisActive(!isActive)}}
+          <div onClick={() => {setisActive(!isActive)}}
                  role="button" className={`navbar-burger burger ${isActive ? 'is-active' : ''}`}
                  aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
-            </a>
+            </div>
             <Link to="/" className="navbar-item">
               <img src="/images/Logo.png" width="170" height="40" alt="Logo"/>
             </Link>
@@ -62,8 +62,11 @@ const Header = (props) => {
                   <Link to="/dashboard" className="navbar-item">
                     My Profile
                   </Link>
-                  <Link to='./listing' className="navbar-item">
+                  <Link to='/listing' className="navbar-item">
                     My Listings
+                  </Link>
+                  <Link to='/my-posts' className="navbar-item">
+                    My Posts
                   </Link>
                   <div className="navbar-item">
                     My History
@@ -79,6 +82,7 @@ const Header = (props) => {
         </nav> 
 
         <h2 className="title is-2  has-text-centered">{props.title}</h2>
+        <br />
         </div>
      
     )
