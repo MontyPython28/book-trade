@@ -6,7 +6,7 @@ import Header from './Header';
 
 class CreateBook extends Component {
   serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  //serverURL = 'http://localhost:4000';
+  // serverURL = 'http://localhost:4000';
 
   constructor() {
     super();
@@ -15,13 +15,13 @@ class CreateBook extends Component {
       mcode:'',
       author:'',
       description:'',
-      price:null,
+      price:undefined,
 
       //for CSS of button
       buttonClass: 'button is-success is-medium is-outlined is-fullwidth',
 
       // for image uploading
-      file: null,
+      file: undefined,
       previewSrc: '',
       errorMsg : '', 
       isPreviewAvailable:false, 
@@ -48,7 +48,6 @@ class CreateBook extends Component {
     data.append('sold', false);
     data.append('file', this.state.file); // for image
 
-    console.log(data);
     axios
       .post(this.serverURL + '/api/books', data, {
         headers: {
@@ -86,7 +85,6 @@ class CreateBook extends Component {
 
   render() {
 
-    console.log(this.props.currentUser.email);
     return (
       <div>
       <Header title="Add Book" />
@@ -94,7 +92,7 @@ class CreateBook extends Component {
         <div className="columns">
           <div className="column is-three-fifths is-offset-one-fifth">
 
-            <form noValidate onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit}>
             <div className="box">
               <div className="field">
                 <label className="label">Title</label>
@@ -159,6 +157,7 @@ class CreateBook extends Component {
                     type='number'
                     placeholder='Price'
                     name='price'
+                    min='0' max='1000'
                     className='input is-success'
                     value={this.state.price}
                     onChange={this.onChange}

@@ -8,8 +8,8 @@ import ForumPost from './ForumPost';
 import CreateForumPost from './CreateForumPost';
 
 class SearchQueryResults extends Component {
-  // serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  serverURL = 'http://localhost:4000';
+  serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+  // serverURL = 'http://localhost:4000';
   
   constructor(props) {
     super(props); //this.props.match.params.query is the query name

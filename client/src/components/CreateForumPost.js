@@ -9,8 +9,8 @@ import axios from "axios";
 
 const CreateForumPost = (props) => {
     const { currentUser } = useAuth();
-    // const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-    const serverURL = 'http://localhost:4000';
+    const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+    // const serverURL = 'http://localhost:4000';
 
     const [title, setTitle] = useState('');
     const [mcode, setMcode] = useState('');
@@ -21,7 +21,7 @@ const CreateForumPost = (props) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        setButtonClass('button is-successi s-loading');
+        setButtonClass('button is-success is-loading');
 
         const data = {
             title: title,
@@ -44,7 +44,7 @@ const CreateForumPost = (props) => {
     }
 
     return currentUser ? (
-        <form noValidate onSubmit={onSubmit}>
+        <form noValidate onSubmit={onSubmit} className="box">
             <div className="columns">
               <div className="column is-three-fifths">
                 <label className="label">Title: </label>

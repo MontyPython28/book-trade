@@ -29,7 +29,7 @@ class Accordion extends React.Component {
               </p>
               <div className="card-header-icon">
                 <span className="icon">
-                  <i className="fa fa-angle-up"></i>
+                  <i className={expanded ? "fa fa-angle-down" : "fa fa-angle-up"}></i>
                 </span>
               </div>
             </header>

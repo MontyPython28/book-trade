@@ -5,8 +5,8 @@ import ForumPost from "./ForumPost";
 import  Header from './Header';
 
 const UserPosts = () => {
-    //const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-    const serverURL = 'http://localhost:4000';
+    const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+    // const serverURL = 'http://localhost:4000';
 
     const {currentUser} = useAuth();
     let [posts, setPosts] = useState();
