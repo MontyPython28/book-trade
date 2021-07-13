@@ -19,6 +19,7 @@ import listing from './UserListing'
 import SellingChats from "./SellingChats";
 import Chatroom from "./Chatroom";
 import BuyingChats from "./BuyingChats";
+import Inbox from "./Inbox";
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
               <PrivateRoute path='/edit-book/:id' component={UpdateBookInfo} />
               <PrivateRoute path='/sellingchats' component={SellingChats} />
               <PrivateRoute path='/buyingchats' component={BuyingChats} />
+              <PrivateRoute path='/inbox' component={Inbox} />
               <PrivateRoute path='/chatroom/:roomId' component={Chatroom} />         
             </Switch>
           </AuthProvider>
