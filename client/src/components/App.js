@@ -18,6 +18,7 @@ import wishlist from './UserWishlist'
 import listing from './UserListing'
 import SellingChats from "./SellingChats";
 import Chatroom from "./Chatroom";
+import BuyingChats from "./BuyingChats";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
               <PrivateRoute path='/listing' component={listing} />
               <PrivateRoute path='/edit-book/:id' component={UpdateBookInfo} />
               <PrivateRoute path='/sellingchats' component={SellingChats} />
+              <PrivateRoute path='/buyingchats' component={BuyingChats} />
               <PrivateRoute path='/chatroom/:roomId' component={Chatroom} />         
             </Switch>
           </AuthProvider>

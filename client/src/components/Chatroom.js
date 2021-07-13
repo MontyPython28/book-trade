@@ -64,7 +64,7 @@ const Chatroom = (props) => {
   return (<>
     <main>
 
-      {messages && messages.map(msg => <ChatMessage currentUserEmail={sender} key={msg.id} message={msg} />)}
+      {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} msgsender={msg.sender}/>)}
 
       <span ref={dummy}></span>
 
