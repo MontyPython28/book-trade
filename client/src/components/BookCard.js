@@ -16,8 +16,8 @@ const BookCard = (props) => {
     } 
 
     return (
-        <div className = "column is-one-fifth">
-        <div className="card">
+        <div className = {"column " + props.size}>
+        <Link to={`/show-book/${book._id}`} className="card is-hovered">
             <div className="card-image">
             <figure className="image is-3by4">
                 <img src= {filepath} alt="" /> </figure>
@@ -26,7 +26,7 @@ const BookCard = (props) => {
                 <div className="media">
                 <div className="media-content">
                 <h2 className="subtitle is-5">
-                    <Link to={`/show-book/${book._id}`}>
+                    <Link to={`/show-book/${book._id}`} >
                         { book.title }
                     </Link>
                     <p className="subtitle is-7"> {book.publisher} </p>
@@ -43,7 +43,7 @@ const BookCard = (props) => {
                  </div>
                 </div>
             </div>
-        </div>
+        </Link>
         </div>
     )
 };

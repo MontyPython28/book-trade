@@ -11,7 +11,8 @@ import UpdateProfile from "./UpdateProfile";
 import ShowBookDetails from "./ShowBookDetails";
 import UpdateBookInfo from "./UpdateBookInfo";
 import CreateBook from "./CreateBook";
-import ShowBookList from "./ShowBookList";
+import Home from "./Home";
+import AllBooks from "./AllBooks";
 import SearchQueryResults from "./SearchQueryResults";
 import sirwait from "./SirWait";
 import wishlist from './UserWishlist'
@@ -24,7 +25,7 @@ function App() {
         <Router>
           <AuthProvider>
             <Switch>
-              <Route exact path="/" component={ShowBookList} />
+              <Route exact path="/" component={Home} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
               <PrivateRoute path="/update-password" component={UpdatePswd} />
               <PrivateRoute path="/update-profile" component={UpdateProfile} />
@@ -33,6 +34,7 @@ function App() {
               <Route path="/login" component={Login} />
               <Route path="/forgot-password" component={ForgotPassword} />
               <Route path='/search/:query' component={SearchQueryResults} />
+              <Route path='/all-books' component={AllBooks} />
               <PrivateRoute path='/show-book/:id' component={ShowBookDetails} />
               <PrivateRoute path='/create-book' component={CreateBook} />
               <PrivateRoute path='/wishlist' component={wishlist} />

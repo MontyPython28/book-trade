@@ -9,7 +9,7 @@ const LoginButton = () => {
   ? (<button className="button is-light" onClick={() => logout({ returnTo: window.location.origin })}>
     Log Out
   </button>)
-  : (<Link to="/login" className="button is-light">Log In</Link>);
+  : (<Link to="/login" className="button is-light">Log In/Sign Up</Link>);
 };
 
 export default LoginButton;

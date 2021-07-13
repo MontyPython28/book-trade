@@ -68,12 +68,11 @@ export default function UpdateProfile() {
   return (
     <div>
       <Header title="Update Profile"/>
-      <div className="hero-body">
       <div className="container">
-        <div className="column is-three-fifths is-offset-one-fifth">
+        <div className="column is-4 is-offset-4">
           {error && <div className="notification is-danger is-light">{error}</div>}
           {success && <div className="notification is-success is-light">{success}</div>}
-          <h3 className="subtitle is-5">Email: {currentUser.email} </h3>
+          <h3 className="subtitle is-5 has-text-centered"> {currentUser.email} </h3>
           <form onSubmit={handleSubmit}>
           <div className="box">
           
@@ -99,7 +98,6 @@ export default function UpdateProfile() {
         </form>
         </div>
       </div>
-    </div>
     </div>
   )
 }

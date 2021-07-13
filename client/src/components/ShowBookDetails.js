@@ -8,8 +8,8 @@ import UnwishlistButton from './UnwishlistButton';
 
 
 class showBookDetails extends Component {
-  serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  //serverURL = 'http://localhost:4000';
+  // serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+  serverURL = 'http://localhost:4000';
   constructor(props) {
     super(props);
     this.state = {
@@ -111,8 +111,9 @@ class showBookDetails extends Component {
     </div>
 
     return (
-      <div>
-        <Header title="View Book Info" />
+      <div style={{minHeight: "100vh"}}>
+        <Header title={book.title} />
+        <br />
         <div className="container">
         <div className = "columns">
           <div className="column is-three-fifths is-offset-one-fifth">

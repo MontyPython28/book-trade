@@ -87,15 +87,17 @@ class CreateBook extends Component {
 
     return (
       <div>
-      <Header title="Add Book" />
+      <Header title="Add Listing"/>
+      <br />
         <div className="container">
         <div className="columns">
           <div className="column is-three-fifths is-offset-one-fifth">
 
             <form onSubmit={this.onSubmit}>
             <div className="box">
-              <div className="field">
-                <label className="label">Title</label>
+            <div className="field">
+                <label className="label">
+                <p className="subtitle is-uppercase">Title</p></label>
                 <div className="control">
                   <input
                     type='text'
@@ -109,7 +111,8 @@ class CreateBook extends Component {
               </div>
 
               <div className="field">
-                <label className="label">Module Code</label>
+                <label className="label">
+                <p className="subtitle is-uppercase">Module Code</p></label>
                 <div className="control">
                   <input
                     type='text'
@@ -123,7 +126,8 @@ class CreateBook extends Component {
               </div>
 
               <div className="field">
-                <label className="label">Author</label>
+                <label className="label">
+                <p className="subtitle is-uppercase">Author</p></label>
                 <div className="control">
                   <input
                     type='text'
@@ -137,7 +141,8 @@ class CreateBook extends Component {
               </div>
 
               <div className="field">
-                <label className="label">Description</label>
+                <label className="label">
+                <p className="subtitle is-uppercase">Description</p></label>
                 <div className="control">
                   <textarea
                     type='text'
@@ -151,7 +156,8 @@ class CreateBook extends Component {
               </div>
 
               <div className="field">
-              <label className="label has-text-success">Price (in SGD)</label>
+              <label className="label">
+              <p className="subtitle has-text-success is-uppercase">Price (SGD)</p></label>
                 <div className="control">
                   <input
                     type='number'
@@ -166,13 +172,15 @@ class CreateBook extends Component {
               </div>
 
               <div className="field">
-                <label className="label">Image</label>
+              <label className="label">
+              <p className="subtitle is-uppercase">Image</p></label>
                 <div className="control">
                   <Dropzone onDrop={this.onDrop}>
                     {({ getRootProps, getInputProps }) => (
                       <div {...getRootProps({ className: 'drop-zone' })} ref={this.state.dropRef}>
                         <input className="input" {...getInputProps()} />
-                        <p className='input is-focused'>Drag and drop a file OR click here to select a file</p>
+                        <p className='file'>
+                          Drag and drop a file OR click here to select a file</p>
                         {this.state.file && (
                           <div>
                             <strong>Selected file:</strong> {this.state.file.name}

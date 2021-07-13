@@ -4,9 +4,9 @@ import { Link, useHistory } from "react-router-dom";
 import Header from "./Header";;
 
 export default function Dashboard() {
-  const [error, setError] = useState("")
-  const { currentUser, logout } = useAuth()
-  const history = useHistory()
+  const [error, setError] = useState("");
+  const { currentUser, logout } = useAuth();
+  const history = useHistory();
 
   async function handleLogout() {
     setError("")
@@ -33,6 +33,7 @@ export default function Dashboard() {
   return (
     <>
       <Header title="My Profile" />
+      <br />
       <div className="container">
         <div className = "columns">
           <div className="column is-three-fifths is-offset-one-fifth">
@@ -46,12 +47,12 @@ export default function Dashboard() {
             </div>        
           <div className="columns is-centred">
               <div className = "column has-text-centered is-one-third">
-              <Link to= "/update-password"className="button is-info is-outlined is-fullwidth">
+              <Link to= "/update-password"className="button is-primary is-outlined is-fullwidth">
                 Update Password
               </Link>
               </div>
               <div className = "column has-text-centered is-one-third">
-              <Link to= "/update-profile" className="button is-info is-outlined is-fullwidth">
+              <Link to= "/update-profile" className="button is-primary is-outlined is-fullwidth">
                 Update Profile
               </Link>
               </div>

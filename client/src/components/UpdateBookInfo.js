@@ -73,7 +73,8 @@ class UpdateBookInfo extends Component {
     return (
       this.state.accessControls ? (
       <div>
-        <Header title="Edit Book Details" />
+        <Header title="Edit Listing"/>
+        <br />
         <div  className="container">
         <div className="columns">
           <div className="column is-three-fifths is-offset-one-fifth">
@@ -81,7 +82,8 @@ class UpdateBookInfo extends Component {
             <form noValidate onSubmit={this.onSubmit}>
             <div className="box">
               <div className="field">
-                <label className="label">Title</label>
+                <label className="label">
+                <p className="subtitle is-uppercase">Title</p></label>
                 <div className="control">
                   <input
                     type='text'
@@ -95,7 +97,8 @@ class UpdateBookInfo extends Component {
               </div>
 
               <div className="field">
-                <label className="label">Module Code</label>
+                <label className="label">
+                <p className="subtitle is-uppercase">Module Code</p></label>
                 <div className="control">
                   <input
                     type='text'
@@ -109,7 +112,8 @@ class UpdateBookInfo extends Component {
               </div>
 
               <div className="field">
-                <label className="label">Author</label>
+                <label className="label">
+                <p className="subtitle is-uppercase">Author</p></label>
                 <div className="control">
                   <input
                     type='text'
@@ -123,7 +127,8 @@ class UpdateBookInfo extends Component {
               </div>
 
               <div className="field">
-                <label className="label">Description</label>
+                <label className="label">
+                <p className="subtitle is-uppercase">Description</p></label>
                 <div className="control">
                   <textarea
                     type='text'
@@ -137,7 +142,8 @@ class UpdateBookInfo extends Component {
               </div>
 
               <div className="field">
-              <label className="label has-text-success">Price (in SGD)</label>
+              <label className="label">
+              <p className="subtitle has-text-success is-uppercase">Price (SGD)</p></label>
                 <div className="control">
                   <input
                     type='number'
@@ -159,7 +165,7 @@ class UpdateBookInfo extends Component {
           </div>
         </div>
       </div>
-      ) : (<Header />)
+      ) : (<Header title="Edit Listing"/>)
     );
   }
 }

@@ -37,14 +37,15 @@ const UserListing = () => {
         bookList = "There is no book record!";
       } else {
         bookList = listedBooks.map((book, k) =>
-          <BookCard book={book} key={k} />
+          <BookCard book={book} key={k} size="is-one-fifth"/>
         );
       }
     }
 
     return ( 
       <div>
-      <Header title="View My Listings" />
+      <Header title="My Wishlist" />
+      <br />
       <div className="container">
         <div className = "columns is-multiline">
             {bookList}

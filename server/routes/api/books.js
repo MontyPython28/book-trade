@@ -49,6 +49,7 @@ router.get('/test', (req, res) => res.send('book route testing!'));
 // @access Public
 router.get('/', (req, res) => {
   Book.find()
+    .sort({ updated_date: -1 })
     .then(books => res.json(books))
     .catch(err => res.status(404).json({ nobooksfound: 'No Books found' }));
 });
@@ -58,6 +59,7 @@ router.get('/', (req, res) => {
 // @access Public
 router.get('/forSale', (req, res) => {
   Book.find({ sold: false })
+    .sort({ updated_date: -1 })
     .then(books => res.json(books))
     .catch(err => res.status(404).json({ nobooksfound: 'No Books found' }));
 });

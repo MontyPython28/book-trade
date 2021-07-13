@@ -43,6 +43,7 @@ const UserPosts = () => {
     return setUp ? ( 
       <div>
       <Header title="My Posts" />
+      <br />
       <div className="container">
         {postList}
       </div>
