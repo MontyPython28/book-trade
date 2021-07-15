@@ -1,6 +1,5 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/firestore';
 
 const app = firebase.initializeApp({
     apiKey: "AIzaSyCPLmhFy_zZtjKbmnLSBu96KKCaFOlH7N4",
@@ -14,6 +13,4 @@ const app = firebase.initializeApp({
 
 export default app;
 export const auth = app.auth();
-export const firestoreFunc = firebase.firestore();
-export const firestoreClass = firebase.firestore;
 export const cred = firebase.auth.EmailAuthProvider;

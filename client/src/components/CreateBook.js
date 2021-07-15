@@ -5,8 +5,8 @@ import axios from 'axios';
 import Header from './Header';
 
 class CreateBook extends Component {
-  // serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  serverURL = 'http://localhost:4000';
+  //serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+   serverURL = 'http://localhost:4000';
 
   constructor() {
     super();
@@ -15,13 +15,13 @@ class CreateBook extends Component {
       mcode:'',
       author:'',
       description:'',
-      price:null,
+      price:undefined,
 
       //for CSS of button
       buttonClass: 'button is-success is-medium is-outlined is-fullwidth',
 
       // for image uploading
-      file: null,
+      file: undefined,
       previewSrc: '',
       errorMsg : '', 
       isPreviewAvailable:false, 
@@ -48,7 +48,6 @@ class CreateBook extends Component {
     data.append('sold', false);
     data.append('file', this.state.file); // for image
 
-    console.log(data);
     axios
       .post(this.serverURL + '/api/books', data, {
         headers: {
@@ -86,18 +85,19 @@ class CreateBook extends Component {
 
   render() {
 
-    console.log(this.props.currentUser.email);
     return (
       <div>
-      <Header title="Add Book" />
+      <Header title="Add Listing"/>
+      <br />
         <div className="container">
         <div className="columns">
           <div className="column is-three-fifths is-offset-one-fifth">
 
-            <form noValidate onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit}>
             <div className="box">
-              <div className="field">
-                <label className="label">Title</label>
+            <div className="field">
+                <label className="label">
+                <p className="subtitle is-uppercase">Title</p></label>
                 <div className="control">
                   <input
                     type='text'
@@ -111,7 +111,8 @@ class CreateBook extends Component {
               </div>
 
               <div className="field">
-                <label className="label">Module Code</label>
+                <label className="label">
+                <p className="subtitle is-uppercase">Module Code</p></label>
                 <div className="control">
                   <input
                     type='text'
@@ -125,7 +126,8 @@ class CreateBook extends Component {
               </div>
 
               <div className="field">
-                <label className="label">Author</label>
+                <label className="label">
+                <p className="subtitle is-uppercase">Author</p></label>
                 <div className="control">
                   <input
                     type='text'
@@ -139,7 +141,8 @@ class CreateBook extends Component {
               </div>
 
               <div className="field">
-                <label className="label">Description</label>
+                <label className="label">
+                <p className="subtitle is-uppercase">Description</p></label>
                 <div className="control">
                   <textarea
                     type='text'
@@ -153,12 +156,14 @@ class CreateBook extends Component {
               </div>
 
               <div className="field">
-              <label className="label has-text-success">Price (in SGD)</label>
+              <label className="label">
+              <p className="subtitle has-text-success is-uppercase">Price (SGD)</p></label>
                 <div className="control">
                   <input
                     type='number'
                     placeholder='Price'
                     name='price'
+                    min='0' max='1000'
                     className='input is-success'
                     value={this.state.price}
                     onChange={this.onChange}
@@ -167,13 +172,15 @@ class CreateBook extends Component {
               </div>
 
               <div className="field">
-                <label className="label">Image</label>
+              <label className="label">
+              <p className="subtitle is-uppercase">Image</p></label>
                 <div className="control">
                   <Dropzone onDrop={this.onDrop}>
                     {({ getRootProps, getInputProps }) => (
                       <div {...getRootProps({ className: 'drop-zone' })} ref={this.state.dropRef}>
                         <input className="input" {...getInputProps()} />
-                        <p className='input is-focused'>Drag and drop a file OR click here to select a file</p>
+                        <p className='file'>
+                          Drag and drop a file OR click here to select a file</p>
                         {this.state.file && (
                           <div>
                             <strong>Selected file:</strong> {this.state.file.name}

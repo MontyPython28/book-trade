@@ -23,7 +23,7 @@ export default function Signup() {
       setError("");
       setLoading(true);
       console.log(psword, pswordConfirm);
-      await signup(username, psword);
+      await signup(username.toLowerCase(), psword);
       history.push("/wait");
     } catch {
       setError("Failed to create an account");
@@ -36,7 +36,7 @@ export default function Signup() {
     <div className="hero-body">
       <div className="container">
         <div className="column is-4 is-offset-4">
-          <h3 className="subtitle is-3 has-text-centered has-text-black"> Sign Up </h3>
+          <h3 className="title is-3 has-text-centered has-text-black"> Sign Up </h3>
           {error && <div className="notification is-danger is-light">{error}</div>}
           
 

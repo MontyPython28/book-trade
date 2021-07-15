@@ -3,12 +3,15 @@ import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
 export default function Login() {
+
   const { login } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [psword, setPsword] = useState("");
+  const [type, setType] = useState("password");
+  const [icon, setIcon] = useState("fas fa-eye");
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -16,7 +19,7 @@ export default function Login() {
     try {
       setError("");
       setLoading(true);
-      await login(username, psword); // await login(NUSNETref.current.value, passwordRef.current.value);
+      await login(username, psword);
       history.push("/");
     } catch {
       setError("Failed to log in");
@@ -25,26 +28,42 @@ export default function Login() {
     setLoading(false)
   }
 
+  const changeVisibility = () => {
+    if (type === "password") {
+      setIcon("fas fa-eye-slash");
+      setType("text");
+    } else {
+      setIcon("fas fa-eye");
+      setType("password");
+    }
+  }
+
   // 
   return (
     <div className="hero-body">
       <div className="container">
         <div className="column is-4 is-offset-4">
-          <h3 className="subtitle is-3 has-text-centered has-text-black"> Login </h3>
+          <h3 className="title is-3 has-text-centered has-text-black"> Login </h3>
           {error && <div className="notification is-danger is-light">{error}</div>}
           
           <form className="box" onSubmit={handleSubmit}>
             <div className="field">
-            <label className="label">NUSNET ID</label>
+            <label className="label">
+            <p className="subtitle">NUSNET ID</p></label>
             <div className="control">
               <input className="input" type="text" placeholder="EXXXXXXX" 
               onChange={(event) => setUsername(event.target.value)} />
             </div>
           </div>
           <div className="field">
-            <label className="label">Password</label>
-            <div className="control">
-              <input className="input" type="password" placeholder="********" 
+            <label className="label">
+            <p className="subtitle">Password</p></label>
+            <div className="control has-icons-right">
+              <span class="icon is-small is-right is-clickable">
+              <i class={icon}
+                  onClick={changeVisibility}></i>
+              </span>
+              <input className="input" type={type} placeholder="********" 
                 onChange={(event) => setPsword(event.target.value)} />
             </div>
           </div>

@@ -16,7 +16,8 @@ export default function ForgotPassword() {
       setMessage("");
       setError("");
       setLoading(true);
-      await resetPassword(email);
+      const withExtension = email + '@u.nus.edu';
+      await resetPassword(withExtension);
       setMessage("Check your inbox for further instructions");
     } catch {
       setError("Failed to reset password");
@@ -29,15 +30,15 @@ export default function ForgotPassword() {
     <div className="hero-body">
       <div className="container">
         <div className="column is-4 is-offset-4">
-          <h3 className="subtitle is-3 has-text-centered has-text-black"> Reset Password </h3>
+          <h3 className="title is-3 has-text-centered has-text-black"> Reset Password </h3>
           {error && <div className="notification is-danger is-light">{error}</div>}
           {message && <div className="notification is-success is-light">{message}</div>}
           
           <form className="box" onSubmit={handleSubmit}>
             <div className="field">
-            <label className="label">Email (with extension)</label>
+            <label className="label">NUSNET ID</label>
             <div className="control">
-              <input className="input" type="text" placeholder="EXXXXXXX@u.nus.edu" 
+              <input className="input" type="text" placeholder="EXXXXXXX" 
               onChange={(event) => setEmail(event.target.value)} />
             </div>
           </div>

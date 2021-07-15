@@ -1,47 +1,55 @@
 import React, { useState }  from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import LoginButton from './LoginButton';
 import '../App.css';
 
 const Header = (props) => {
 
     const [searchInput, setSearchInput] = useState('');
+    const [isActive, setisActive] = useState(false);
+    const history = useHistory();
+
+    const handleKeyDown = e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        history.push('/search/' + searchInput);
+      }
+    }
 
     return(
       <div>
-        <nav className="navbar" role="navigation" aria-label="main navigation">
+        <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation">
           <div className="navbar-brand">
-            <Link to="/" className="navbar-item">
-              <img src="/images/Logo.png" width="170" height="40" alt="Logo"/>
+
+          <div onClick={() => {setisActive(!isActive)}}
+                 role="button" className={`navbar-burger burger ${isActive ? 'is-active' : ''}`}
+                 aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </div>
+            <Link to="/">
+              <img src="/images/LogoSide.png" width="200" height="50" alt="Logo"/>
             </Link>
             <div className="nav-bar item">
-            <input className="input" type="search" placeholder="Search"
+            <input className="input is-rounded" type="search" placeholder="Search"
               onChange={(event) => setSearchInput(event.target.value)}
+              onKeyDown={handleKeyDown}
             />
             </div>
-
-            <div className="nav-bar item">
-            <Link to={`/search/${searchInput}`} className="button is-primary">
-              Search
-            </Link>
-            </div>
-            <div role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </div>
+            
           </div>
 
-          <div id="navbarBasicExample" className="navbar-menu">
+          <div id="navbarBasicExample" className={`navbar-menu ${isActive ? 'is-active' : ''}`}>
             <div className="navbar-start">
-              <Link to="/" className="navbar-item">
-                Home
+              <Link to="/create-book" className="navbar-item ">
+                <p className="subtitle is-6">ADD LISTING</p>
               </Link>
-              <Link to="/create-book" className="navbar-item">
-                Add Book
+              <Link to="/all-books" className="navbar-item ">
+                <p className="subtitle is-6">ALL BOOKS</p>
               </Link>
-              <Link to='/wishlist' className="navbar-item" >
-                My Wishlist
+              <Link to="/all-books" className="navbar-item ">
+                <p className="subtitle is-6">FORUM</p>
               </Link>
             </div>
 
@@ -57,17 +65,14 @@ const Header = (props) => {
                   <Link to="/dashboard" className="navbar-item">
                     My Profile
                   </Link>
-                  <Link to='./listing' className="navbar-item">
+                  <Link to='/wishlist' className="navbar-item" >
+                    My Wishlist
+                  </Link>
+                  <Link to='/listing' className="navbar-item">
                     My Listings
                   </Link>
-                  <Link to='./sellingchats' className="navbar-item">
-                    My Selling Links
-                  </Link>
-                  <Link to='./buyingchats' className="navbar-item">
-                    My Buying Links
-                  </Link>
-                  <Link to='./inbox' className="navbar-item">
-                    Inbox
+                  <Link to='/my-posts' className="navbar-item">
+                    My Posts
                   </Link>
                   <div className="navbar-item">
                     My History
@@ -80,11 +85,10 @@ const Header = (props) => {
               </div>
             </div>
           </div>
-        </nav> 
-
-        <h2 className="title is-2  has-text-centered">{props.title}</h2>
-        </div>
-     
+        </nav>
+        <br /><br />
+        <div className="title has-text-centered">{props.title}</div>
+      </div>      
     )
 };
 

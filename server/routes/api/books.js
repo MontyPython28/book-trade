@@ -49,6 +49,17 @@ router.get('/test', (req, res) => res.send('book route testing!'));
 // @access Public
 router.get('/', (req, res) => {
   Book.find()
+    .sort({ updated_date: -1 })
+    .then(books => res.json(books))
+    .catch(err => res.status(404).json({ nobooksfound: 'No Books found' }));
+});
+
+// @route GET api/books
+// @description Get all NOT SOLD books
+// @access Public
+router.get('/forSale', (req, res) => {
+  Book.find({ sold: false })
+    .sort({ updated_date: -1 })
     .then(books => res.json(books))
     .catch(err => res.status(404).json({ nobooksfound: 'No Books found' }));
 });
@@ -101,13 +112,12 @@ router.post('/', upload.single('file'), async (req, res) => {
     });
     //console.log('Managed to do this');
     await book.save();
-    console.log(title + ' created by ' + publisher);
-    await User.findOneAndUpdate(
+    User.findOneAndUpdate(
       {user_email: publisher}, 
       { $push: { listing: [title] } },
       {
         returnOriginal: false,
-        upsert: false
+        upsert: true
       }
     )
     res.send('file uploaded successfully.');

@@ -2,11 +2,12 @@ import React, {useEffect, useState}from "react"
 import axios from 'axios'
 import { useAuth } from "../contexts/AuthContext";
 import BookCard from "./BookCard";
-import Header from './Header';
+import  Header from './Header';
 
 
-const UserWishlist = () => {
-    const serverURL = 'http://localhost:4000/';
+const UserListing = () => {
+  //const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+  const serverURL = 'http://localhost:4000';
     const {currentUser} = useAuth();
     let [listedBooks, setListedBooks] = useState();
     const [loading, setLoading] = useState(true);
@@ -14,7 +15,7 @@ const UserWishlist = () => {
     const fetchData = async () => {
       await axios({
         "method": "GET",
-        "url": serverURL + 'api/books/' + currentUser.email + '/wishlist'  
+        "url": serverURL + '/api/books/' + currentUser.email + '/wishlist'  
       })
       .then((response) => {
         setListedBooks(response.data);
@@ -36,14 +37,15 @@ const UserWishlist = () => {
         bookList = "There is no book record!";
       } else {
         bookList = listedBooks.map((book, k) =>
-          <BookCard book={book} key={k} />
+          <BookCard book={book} key={k} size="is-one-fifth"/>
         );
       }
     }
 
     return ( 
       <div>
-      <Header title="View Book List" />
+      <Header title="My Wishlist" />
+      <br />
       <div className="container">
         <div className = "columns is-multiline">
             {bookList}
@@ -54,4 +56,4 @@ const UserWishlist = () => {
     );
 }
  
-export default UserWishlist;
+export default UserListing;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext"
 import axios from "axios";
 
@@ -11,12 +11,12 @@ const UnwishlistButton = (props) => {
     return new Promise( res => setTimeout(res, delay) );
   }
 
-  const [WishlistButtonClass, setWishlistButtonClass] = useState('button is-warning is-outlined is-fullwidth');
+  const [WishlistButtonClass, setWishlistButtonClass] = useState('button is-success is-outlined is-fullwidth');
 
   const onSubmit = (event) => {
     event.preventDefault();
     console.log(props.serverURL)
-    setWishlistButtonClass('button is-warning is-medium is-outlined is-fullwidth is-loading');
+    setWishlistButtonClass('button is-success is-medium is-outlined is-fullwidth is-loading');
     const data = {
       book_title: props.title
     };

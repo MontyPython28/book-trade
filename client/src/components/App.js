@@ -11,15 +11,13 @@ import UpdateProfile from "./UpdateProfile";
 import ShowBookDetails from "./ShowBookDetails";
 import UpdateBookInfo from "./UpdateBookInfo";
 import CreateBook from "./CreateBook";
-import ShowBookList from "./ShowBookList";
+import Home from "./Home";
+import AllBooks from "./AllBooks";
 import SearchQueryResults from "./SearchQueryResults";
 import sirwait from "./SirWait";
 import wishlist from './UserWishlist'
 import listing from './UserListing'
-import SellingChats from "./SellingChats";
-import Chatroom from "./Chatroom";
-import BuyingChats from "./BuyingChats";
-import Inbox from "./Inbox";
+import UserPosts from "./UserPosts";
 
 
 function App() {
@@ -27,7 +25,7 @@ function App() {
         <Router>
           <AuthProvider>
             <Switch>
-              <Route exact path="/" component={ShowBookList} />
+              <Route exact path="/" component={Home} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
               <PrivateRoute path="/update-password" component={UpdatePswd} />
               <PrivateRoute path="/update-profile" component={UpdateProfile} />
@@ -36,15 +34,13 @@ function App() {
               <Route path="/login" component={Login} />
               <Route path="/forgot-password" component={ForgotPassword} />
               <Route path='/search/:query' component={SearchQueryResults} />
+              <Route path='/all-books' component={AllBooks} />
               <PrivateRoute path='/show-book/:id' component={ShowBookDetails} />
               <PrivateRoute path='/create-book' component={CreateBook} />
               <PrivateRoute path='/wishlist' component={wishlist} />
               <PrivateRoute path='/listing' component={listing} />
-              <PrivateRoute path='/edit-book/:id' component={UpdateBookInfo} />
-              <PrivateRoute path='/sellingchats' component={SellingChats} />
-              <PrivateRoute path='/buyingchats' component={BuyingChats} />
-              <PrivateRoute path='/inbox' component={Inbox} />
-              <PrivateRoute path='/chatroom/:roomId' component={Chatroom} />         
+              <PrivateRoute path='/my-posts' component={UserPosts} />
+              <PrivateRoute path='/edit-book/:id' component={UpdateBookInfo} />         
             </Switch>
           </AuthProvider>
         </Router>

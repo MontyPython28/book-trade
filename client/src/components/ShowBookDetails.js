@@ -5,10 +5,10 @@ import Header from './Header';
 import EditButtonTrio from './EditButtonTrio';
 import WishlistButton from './WishlistButton';
 import UnwishlistButton from './UnwishlistButton';
-import BuyButton from './BuyButton'
 
 
 class showBookDetails extends Component {
+   //serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
   serverURL = 'http://localhost:4000';
   constructor(props) {
     super(props);
@@ -52,10 +52,6 @@ class showBookDetails extends Component {
         .catch((error) => {
           console.log(error)
         });
-        console.log(this.state.book.price.$numberDecimal);
-      })
-      .catch(err => {
-        console.log(err);
       })
     
   };
@@ -115,13 +111,12 @@ class showBookDetails extends Component {
     </div>
 
     return (
-      <div>
-        <Header title="View Book Info" />
+      <div style={{minHeight: "100vh"}}>
+        <Header title={book.title} />
+        <br />
         <div className="container">
         <div className = "columns">
           <div className="column is-three-fifths is-offset-one-fifth">
-              
-              <br />
               <div className="box">
               <div className="columns">
                 <div className="column is-two-thirds">
@@ -142,7 +137,6 @@ class showBookDetails extends Component {
               ? <WishlistButton email={book.publisher} title={book.title} serverURL={this.serverURL} history={this.props.history}/>
               : <div></div>
             }
-            <BuyButton email={book.publisher} title={book.title} serverURL={this.serverURL} history={this.props.history}/>
           </div>
         </div>
         </div>

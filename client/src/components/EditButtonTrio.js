@@ -43,7 +43,7 @@ const EditButtonTrio = (props) => {
   ? (
  <div className="columns is-centred">
     <div className = "column has-text-centered is-third">
-    <Link to={`/edit-book/${props.id}`} className="button is-info is-outlined is-fullwidth">
+    <Link to={`/edit-book/${props.id}`} className="button is-primary is-outlined is-fullwidth">
         Edit Book
     </Link>
     </div>
