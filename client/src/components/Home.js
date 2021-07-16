@@ -8,8 +8,8 @@ import  Header from './Header';
 
 
 class Home extends Component {
-  // serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  serverURL = 'http://localhost:4000';
+  serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+  // serverURL = 'http://localhost:4000';
 
   /* EDIT CSS BEFORE POSTING: 
   a:hover {

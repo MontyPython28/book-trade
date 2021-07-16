@@ -5,8 +5,8 @@ import BookCard from './BookCard';
 import Header from './Header';
 
 class SearchQueryResults extends Component {
-  //serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  serverURL = 'http://localhost:4000';
+  serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+  //serverURL = 'http://localhost:4000';
   
   constructor(props) {
     super(props); //this.props.match.params.query is the query name
