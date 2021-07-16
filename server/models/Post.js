@@ -19,7 +19,13 @@ const PostSchema = new mongoose.Schema({
   likes: {
     type: Number,
     required: true
-  },
+  }, 
+  /*
+  usersLiked: {
+    type: [String],
+    required: true
+  }
+  */
   updated_date: {
     type: Date,
     default: Date.now

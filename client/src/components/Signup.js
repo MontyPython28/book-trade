@@ -36,27 +36,30 @@ export default function Signup() {
     <div className="hero-body">
       <div className="container">
         <div className="column is-4 is-offset-4">
-          <h3 className="title is-3 has-text-centered has-text-black"> Sign Up </h3>
+          <h3 className="title is-3 has-text-centered has-text-white"> Sign Up </h3>
           {error && <div className="notification is-danger is-light">{error}</div>}
           
 
           <form className="box" onSubmit={handleSubmit}>
             <div className="field">
-            <label className="label">NUSNET ID</label>
+            <label className="label">
+            <p className="subtitle">NUSNET ID</p></label>
             <div className="control">
               <input className="input" type="text" placeholder="EXXXXXXX" 
               onChange={(event) => setUsername(event.target.value)} />
             </div>
           </div>
           <div className="field">
-            <label className="label">Password</label>
+            <label className="label">
+              <p className="subtitle">Password</p></label>
             <div className="control">
               <input className="input" type="password" placeholder="********" 
                 onChange={(event) => setPsword(event.target.value)} />
             </div>
           </div>
           <div className="field">
-            <label className="label">Confirm Password</label>
+            <label className="label">
+            <p className="subtitle">Confirm Password</p></label>
             <div className="control">
               <input className="input" type="password" placeholder="********" 
                 onChange={(event) => setPswordConfirm(event.target.value)} />
@@ -70,7 +73,7 @@ export default function Signup() {
           </button>
         </form>
 
-        <div className="has-text-centered">
+        <div className="has-text-centered has-text-white">
           Already have an account? <Link to="/login">Login</Link>
         </div>
         </div>

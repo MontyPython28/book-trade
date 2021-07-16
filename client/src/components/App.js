@@ -13,6 +13,8 @@ import UpdateBookInfo from "./UpdateBookInfo";
 import CreateBook from "./CreateBook";
 import Home from "./Home";
 import AllBooks from "./AllBooks";
+import AllForumThreads from "./AllForumThreads";
+import ForumPosts from "./ForumPosts";
 import SearchQueryResults from "./SearchQueryResults";
 import sirwait from "./SirWait";
 import wishlist from './UserWishlist'
@@ -35,6 +37,8 @@ function App() {
               <Route path="/forgot-password" component={ForgotPassword} />
               <Route path='/search/:query' component={SearchQueryResults} />
               <Route path='/all-books' component={AllBooks} />
+              <Route path='/forum-threads' component={AllForumThreads} />
+              <Route path='/forum/:id' component={ForumPosts} />
               <PrivateRoute path='/show-book/:id' component={ShowBookDetails} />
               <PrivateRoute path='/create-book' component={CreateBook} />
               <PrivateRoute path='/wishlist' component={wishlist} />

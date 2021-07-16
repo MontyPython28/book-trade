@@ -74,36 +74,30 @@ class showBookDetails extends Component {
     const book = this.state;
 
     let BookItem = <div>
-      <table className="table is-bordered is-striped">
+      <table className="table is-bordered is-striped is-fullwidth">
         <tbody>
           <tr>
-            <th scope="row">1</th>
-            <td>Title</td>
+            <th scope="row">Title</th>
             <td className="is-family-primary">{ book.title }</td>
           </tr>
           <tr>
-            <th scope="row">2</th>
-            <td>Module Code</td>
+            <th scope="row">Module Code</th>
             <td>{ book.mcode }</td>
           </tr>
           <tr>
-            <th scope="row">3</th>
-            <td>Author</td>
+            <th scope="row">Author</th>
             <td>{ book.author }</td>
           </tr>
           <tr>
-            <th scope="row">4</th>
-            <td>Description</td>
+            <th scope="row">Description</th>
             <td>{ book.description }</td>
           </tr>
           <tr>
-            <th scope="row">5</th>
-            <td>Price (in SGD)</td>
+            <th scope="row">Price (SGD)</th>
             <td>{ book.price }</td>
           </tr>
           <tr>
-            <th scope="row">6</th>
-            <td>Seller</td>
+            <th scope="row">Seller</th>
             <td>{ book.publisher }</td>
           </tr>
         </tbody>

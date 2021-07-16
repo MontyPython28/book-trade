@@ -57,7 +57,7 @@ export default function Dashboard() {
               </Link>
               </div>
               <div className = "column has-text-centered is-one-third">
-                <button type="button" className="button is-dark is-outlined is-fullwidth" onClick={handleLogout}>Log Out</button>
+                <button type="button" className="button is-warning is-outlined is-fullwidth" onClick={handleLogout}>Log Out</button>
             </div>
           </div>
       </div>

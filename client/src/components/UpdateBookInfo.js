@@ -5,8 +5,8 @@ import Header from './Header';
 
 class UpdateBookInfo extends Component {
   
-  serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  //serverURL = 'http://localhost:4000';
+  // serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+  serverURL = 'http://localhost:4000';
 
   constructor(props) {
     super(props);
@@ -17,7 +17,7 @@ class UpdateBookInfo extends Component {
       description: '',
       price: '',
 
-      buttonClass: 'button is-info is-medium is-outlined is-fullwidth',
+      buttonClass: 'button is-primary is-medium is-outlined is-fullwidth',
       accessControls: false
     };
   }
@@ -49,7 +49,7 @@ class UpdateBookInfo extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    this.setState({buttonClass: 'button is-info is-medium is-outlined is-fullwidth is-loading'});
+    this.setState({buttonClass: 'button is-primary is-medium is-outlined is-fullwidth is-loading'});
     const data = {
       title: this.state.title,
       mcode: this.state.mcode,

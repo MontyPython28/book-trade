@@ -28,7 +28,7 @@ const Header = (props) => {
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
             </div>
-            <Link to="/">
+            <Link to="/" className="nav-bar item">
               <img src="/images/LogoSide.png" width="200" height="50" alt="Logo"/>
             </Link>
             <div className="nav-bar item">
@@ -42,18 +42,20 @@ const Header = (props) => {
 
           <div id="navbarBasicExample" className={`navbar-menu ${isActive ? 'is-active' : ''}`}>
             <div className="navbar-start">
-              <Link to="/create-book" className="navbar-item ">
-                <p className="subtitle is-6">ADD LISTING</p>
-              </Link>
-              <Link to="/all-books" className="navbar-item ">
-                <p className="subtitle is-6">ALL BOOKS</p>
-              </Link>
-              <Link to="/all-books" className="navbar-item ">
-                <p className="subtitle is-6">FORUM</p>
-              </Link>
+              
             </div>
 
             <div className="navbar-end">
+
+            <Link to="/create-book" className="navbar-item ">
+                <p className="title is-6 has-text-link">ADD LISTING</p>
+              </Link>
+              <Link to="/all-books" className="navbar-item ">
+                <p className="title is-6 has-text-link">ALL BOOKS</p>
+              </Link>
+              <Link to="/forum-threads" className="navbar-item ">
+                <p className="title is-6 has-text-link">FORUM</p>
+              </Link>
               <div className="navbar-item has-dropdown is-hoverable">
                 <div className="navbar-link">
                 <span className="icon">
@@ -86,8 +88,8 @@ const Header = (props) => {
             </div>
           </div>
         </nav>
-        <br /><br />
-        <div className="title has-text-centered">{props.title}</div>
+        <br />
+        <div className="title has-text-centered has-text-white">{props.title}</div>
       </div>      
     )
 };

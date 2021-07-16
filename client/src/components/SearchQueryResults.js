@@ -63,8 +63,10 @@ class SearchQueryResults extends Component {
         <Header title={"Search Results for '" + this.props.match.params.query + "'"}/>
         <br />
         <div className="container">
-          <div className = "columns is-multiline">
-              {bookList}
+          <div className="box">
+            <div className = "columns is-multiline">
+                {bookList}
+            </div>
           </div>
         </div>
       </div>

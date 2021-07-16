@@ -41,7 +41,7 @@ router.get('/:user/listing', (req, res) => {
 // @access Public
 router.post('/', (req, res) => {
   Post.create(req.body)
-    .then(book => res.json({ msg: 'Book added successfully' }))
+    .then(book => res.json(book))
     .catch(err => res.status(400).json({ error: 'Unable to add this post' }));
 });
 

@@ -3,6 +3,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Knewave&family=Oswald:wght@500&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Raleway:wght@300&display=swap');
 
+$bg: #E4572E;
+$logoblue: #002E6E;
+
 $title-serif: 'Raleway', sans-serif;
 $title-family: $title-serif;
 $subtitle-family: $title-serif;
@@ -10,7 +13,7 @@ $subtitle-family: $title-serif;
 $font-family: 'Montserrat', sans-serif;
 $family-primary: $font-family;
 
-$info: 	hsl(65, 43%, 95%);
-
+$info: $bg;
+$link: $logoblue;
 
 @import "../node_modules/bulma/bulma.sass";

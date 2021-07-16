@@ -26,12 +26,14 @@ app.use(express.urlencoded({ extended: true }));
 //---------------------------------------GET ROUTES
 const books = require('./routes/api/books');
 const posts = require('./routes/api/posts');
+const threads = require('./routes/api/threads');
 const confirmEmail = require('./routes/EmailConfirmation');
 const CRUDuser = require('./routes/CRUDuser')
 
 app.use(confirmEmail);
 app.use('/api/books', books);
 app.use('/api/posts', posts);
+app.use('/api/threads', threads);
 app.use(CRUDuser);
 
 

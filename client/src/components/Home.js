@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
-import '../App.css';
 import '../mystyles.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import BookCard from './BookCard';
 import  Header from './Header';
-import CreateForumPost from './CreateForumPost';
-import ForumPost from './ForumPost';
-import Accordion from './Accordion';
 
 
 class Home extends Component {
   // serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
   serverURL = 'http://localhost:4000';
 
+  /* EDIT CSS BEFORE POSTING: 
+  a:hover {
+    ...
+    text-decoration: none;
+    font-weight: bold;
+  } */
+
   constructor(props) {
     super(props);
     this.state = {
       books: [],
-      posts: [],
+
       start: 0,
       end: 4,
       perPage: 4
@@ -37,37 +40,17 @@ class Home extends Component {
       .catch(err =>{
         console.log(err);
       });
-      axios
-      .get(this.serverURL + '/api/posts')
-      .then(res => {
-        this.setState({
-          posts: res.data
-        });
-      })
-      .catch(err =>{
-        console.log(err);
-      });
   };
 
   render() {
     const books = this.state.books;
-    const posts = this.state.posts;
     let bookList;
-    let postList;
 
     if(!books) {
       bookList = "There are no books for sale yet!";
     } else {
       bookList = books.map((book, k) =>
         <BookCard book={book} key={k} size="is-one-quarter"/>
-      );
-    }
-
-    if(!posts) {
-      postList = "There are no posts yet!";
-    } else {
-      postList = posts.map((post, k) =>
-        <ForumPost post={post} key={k} />
       );
     }
 
@@ -97,7 +80,7 @@ class Home extends Component {
         <div className="box">
         <div className="columns">
           <div className="column is-one-third has-text-centered">
-            <img src="/Logo2.png" alt="Logo"/>
+            <img src="/images/Logo.png" alt="Logo"/>
           </div>
           <div className="column">
             <h1 className="title has-text-centered is-2">Welcome to BookTrade!</h1>
@@ -110,25 +93,25 @@ class Home extends Component {
             </div>
             <div className="columns">
               <div className="column has-text-centered">
-                <span class="icon-text is-large">
-                  <span class="icon is-large">
-                  <i class="fas fa-2x fa-comment-dots"></i>
+                <span className="icon-text is-large">
+                  <span className="icon is-large has-text-link">
+                  <i className="fas fa-2x fa-comment-dots"></i>
                   </span>
                 </span>
                 <h1 className="subtitle is-6">Chat with buyers and sellers in real time</h1>
               </div>
               <div className="column has-text-centered">
-                <span class="icon-text is-large">
-                  <span class="icon is-large">
-                  <i class="fas fa-2x fa-search"></i>
+                <span className="icon-text is-large">
+                  <span className="icon is-large has-text-link">
+                  <i className="fas fa-2x fa-search"></i>
                   </span>
                 </span>
               <h1 className="subtitle is-6">Search for textbooks you are interested in</h1>
             </div>
               <div className="column has-text-centered">
-              <span class="icon-text is-large">
-                  <span class="icon is-large">
-                  <i class="fas fa-2x fa-pen"></i>
+              <span className="icon-text is-large">
+                  <span className="icon is-large has-text-link">
+                  <i className="fas fa-2x fa-pen"></i>
                 </span>
               </span>
               <h1 className="subtitle is-6">Post reviews on our forum</h1>
@@ -144,9 +127,8 @@ class Home extends Component {
             <div className="column is-10">
             <div className="card is-full">
               <header className="card-header">
-                <p className="card-header-title"> <p className="subtitle">BOOKS FOR SALE</p> </p>
-                <div className="card-header-icon">
-                  <Link to="/all-books" className="button is-light">
+                <div className="card-header-title"> <p className="subtitle">BOOKS FOR SALE</p> </div>              <div className="card-header-icon">
+                  <Link to="/all-books" className="button is-primary">
                   <div>Browse More</div></Link>
                 </div>
               </header>

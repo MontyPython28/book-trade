@@ -36,8 +36,8 @@ class AllBooks extends Component {
     const books = this.state.books;
     let bookList;
 
-    if(!books) {
-      bookList = "There are no books for sale yet!";
+    if(books.length <= 0) {
+      bookList = "There are no books for sale yet.";
     } else {
       bookList = books.map((book, k) =>
         <BookCard book={book} key={k} size="is-one-fifth"/>
@@ -50,8 +50,10 @@ class AllBooks extends Component {
         <Header title="Browse Listings"/>
         <br />
         <div className="container">
+          <div className="box">
           <div className="columns is-multiline">
           {bookList}
+            </div>
           </div>
         </div>
       </div>

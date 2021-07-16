@@ -81,7 +81,7 @@ export default function UpdatePswd() {
             </div>
           </div>
           </div>
-          <button disabled={loading} type="submit" className='button is-info is-medium is-outlined is-fullwidth'>
+          <button disabled={loading} type="submit" className='button is-primary is-medium is-outlined is-fullwidth'>
               Update
             </button>
         </form>

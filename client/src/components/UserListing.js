@@ -44,8 +44,10 @@ const UserListing = () => {
       <Header title="My Listings" />
       <br />
       <div className="container">
-        <div className = "columns is-multiline">
-            {bookList}
+        <div className="box">
+          <div className = "columns is-multiline">
+              {bookList}
+          </div>
         </div>
       </div>
       

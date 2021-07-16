@@ -5,8 +5,8 @@ import axios from 'axios';
 import Header from './Header';
 
 class CreateBook extends Component {
-  serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  // serverURL = 'http://localhost:4000';
+  // serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+  serverURL = 'http://localhost:4000';
 
   constructor() {
     super();
@@ -85,15 +85,54 @@ class CreateBook extends Component {
 
   render() {
 
-    return (
+    return this.state.previewSrc ? (
       <div>
       <Header title="Add Listing"/>
       <br />
         <div className="container">
-        <div className="columns">
-          <div className="column is-three-fifths is-offset-one-fifth">
-
+        <div className = "columns">
+          <div className="column is-10 is-offset-1">
             <form onSubmit={this.onSubmit}>
+              <div className="columns">
+              <div className="column is-one-third">
+              <div className="box">
+                <div className="field">
+                  <label className="label"><p className="subtitle is-uppercase">Image</p></label>
+              {this.state.previewSrc ? (
+                    this.state.isPreviewAvailable ? (
+                      <div className="card-image">
+                      <figure className="image is-3by4">
+                        <img src={this.state.previewSrc} alt="Preview" />
+                      </figure>
+                      </div>
+                    ) : ( <p className="box has-text-danger has-text-weight-bold">No preview available for this file</p>)
+                  ) : (<p></p>)
+                  }
+                <div className="control">
+                  <Dropzone onDrop={this.onDrop}>
+                    {({ getRootProps, getInputProps }) => (
+                      <div {...getRootProps({ className: 'drop-zone' })} ref={this.state.dropRef}>
+                        <input className="input" {...getInputProps()} />
+                        <p className='box'>
+                          Drag and drop a file OR click here to select a file</p>
+                        {this.state.file && (
+                          <div>
+                            <strong>Selected file:</strong> {this.state.file.name}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </Dropzone>
+                  </div>
+                  
+              </div>
+                                    
+            </div>
+            </div>
+
+
+              <div className="column is-two-thirds">
+                <div className="box">
             <div className="box">
             <div className="field">
                 <label className="label">
@@ -169,46 +208,60 @@ class CreateBook extends Component {
                     onChange={this.onChange}
                   />
                 </div>
+              </div>             
+              </div>  
+            </div>
+            </div>
+                
               </div>
-
-              <div className="field">
-              <label className="label">
-              <p className="subtitle is-uppercase">Image</p></label>
+              <button type="submit" className={this.state.buttonClass}>
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>       
+        </div>
+      </div>
+    )
+    : (
+      <div>
+      <Header title="Add Listing"/>
+      <br />
+        <div className="container">
+        <div className = "columns">
+          <div className="column is-10 is-offset-1">
+              <div className="box">
+                <div className="field">
+                      <div className="card-image has-text-centered">
+                      </div>
                 <div className="control">
                   <Dropzone onDrop={this.onDrop}>
                     {({ getRootProps, getInputProps }) => (
                       <div {...getRootProps({ className: 'drop-zone' })} ref={this.state.dropRef}>
                         <input className="input" {...getInputProps()} />
-                        <p className='file'>
-                          Drag and drop a file OR click here to select a file</p>
-                        {this.state.file && (
-                          <div>
-                            <strong>Selected file:</strong> {this.state.file.name}
-                          </div>
-                        )}
+                        <div className="column has-text-centered">
+                <span className="icon-text is-large">
+                  <span className="icon is-large has-text-link">
+                  <i className="fas fa-3x fa-upload"></i>
+                  </span>
+                </span>
+                <br />
+                <br />
+              <h1 className="subtitle is-4">Drag and Drop</h1>
+              <h1 className="subtitle is-3"> OR </h1>
+              <h1 className="subtitle is-4">click here to select a file </h1>
+              <br />
+            </div>
                       </div>
                     )}
                   </Dropzone>
                   </div>
-                  {this.state.previewSrc ? (
-                    this.state.isPreviewAvailable ? (
-                      <div className="card-image">
-                      <figure className="image is-3by4">
-                        <img src={this.state.previewSrc} alt="Preview" />
-                      </figure>
-                      </div>
-                    ) : ( <p className="box has-text-danger has-text-weight-bold">No preview available for this file</p>)
-                  ) : (<p className="box">Image preview will be shown here after selection</p>)
-                  }
+                  
               </div>
-              </div>  
-              <br />
-                <button type="submit" className={this.state.buttonClass}>
-                    Submit
-                  </button>
-              </form>
+                                    
+            </div>
           </div>
-        </div>
+        </div>       
         </div>
       </div>
     );

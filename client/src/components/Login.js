@@ -43,7 +43,7 @@ export default function Login() {
     <div className="hero-body">
       <div className="container">
         <div className="column is-4 is-offset-4">
-          <h3 className="title is-3 has-text-centered has-text-black"> Login </h3>
+          <h3 className="title is-3 has-text-centered has-text-white"> Login </h3>
           {error && <div className="notification is-danger is-light">{error}</div>}
           
           <form className="box" onSubmit={handleSubmit}>
@@ -59,8 +59,8 @@ export default function Login() {
             <label className="label">
             <p className="subtitle">Password</p></label>
             <div className="control has-icons-right">
-              <span class="icon is-small is-right is-clickable">
-              <i class={icon}
+              <span className="icon is-small is-right is-clickable">
+              <i className={icon}
                   onClick={changeVisibility}></i>
               </span>
               <input className="input" type={type} placeholder="********" 
@@ -78,7 +78,7 @@ export default function Login() {
         <div className="has-text-centered">
           <Link to="/forgot-password">Forgot Password?</Link>
         </div>
-        <div className="has-text-centered">
+        <div className="has-text-centered has-text-white">
           Need an account? <Link to="/signup">Sign Up</Link>
         </div>
         </div>

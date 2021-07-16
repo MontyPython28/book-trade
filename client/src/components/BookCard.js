@@ -17,7 +17,7 @@ const BookCard = (props) => {
 
     return (
         <div className = {"column " + props.size}>
-        <Link to={`/show-book/${book._id}`} className="card is-hovered">
+        <Link to={`/show-book/${book._id}`} className="box p-0">
             <div className="card-image">
             <figure className="image is-3by4">
                 <img src= {filepath} alt="" /> </figure>

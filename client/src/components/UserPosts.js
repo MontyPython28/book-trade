@@ -9,7 +9,7 @@ const UserPosts = () => {
     // const serverURL = 'http://localhost:4000';
 
     const {currentUser} = useAuth();
-    let [posts, setPosts] = useState();
+    const [posts, setPosts] = useState([]);
     const [setUp, setSetUp] = useState(false);
     
     const fetchData = async () => {
@@ -32,7 +32,7 @@ const UserPosts = () => {
 
     let postList;
 
-    if(!posts) {
+    if(posts.length <= 0) {
       postList = "You have not made any posts yet!";
     } else {
       postList = posts.map((post, k) =>
@@ -45,7 +45,9 @@ const UserPosts = () => {
       <Header title="My Posts" />
       <br />
       <div className="container">
-        {postList}
+        <div className="box">
+          {postList}
+        </div>
       </div>
       
     </div>
