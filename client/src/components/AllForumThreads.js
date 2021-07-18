@@ -52,17 +52,7 @@ class AllForumThreads extends Component {
         <br />
         <div className="container">
         <div className="column is-10 is-offset-1">
-
-          <div className="box">
-            <div className="level">
-              <div className="level-left">
-                <div className="subtitle is-5 is-uppercase">Create New Thread</div>
-              </div>
-            </div>
-            <CreateForumThread />
-          </div>
-
-
+          <CreateForumThread />
           <div className="box">
             {threadList}
           </div>

@@ -21,6 +21,15 @@ router.get('/', (req, res) => {
 // @route GET api/threads/:id
 // @description Get single thread by mcode
 // @access Public
+router.get('/:mcode/mcode', (req, res) => {
+  Thread.find({mcode: req.params.mcode})
+    .then(threads => res.json(threads))
+    .catch(err => res.status(404).json({ nothreadsfound: 'No Threads found' }));
+});
+
+// @route GET api/threads/:id
+// @description Get single thread by mcode
+// @access Public
 router.get('/:id', (req, res) => {
   Thread.findById(req.params.id)
     .then(thread => res.json(thread))

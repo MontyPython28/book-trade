@@ -8,52 +8,53 @@ import  Header from './Header';
 const UserListing = () => {
   const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
   //serverURL = 'http://localhost:4000';
-    const {currentUser} = useAuth();
-    let [listedBooks, setListedBooks] = useState();
-    const [loading, setLoading] = useState(true);
-    
-    const fetchData = async () => {
-      await axios({
-        "method": "GET",
-        "url": serverURL + '/api/books/' + currentUser.email + '/wishlist'  
-      })
-      .then((response) => {
-        setListedBooks(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error)
-      });
-    }
-    
-    useEffect(() => {
-      fetchData()
-    }, [])
+  const {currentUser} = useAuth();
+  let [listedBooks, setListedBooks] = useState();
+  const [loading, setLoading] = useState(true);
+  
+  const fetchData = async () => {
+    await axios({
+      "method": "GET",
+      "url": serverURL + '/api/books/' + currentUser.email + '/wishlist'  
+    })
+    .then((response) => {
+      setListedBooks(response.data);
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+  }
+  
+  useEffect(() => {
+    fetchData()
+  }, [])
 
-    let bookList;
-    
-    if(!loading) {
-      if(!listedBooks) {
-        bookList = "There is no book record!";
-      } else {
-        bookList = listedBooks.map((book, k) =>
-          <BookCard book={book} key={k} size="is-one-fifth"/>
-        );
-      }
+  let bookList;
+  
+  if(!loading) {
+    if(!listedBooks) {
+      bookList = "There is no book record!";
+    } else {
+      bookList = listedBooks.map((book, k) =>
+        <BookCard book={book} key={k} size="is-one-fifth"/>
+      );
     }
+  }
 
-    return ( 
-      <div>
+  return ( 
+    <div>
       <Header title="My Wishlist" />
       <br />
       <div className="container">
-        <div className = "columns is-multiline">
-            {bookList}
+        <div className="box">
+          <div className="columns is-multiline">
+          {bookList}
+          </div>
         </div>
-      </div>
-      
+      </div>      
     </div>
-    );
+  );
 }
  
 export default UserListing;

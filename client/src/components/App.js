@@ -39,7 +39,7 @@ function App() {
               <Route path='/all-books' component={AllBooks} />
               <Route path='/forum-threads' component={AllForumThreads} />
               <Route path='/forum/:id' component={ForumPosts} />
-              <PrivateRoute path='/show-book/:id' component={ShowBookDetails} />
+              <Route path='/show-book/:id' component={ShowBookDetails} />
               <PrivateRoute path='/create-book' component={CreateBook} />
               <PrivateRoute path='/wishlist' component={wishlist} />
               <PrivateRoute path='/listing' component={listing} />

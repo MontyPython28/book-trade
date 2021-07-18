@@ -32,7 +32,7 @@ const Header = (props) => {
               <img src="/images/LogoSide.png" width="200" height="50" alt="Logo"/>
             </Link>
             <div className="nav-bar item">
-            <input className="input is-rounded" type="search" placeholder="Search"
+            <input className="input is-rounded mt-1" type="search" placeholder="Search"
               onChange={(event) => setSearchInput(event.target.value)}
               onKeyDown={handleKeyDown}
             />

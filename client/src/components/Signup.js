@@ -22,7 +22,6 @@ export default function Signup() {
     try {
       setError("");
       setLoading(true);
-      console.log(psword, pswordConfirm);
       await signup(username.toLowerCase(), psword);
       history.push("/wait");
     } catch {

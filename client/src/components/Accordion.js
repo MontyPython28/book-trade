@@ -5,7 +5,7 @@ class Accordion extends React.Component {
       super(props);
       
       this.state = {
-        expanded: true
+        expanded: false
       };
       
       this.toggleCardState = this.toggleCardState.bind(this);
@@ -34,7 +34,7 @@ class Accordion extends React.Component {
               </div>
             </header>
             {expanded ? (
-            <div className="box" ref={(content) => this.content = content }>
+            <div className="card-content" ref={(content) => this.content = content }>
                 {children}
             </div>) : (<div></div>) }
           </div>

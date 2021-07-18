@@ -28,10 +28,19 @@ router.get('/:id', (req, res) => {
 });
 
 // @route GET api/posts/:user/listing
-// @description Get single book by id
+// @description Get posts of a certain publisher
 // @access Public
 router.get('/:user/listing', (req, res) => {
   Post.find({publisher: req.params.user})
+    .then(posts => res.json(posts))
+    .catch(err => res.status(404).json({ nopostsfound: 'No Posts found' }));
+});
+
+// @route GET api/posts/:user/listing
+// @description Get posts from a certain thread
+// @access Public
+router.get('/:thread/threads', (req, res) => {
+  Post.find({thread_id: req.params.thread})
     .then(posts => res.json(posts))
     .catch(err => res.status(404).json({ nopostsfound: 'No Posts found' }));
 });
@@ -45,12 +54,52 @@ router.post('/', (req, res) => {
     .catch(err => res.status(400).json({ error: 'Unable to add this post' }));
 });
 
-// @route GET api/posts/:id
-// @description Update book
+// @route PUT api/posts/:id
+// @description Update post
 // @access Public
 router.put('/:id', (req, res) => {
   Post.findByIdAndUpdate(req.params.id, req.body)
     .then(book => res.json({ msg: 'Updated successfully' }))
+    .catch(err =>
+      res.status(400).json({ error: 'Unable to update the Database' })
+    );
+});
+
+
+router.get('/check-like/:user/:id', (req, res) => {
+  Post.countDocuments(
+    {_id: req.params.id, usersLiked: req.params.user}
+    )
+    .then(count => {
+      //console.log(user.user_email);
+      res.json({count})
+    })
+    .catch(err =>
+      res.status(400).json({ error: 'Unable to update the Database' })
+    );
+});
+
+router.post('/add-like/:user/:id', (req, res) => {
+  Post.findByIdAndUpdate(req.params.id, 
+    { $push: { usersLiked: req.params.user } },
+    {
+      returnOriginal: false,
+      upsert: false
+    })
+    .then(post => res.json(post))
+    .catch(err =>
+      res.status(400).json({ error: 'Unable to update the Database' })
+    );
+});
+
+router.post('/remove-like/:user/:id', (req, res) => {
+  Post.findByIdAndUpdate(req.params.id, 
+    { $pull: { usersLiked: req.params.user } },
+    {
+      returnOriginal: false,
+      upsert: false
+    })
+    .then(post => res.json(post))
     .catch(err =>
       res.status(400).json({ error: 'Unable to update the Database' })
     );

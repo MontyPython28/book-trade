@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
+import CardWishlistButton from './CardWishlistButton';
 
 
 // "https://commapress.co.uk/books/the-book-of-cairo/cairo-provisional-v3/image%2Fspan3" original link for image
 // "/images/BookShelf.PNG"
 
 const BookCard = (props) => {
+    const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+    // const serverURL = 'http://localhost:4000';
+
     const  book  = props.book;
     let filepath = '';
     try {
@@ -42,6 +46,7 @@ const BookCard = (props) => {
                     {book.price.$numberDecimal} SGD</p>
                  </div>
                 </div>
+                <CardWishlistButton email={book.publisher} title={book.title} serverURL={serverURL}/>        
             </div>
         </Link>
         </div>

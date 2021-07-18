@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
 import Header from './Header';
 import EditButtonTrio from './EditButtonTrio';
 import WishlistButton from './WishlistButton';
-import UnwishlistButton from './UnwishlistButton';
+import Accordion from './Accordion';
 
 
 class showBookDetails extends Component {
@@ -19,16 +20,17 @@ class showBookDetails extends Component {
       description: '',
       publisher: '',
       price: '',
-      wishlisted: -1
+      wishlisted: -1,
+
+      threads: [],
+      setUp: false
     };
   }
 
   componentDidMount() {
-    console.log("Print id: " + this.props.match.params.id);
     axios
       .get(this.serverURL + '/api/books/' + this.props.match.params.id)
       .then(res => {
-        console.log("Print-showBookDetails-API-response: " + res.data);
         this.setState({
             _id: res.data._id,
             title: res.data.title,
@@ -39,21 +41,16 @@ class showBookDetails extends Component {
             price: res.data.price.$numberDecimal,
             avatar: res.data.avatar
         });
-        axios({
-          "method": "GET",
-          "url": this.serverURL + '/check-wishlist/' + this.state.title + '/' + this.props.currentUser.email 
-        })
-        .then((res) => {
-          this.setState({
-            wishlisted: res.data.count
-          });
-          console.log(this.state.wishlisted)
-        })
-        .catch((error) => {
-          console.log(error)
-        });
       })
-    
+      .then( x => {
+        axios
+          .get(this.serverURL + '/api/threads/' + this.state.mcode.toUpperCase() + '/mcode')
+          .then(res => this.setState({threads: res.data}));
+          this.setState({setUp: true});
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   };
 
   onDeleteClick (id) {
@@ -104,8 +101,15 @@ class showBookDetails extends Component {
       </table>
     </div>
 
-    return (
-      <div style={{minHeight: "100vh"}}>
+    let moduleList = this.state.threads.map(
+      thread => <li>
+        <Link to={`/forum/${thread._id}`} >{thread.title}</Link>
+      </li>);
+
+    console.log(book.threads);
+
+    return this.state.setUp ? (
+      <div>
         <Header title={book.title} />
         <br />
         <div className="container">
@@ -123,19 +127,15 @@ class showBookDetails extends Component {
                 </div>
               </div>
             <EditButtonTrio email={book.publisher} id={book._id} serverURL={this.serverURL} history={this.props.history}/>
-            { this.state.wishlisted === 1
-              ? <UnwishlistButton email={book.publisher} title={book.title} serverURL={this.serverURL} history={this.props.history}/>
-              : <div></div>
-            }
-            { this.state.wishlisted === 0
-              ? <WishlistButton email={book.publisher} title={book.title} serverURL={this.serverURL} history={this.props.history}/>
-              : <div></div>
-            }
+            <WishlistButton email={book.publisher} title={book.title} serverURL={this.serverURL} icon={true}/>
+            <Accordion title="Related Forum Threads: ">
+              <div className="content"><ul> {moduleList} </ul></div>
+            </Accordion>            
           </div>
         </div>
         </div>
       </div>
-    );
+    ) : <Header title={book.title} /> ;
   }
 }
 

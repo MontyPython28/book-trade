@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import '../mystyles.css';
+
 import axios from 'axios';
 
 import ForumPost from './ForumPost';
@@ -16,28 +16,32 @@ class ForumPosts extends Component {
     super(props);
     this.state = {
       posts: [],
-      thread: {posts: []},
+      threadname: "",
+      threadmcode: "",
       setUp: false
     };
   }
 
   componentDidMount() {
     axios
-      .get(this.serverURL + '/api/threads/' + this.props.match.params.id)
+      .get(this.serverURL + '/api/posts/' + this.props.match.params.id + '/threads')
       .then(res => {
         this.setState({
-          thread: res.data,
-          setUp: true
+          posts: res.data,
         })
         return res.data.posts;
       })
-      .then( rawIDs => {
-        rawIDs.map((rawID, k) => 
-          axios.get(this.serverURL + '/api/posts/' + rawID)
-          .then(res => res.data)
-          .then(post => this.setState(
-            {posts: [...this.state.posts, post]})
-          ))
+      .catch(err =>{
+        console.log(err);
+      })
+      axios
+      .get(this.serverURL + '/api/threads/' + this.props.match.params.id)
+      .then(res => {
+        this.setState({
+          threadname: res.data.title,
+          threadmcode: res.data.mcode,
+          setUp: true
+        })
       })
       .catch(err =>{
         console.log(err);
@@ -50,11 +54,9 @@ class ForumPosts extends Component {
   render() {
     const posts = this.state.posts;
     let postList;
-
-    console.log(posts);
     
     if(posts.length <= 0) {
-      postList = "There are no threads created yet!";
+      postList = "There are no posts in this thread";
     } else {
       postList = posts.map((post, k) =>
         <ForumPost post={post} key={k}/>
@@ -66,17 +68,14 @@ class ForumPosts extends Component {
     
     return this.state.setUp? (
       <div>
-        <Header title={this.state.thread.title}/>
+        <Header title={this.state.threadname}/>
         <br />
         <div className="container">
           <div className="column is-10 is-offset-1">
             <div className="box">
               {postList}
-            </div>
-            <div className="box">
-              <h1 title="title is-4">Create New Post</h1>
-              <CreateForumPost thread={this.state.thread}/>
-            </div>
+            </div>              
+            <CreateForumPost thread_id={this.props.match.params.id} thread_mcode={this.state.threadmcode}/>
           </div>
         </div>
       </div>

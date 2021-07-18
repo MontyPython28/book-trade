@@ -95,10 +95,8 @@ router.get('/:id', (req, res) => {
 // @access Public
 router.post('/', upload.single('file'), async (req, res) => {
   try {
-    //console.log('got here');
     const result = await cloudinary.uploader.upload(req.file.path);
     const { title, mcode, author, description, publisher, price, sold } = req.body;
-    //console.log('got all fields');
     const book = new Book({
       title,
       mcode,
@@ -110,7 +108,6 @@ router.post('/', upload.single('file'), async (req, res) => {
       avatar: result.secure_url,
       cloudinary_id: result.public_id
     });
-    //console.log('Managed to do this');
     await book.save();
     User.findOneAndUpdate(
       {user_email: publisher}, 

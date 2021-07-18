@@ -25,7 +25,9 @@ class Home extends Component {
 
       start: 0,
       end: 4,
-      perPage: 4
+      perPage: 4,
+
+      setUp: false
     };
   }
 
@@ -37,6 +39,11 @@ class Home extends Component {
           books: res.data
         })
       })
+      .then (res => {
+        this.setState({
+          setUp: true
+        })
+      })
       .catch(err =>{
         console.log(err);
       });
@@ -44,11 +51,11 @@ class Home extends Component {
 
   render() {
     const books = this.state.books;
-    let bookList;
+    let bookList = [];
 
-    if(!books) {
+    if(this.state.setUp && books.length <= 0) {
       bookList = "There are no books for sale yet!";
-    } else {
+    } else if (this.state.setUp) {
       bookList = books.map((book, k) =>
         <BookCard book={book} key={k} size="is-one-quarter"/>
       );
@@ -85,7 +92,7 @@ class Home extends Component {
           <div className="column">
             <h1 className="title has-text-centered is-2">Welcome to BookTrade!</h1>
             <div>
-            <p className="subtitle is-4 has-text-centered "> Using BookTrade, NUS students can buy and sell textbooks with ease,and at low prices. You can browse through textbooks and put up listings of your own. In addition, we have a forum where you can read and write book reviews.</p>
+            <p className="subtitle is-4 has-text-centered "> Using BookTrade, NUS students can buy and sell textbooks with ease, and at low prices. You can browse through textbooks and put up listings of your own. In addition, we have a forum where you can read and write book reviews.</p>
             </div>
             <br />
             <div>

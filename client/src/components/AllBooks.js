@@ -14,7 +14,8 @@ class AllBooks extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+      setUp: false
     };
   }
 
@@ -23,7 +24,8 @@ class AllBooks extends Component {
       .get(this.serverURL + '/api/books/forSale')
       .then(res => {
         this.setState({
-          books: res.data
+          books: res.data,
+          setUp: true
         })
       })
       .catch(err =>{
@@ -45,7 +47,7 @@ class AllBooks extends Component {
     }
 
     
-    return (
+    return this.state.setUp ? (
       <div>
         <Header title="Browse Listings"/>
         <br />
@@ -57,7 +59,7 @@ class AllBooks extends Component {
           </div>
         </div>
       </div>
-    );
+    ) : <Header title="Browse Listings"/>;
   }
 }
 

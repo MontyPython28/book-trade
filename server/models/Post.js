@@ -16,16 +16,18 @@ const PostSchema = new mongoose.Schema({
   description: {
     type: String
   },
+  thread_id: {
+    type: String,
+    required: true
+  },
   likes: {
     type: Number,
     required: true
   }, 
-  /*
   usersLiked: {
     type: [String],
     required: true
-  }
-  */
+  },
   updated_date: {
     type: Date,
     default: Date.now

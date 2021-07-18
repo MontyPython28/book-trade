@@ -6,11 +6,11 @@ import axios from "axios";
 const EditButtonTrio = (props) => {
   const { currentUser } = useAuth();
 
-  const [soldButtonClass, setSoldButtonClass] = useState('button is-primary is-outlined is-fullwidth');
-  const [deleteButtonClass, setDeleteButtonClass] = useState('button is-warning is-outlined is-fullwidth');
+  const [soldButtonClass, setSoldButtonClass] = useState('button is-primary is-fullwidth');
+  const [deleteButtonClass, setDeleteButtonClass] = useState('button is-warning is-fullwidth');
 
   const onDeleteClick = (id) => {
-    setDeleteButtonClass('button is-warning is-medium is-outlined is-fullwidth is-loading')
+    setDeleteButtonClass('button is-warning is-medium is-fullwidth is-loading')
     axios
       .delete(props.serverURL + '/api/books/'+ id)
       .then(res => {
@@ -24,7 +24,7 @@ const EditButtonTrio = (props) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    setSoldButtonClass('button is-primary is-medium is-outlined is-fullwidth is-loading');
+    setSoldButtonClass('button is-primary is-medium is-fullwidth is-loading');
     const data = {
       sold: true
     };
@@ -43,7 +43,7 @@ const EditButtonTrio = (props) => {
   ? (
  <div className="columns is-centred">
     <div className = "column has-text-centered is-third">
-    <Link to={`/edit-book/${props.id}`} className="button is-primary is-outlined is-fullwidth">
+    <Link to={`/edit-book/${props.id}`} className="button is-primary is-fullwidth">
         Edit Book
     </Link>
     </div>
