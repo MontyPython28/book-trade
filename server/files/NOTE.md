@@ -1,0 +1,1 @@
+THIS FOLDER IS REQUIRED! The images uploaded are temporarily stored here
