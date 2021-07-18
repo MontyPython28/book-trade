@@ -76,9 +76,6 @@ const Header = (props) => {
                   <Link to='/my-posts' className="navbar-item">
                     My Posts
                   </Link>
-                  <div className="navbar-item">
-                    My History
-                  </div>
                 </div>
               </div>
 

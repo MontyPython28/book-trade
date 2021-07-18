@@ -26,7 +26,7 @@ const EditButtonTrio = (props) => {
     e.preventDefault();
     setSoldButtonClass('button is-primary is-medium is-fullwidth is-loading');
     const data = {
-      sold: true
+      sold: !props.sold
     };
 
     axios
@@ -48,7 +48,8 @@ const EditButtonTrio = (props) => {
     </Link>
     </div>
     <div className = "column has-text-centered is-third">
-      <button type="button" className={soldButtonClass} onClick={onSubmit}>Mark as Sold</button>
+      <button type="button" className={soldButtonClass} onClick={onSubmit}>
+        {props.sold ? (<>Put back on the Market</>) : (<>Mark as Sold</>)}</button>
     </div>
     <div className = "column has-text-centered is-third">
       <button type="button" className={deleteButtonClass} onClick={onDeleteClick.bind(this,props.id)}>Delete Permanently</button>

@@ -21,6 +21,7 @@ class showBookDetails extends Component {
       publisher: '',
       price: '',
       wishlisted: -1,
+      sold: false,
 
       threads: [],
       setUp: false
@@ -39,6 +40,7 @@ class showBookDetails extends Component {
             description: res.data.description,
             publisher: res.data.publisher,
             price: res.data.price.$numberDecimal,
+            sold: res.data.sold,
             avatar: res.data.avatar
         });
       })
@@ -106,7 +108,7 @@ class showBookDetails extends Component {
         <Link to={`/forum/${thread._id}`} >{thread.title}</Link>
       </li>);
 
-    console.log(book.threads);
+    console.log(book.sold);
 
     return this.state.setUp ? (
       <div>
@@ -126,7 +128,7 @@ class showBookDetails extends Component {
                 </div>
                 </div>
               </div>
-            <EditButtonTrio email={book.publisher} id={book._id} serverURL={this.serverURL} history={this.props.history}/>
+            <EditButtonTrio email={book.publisher} id={book._id} sold={book.sold} serverURL={this.serverURL} history={this.props.history}/>
             <WishlistButton email={book.publisher} title={book.title} serverURL={this.serverURL} icon={true}/>
             <Accordion title="Related Forum Threads: ">
               <div className="content"><ul> {moduleList} </ul></div>

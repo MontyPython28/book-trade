@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
+import { useHistory, useLocation  } from 'react-router';
 
 import axios from 'axios';
 
@@ -18,7 +19,10 @@ class ForumPosts extends Component {
       posts: [],
       threadname: "",
       threadmcode: "",
+
+      renderAgain: false,
       setUp: false
+
     };
   }
 
@@ -30,10 +34,7 @@ class ForumPosts extends Component {
           posts: res.data,
         })
         return res.data.posts;
-      })
-      .catch(err =>{
-        console.log(err);
-      })
+      }).catch(err =>{ console.log(err); });
       axios
       .get(this.serverURL + '/api/threads/' + this.props.match.params.id)
       .then(res => {
@@ -42,12 +43,21 @@ class ForumPosts extends Component {
           threadmcode: res.data.mcode,
           setUp: true
         })
-      })
-      .catch(err =>{
-        console.log(err);
-      })
-    ;
-    
+      }).catch(err =>{ console.log(err); });    
+  };
+
+  componentDidUpdate() {
+    if (this.state.renderAgain) {
+      axios
+        .get(this.serverURL + '/api/posts/' + this.props.match.params.id + '/threads')
+        .then(res => {
+          this.setState({
+            posts: res.data,
+          })
+        this.setState({renderAgain: false});
+        return res.data.posts;
+        }).catch(err =>{ console.log(err); });
+      }
   };
 
 
@@ -59,12 +69,11 @@ class ForumPosts extends Component {
       postList = "There are no posts in this thread";
     } else {
       postList = posts.map((post, k) =>
-        <ForumPost post={post} key={k}/>
+        <ForumPost post={post} key={k} render={() => this.setState({renderAgain: true})}/>
       );
     }
-
-    
-
+  
+    console.log(this.state.renderAgain);
     
     return this.state.setUp? (
       <div>
@@ -75,7 +84,9 @@ class ForumPosts extends Component {
             <div className="box">
               {postList}
             </div>              
-            <CreateForumPost thread_id={this.props.match.params.id} thread_mcode={this.state.threadmcode}/>
+            <CreateForumPost thread_id={this.props.match.params.id} thread_mcode={this.state.threadmcode}
+              render={() => this.setState({renderAgain: true})}
+            />
           </div>
         </div>
       </div>

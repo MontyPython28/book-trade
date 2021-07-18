@@ -19,6 +19,7 @@ const CreateForumPost = (props) => {
 
 
     const onSubmit = e => {
+      e.preventDefault();
       setButtonClass('button is-success is-loading');
       
       const postData = {
@@ -38,6 +39,7 @@ const CreateForumPost = (props) => {
             setDescription('');
             setButtonClass('button is-success is-medium is-outlined is-fullwidth');         
         })
+        .then(x => {props.render(); })
         .catch(err => { console.log('Error in posting:', err.response); });
     }
 

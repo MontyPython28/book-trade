@@ -39,7 +39,7 @@ const ForumPost = (props) => {
       };
     axios
     .put(serverURL + '/api/posts/' + props.post._id, data)
-    .then(res => { window.location.reload(false); })
+    .then(res => { props.render(); setEditMode(false); }) //window.location.reload(false);
     .catch(err => { console.log("Error in ForumPost"); })  
    }
 
@@ -47,7 +47,7 @@ const ForumPost = (props) => {
     e.preventDefault(); 
     axios
     .delete(serverURL + '/api/posts/' + props.post._id)
-    .then(res => { window.location.reload(false); })
+    .then(res => { props.render(); })
     .catch(err => { console.log("Error in ForumPost"); })  
    }
 

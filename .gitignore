@@ -8,4 +8,3 @@ config/default.json
 server/.env
 server/node_modules/
 client/node_modules/
-server/files/**
