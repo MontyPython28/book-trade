@@ -19,6 +19,7 @@ const CreateForumThread = (props) => {
 
 
     const onSubmit = e => {
+        e.preventDefault();
         setButtonClass('button is-success is-loading');
 
         const data = {
@@ -33,6 +34,7 @@ const CreateForumThread = (props) => {
             setTitle('');
             setMcode('');
         })
+        .then(x => {props.render(); })
         .catch(err => { console.log('Error:', err.response); });
         setButtonClass('button is-primary is-medium is-outlined is-fullwidth');
 

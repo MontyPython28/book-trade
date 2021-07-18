@@ -15,7 +15,8 @@ class AllForumThreads extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      threads: []
+      threads: [],
+      renderAgain: false
     };
   }
 
@@ -31,6 +32,23 @@ class AllForumThreads extends Component {
         console.log(err);
       });
   };
+
+  componentDidUpdate() {
+    if (this.state.renderAgain) {
+      axios
+      .get(this.serverURL + '/api/threads')
+      .then(res => {
+        this.setState({
+          threads: res.data
+        })
+      })
+      .then(res => {
+        this.setState({
+            renderAgain: false
+        })
+      }).catch(err => { console.log(err); });
+    }
+  }
 
 
   render() {
@@ -52,7 +70,7 @@ class AllForumThreads extends Component {
         <br />
         <div className="container">
         <div className="column is-10 is-offset-1">
-          <CreateForumThread />
+          <CreateForumThread render={() => this.setState({renderAgain: true})}/>
           <div className="box">
             {threadList}
           </div>
