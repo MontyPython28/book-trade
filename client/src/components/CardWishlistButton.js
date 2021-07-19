@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router";
+import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"
 import axios from "axios";
 
@@ -58,25 +59,29 @@ const CardWishlistButton = (props) => {
   };
 
 
-  return currentUser && (props.email !== currentUser.email)
+  return currentUser
   ? (
     <div className="level">
-        {wishlisted === 0 ? (
+        {(wishlisted === 0 && props.email !== currentUser.email)? (
             <div type="button" onClick={wishList}>
                 <span className="icon has-text-danger">
                     <i className="far fa-bookmark"></i>
                 </span>
             </div>
-        ) : (wishlisted === 1 ? (
+        ) : (wishlisted === 1 && props.email !== currentUser.email)? (
             <div type="button" onClick={unWishList}>
                 <span className="icon has-text-danger">
                     <i className="fas fa-bookmark"></i>
                 </span>
             </div>
-        ) : (<div></div>)) }
+        ) : (<div></div>)}
         {error && <div className="notification is-danger is-light">{error}</div>}
     </div>
-  ) : ( <div></div>);
+  ) : ( <Link to="/login">
+          <span className="icon has-text-danger">
+              <i className="far fa-bookmark"></i>
+          </span>
+        </Link>);
 };
 
 export default CardWishlistButton;

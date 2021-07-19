@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router";
+import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"
 import axios from "axios";
 
@@ -29,11 +30,11 @@ const WishlistButton = (props) => {
     return new Promise( res => setTimeout(res, delay) );
   }
 
-  const [WishlistButtonClass, setWishlistButtonClass] = useState('button is-success is-outlined is-fullwidth');
+  const [WishlistButtonClass, setWishlistButtonClass] = useState('button is-success is-fullwidth');
 
   const wishList = (event) => {
     event.preventDefault();
-    setWishlistButtonClass('button is-success is-medium is-outlined is-fullwidth is-loading');
+    setWishlistButtonClass('button is-success is-medium is-fullwidth is-loading');
     const data = {
       book_id: props.id
     };
@@ -49,13 +50,13 @@ const WishlistButton = (props) => {
         setError(err.message);
       }).finally(() => {
         setSuccess('')
-        setWishlistButtonClass('button is-warning is-outlined is-fullwidth');
+        setWishlistButtonClass('button is-warning is-fullwidth');
       });
   };
 
   const unWishList = (event) => {
     event.preventDefault();
-    setWishlistButtonClass('button is-success is-medium is-outlined is-fullwidth is-loading');
+    setWishlistButtonClass('button is-success is-medium is-fullwidth is-loading');
     const data = {
       book_id: props.id
     };
@@ -71,19 +72,19 @@ const WishlistButton = (props) => {
         setError(err.message);
       }).finally(() => {
         setSuccess('')
-        setWishlistButtonClass('button is-warning is-outlined is-fullwidth');
+        setWishlistButtonClass('button is-warning is-fullwidth');
       });
   };
 
 
-  return currentUser && (props.email !== currentUser.email)
+  return currentUser
   ? (
     <div className="is-centred">
-        {wishlisted === 0 ? (
+        {wishlisted && (props.email !== currentUser.email) === 0 ? (
         <div className = "column has-text-centered is-third">
             <button type="button" className={WishlistButtonClass} 
               onClick={wishList}>Wishlist this book</button>
-        </div>) : (wishlisted === 1 ? (
+        </div>) : (wishlisted === 1 && (props.email !== currentUser.email) ? (
           <div className = "column has-text-centered is-third">
             <button type="button" className={WishlistButtonClass} 
               onClick={unWishList}>Remove from Wishlist</button>
@@ -91,7 +92,10 @@ const WishlistButton = (props) => {
         {error && <div className="notification is-danger is-light">{error}</div>}
         {success && <div className="notification is-success is-light">{success}</div>}
     </div>
-  ) : ( <div></div>);
+  ) : ( <div className = "column has-text-centered is-third">
+          <Link to="/login" className={WishlistButtonClass}>
+            Wishlist this book</Link>
+        </div>);
 };
 
 export default WishlistButton;

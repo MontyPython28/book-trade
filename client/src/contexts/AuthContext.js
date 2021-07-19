@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
 
   async function signup(NUSNETid, password) {
     const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-    //serverURL = 'http://localhost:4000'; 
+    // const serverURL = 'http://localhost:4000'; 
     const email = NUSNETid + '@u.nus.edu';
 
     await Axios({

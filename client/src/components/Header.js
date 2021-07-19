@@ -47,10 +47,9 @@ const Header = (props) => {
 
             <div className="navbar-end">
 
-            {currentUser ? (
-            <Link to="/create-book" className="navbar-item ">
+            <Link to={currentUser ? "/create-book" : "/login"} className="navbar-item ">
                 <p className="title is-6 has-text-link">ADD LISTING</p>
-              </Link>) : (<div></div>) }
+              </Link>)
               <Link to="/all-books" className="navbar-item ">
                 <p className="title is-6 has-text-link">ALL BOOKS</p>
               </Link>

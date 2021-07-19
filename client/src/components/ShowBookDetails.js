@@ -131,7 +131,10 @@ class showBookDetails extends Component {
             <EditButtonTrio email={book.publisher} id={book._id} sold={book.sold} serverURL={this.serverURL} history={this.props.history}/>
             <WishlistButton email={book.publisher} id={book._id} serverURL={this.serverURL} icon={true}/>
             <Accordion title="Related Forum Threads: ">
-              <div className="content"><ul> {moduleList} </ul></div>
+              <div className="content"> 
+              {moduleList.length <= 0 ? (<p>There are no books associated with this module</p>)
+              : (<ul> {moduleList} </ul>)} 
+              </div>
             </Accordion>            
           </div>
         </div>

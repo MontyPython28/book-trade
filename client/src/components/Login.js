@@ -20,7 +20,7 @@ export default function Login() {
     try {
       setError("");
       setLoading(true);
-      await login(username, psword);
+      await login(username.toLowerCase(), psword);
       history.push("/");
     } catch {
       setError("Failed to log in");

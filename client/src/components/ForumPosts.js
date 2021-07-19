@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { useHistory, useLocation  } from 'react-router';
-
 import axios from 'axios';
 
 import ForumPost from './ForumPost';

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import '../App.css';
 import axios from 'axios';
@@ -148,7 +149,13 @@ const ForumPost = (props) => {
                       </button>
                     </div>
                   ) : (<div></div>)) )
-            : (<div></div>)   }       
+            : (<div className="media-right has-text-right">
+                      <Link to="/login" className="button level-right">
+                          <span className="has-text-danger">
+                              <i className="far fa-heart"></i>
+                          </span>
+                      </Link>
+                    </div>)   }       
         </article>
         </div>
     )

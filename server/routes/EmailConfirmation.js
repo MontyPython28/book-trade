@@ -71,7 +71,7 @@ router.post("/send-confirmation-email", (req, res) => {
     const APP_NAME = 'nus-booktrade'
     const email = req.body.userEmail;
     const password = req.body.password;
-    //console.log('sending email to user')
+    console.log('sending email to user')
     //email sent to user
     jwt.sign(
         {
@@ -89,7 +89,7 @@ router.post("/send-confirmation-email", (req, res) => {
             to: email,
             from: `${APP_NAME} <noreply@booktrade.netlify.com>`,
             subject: `CONFIRM EMAIL to sign up at ${APP_NAME}!`,
-            html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
+            html: `Please click this link to confirm your email: <a href="${url}">${url}</a>`,
           })
           .then(
             console.log('email sent to: '+ email)
