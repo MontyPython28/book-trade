@@ -9,8 +9,8 @@ import axios from "axios";
 
 const CreateForumThread = (props) => {
     const { currentUser } = useAuth();
-    //const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-     const serverURL = 'http://localhost:4000';
+    const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+    //const serverURL = 'http://localhost:4000';
 
     const [title, setTitle] = useState('');
     const [mcode, setMcode] = useState('');
