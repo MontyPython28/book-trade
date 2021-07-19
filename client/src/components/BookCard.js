@@ -8,8 +8,8 @@ import CardWishlistButton from './CardWishlistButton';
 // "/images/BookShelf.PNG"
 
 const BookCard = (props) => {
-    const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-    // const serverURL = 'http://localhost:4000';
+    //const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+     const serverURL = 'http://localhost:4000';
 
     const  book  = props.book;
     let filepath = '';

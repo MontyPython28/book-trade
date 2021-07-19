@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 const Fucku = (props) => {
     const notMe = (currentUsername, selectedChat) => {
@@ -28,11 +29,13 @@ const Fucku = (props) => {
     
     return ( 
         <div className='container'>
+            <div className='subtitle is-5 has-text-success'>Click on a chat to get started!</div>
             {!connecting ? (
                 <>
                     {
                         chatsArray.map((c, index) => (
-                            <div className="box" onClick={() => handlesubmit(c.id)} key={index}>      
+                            <>
+                            <Link className="box" onClick={() => handlesubmit(c.id)} key={index}>      
                                 <span className="title is-4">{c.title}</span>
                                 <br/>              
                                 {/* username of the other user */}
@@ -41,7 +44,8 @@ const Fucku = (props) => {
                                 {/* previews the last message
                                 <span className="subtitle is-6">{c.last_message.text}</span> */}
 
-                            </div>
+                            </Link>
+                            </>
                         ))
                     }
                 </>

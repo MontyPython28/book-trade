@@ -12,13 +12,13 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
-  const MyProjectID = process.env.REACT_APP_CHAT_ENGINE_PROJECT_ID
+  const MyProjectID = "3c754052-bcc6-42db-9d93-96101a0be664"
   const [chatConfig, setChatConfig] = useState();
 
   
   async function signup(NUSNETid, password) {
-    const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-    //const serverURL = 'http://localhost:4000'; 
+    //const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+    const serverURL = 'http://localhost:4000'; 
     const email = NUSNETid + '@u.nus.edu';
 
     await Axios({

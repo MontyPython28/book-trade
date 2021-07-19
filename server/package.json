@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/MontyPython28/book-trade#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "bootstrap": "^5.0.1",
     "cloudinary": "^1.26.0",

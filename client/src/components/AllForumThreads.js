@@ -9,8 +9,8 @@ import  Header from './Header';
 
 
 class AllForumThreads extends Component {
-  serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  // serverURL = 'http://localhost:4000';
+  //serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
+   serverURL = 'http://localhost:4000';
 
   constructor(props) {
     super(props);
