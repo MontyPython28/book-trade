@@ -3,19 +3,22 @@ import { auth, cred } from "../firebase"
 import Axios from 'axios';
 
 
-const AuthContext = React.createContext()
+const Context = React.createContext()
 
 export function useAuth() {
-  return useContext(AuthContext)
+  return useContext(Context)
 }
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
+  const MyProjectID = process.env.REACT_APP_CHAT_ENGINE_PROJECT_ID
+  const [chatConfig, setChatConfig] = useState();
 
+  
   async function signup(NUSNETid, password) {
     const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-    // const serverURL = 'http://localhost:4000'; 
+    //const serverURL = 'http://localhost:4000'; 
     const email = NUSNETid + '@u.nus.edu';
 
     await Axios({
@@ -57,6 +60,14 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
+      if(user)
+      {
+        setChatConfig({
+        userSecret: 'random',
+        userName: user.email,
+        projectID: MyProjectID
+        });
+      }
       setCurrentUser(user)
       setLoading(false)
     })
@@ -71,12 +82,13 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     updatePassword,
-    reAuthUser
+    reAuthUser,
+    chatConfig
   }
 
   return (
-    <AuthContext.Provider value={value}>
+    <Context.Provider value={value}>
       {!loading && children}
-    </AuthContext.Provider>
+    </Context.Provider>
   )
 }

@@ -20,6 +20,7 @@ import sirwait from "./SirWait";
 import wishlist from './UserWishlist'
 import listing from './UserListing'
 import UserPosts from "./UserPosts";
+import Inbox from './chat/Inbox' 
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
               <PrivateRoute path='/listing' component={listing} />
               <PrivateRoute path='/my-posts' component={UserPosts} />
               <PrivateRoute path='/edit-book/:id' component={UpdateBookInfo} />         
+              <PrivateRoute path='/inbox' component={Inbox} />
             </Switch>
           </AuthProvider>
         </Router>

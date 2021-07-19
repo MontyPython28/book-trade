@@ -6,7 +6,7 @@ import Header from './Header';
 import EditButtonTrio from './EditButtonTrio';
 import WishlistButton from './WishlistButton';
 import Accordion from './Accordion';
-
+import StartChat from './chat/StartChat';
 
 class showBookDetails extends Component {
   serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
@@ -130,6 +130,7 @@ class showBookDetails extends Component {
               </div>
             <EditButtonTrio email={book.publisher} id={book._id} sold={book.sold} serverURL={this.serverURL} history={this.props.history}/>
             <WishlistButton email={book.publisher} id={book._id} serverURL={this.serverURL} icon={true}/>
+            <StartChat  title={book.title} seller={book.publisher} history={this.props.history}/>
             <Accordion title="Related Forum Threads: ">
               <div className="content"> 
               {moduleList.length <= 0 ? (<p>There are no books associated with this module</p>)

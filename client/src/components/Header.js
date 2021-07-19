@@ -56,6 +56,9 @@ const Header = (props) => {
               <Link to="/forum-threads" className="navbar-item ">
                 <p className="title is-6 has-text-link">FORUM</p>
               </Link>
+              <Link to="/inbox" className="navbar-item ">
+                <p className="title is-6 has-text-link">INBOX</p>
+              </Link>
 
               {currentUser ?  (
               <div className="navbar-item has-dropdown is-hoverable">
