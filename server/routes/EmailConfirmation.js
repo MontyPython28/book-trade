@@ -3,6 +3,12 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const { signup } = require('../config/firebase');
 const User = require('../models/User');
+var axios = require('axios');
+
+
+
+
+
 
 
 //-----------------------------------------------NODEMAILER CONFIG
@@ -46,8 +52,29 @@ router.get("/confirmation/:token", async (req, res) => {
                 upsert: true
               })
               .then(user => {
+                var data = {
+                  "username": email,
+                  "secret": "random",
+                  "email": email,
+                  "first_name": "something",
+                  "last_name": "something",
+                };
 
-                console.log('user created: ' + user.user_email);
+                var config = {
+                  method: 'post',
+                  url: 'https://api.chatengine.io/users/',
+                  headers: {
+                    'PRIVATE-KEY': '3bbd6edb-333e-4451-ab3d-ebdbe81a17b4'
+                  },
+                  data : data
+                };
+                 
+                axios(config)
+                .then((response) => {
+                  console.log(JSON.stringify(response.data));
+                })
+
+                //console.log('user created: ' + user.user_email);
                 //res.json({ msg: 'Updated successfully' })
               })
               .catch(err => {
@@ -64,14 +91,14 @@ router.get("/confirmation/:token", async (req, res) => {
       res.send('error');
     }
     
-    res.redirect('https://booktrade.netlify.app/'); //replace in prod
+    res.redirect('booktrade.netlify.app'); //replace in prod
 });
 
 router.post("/send-confirmation-email", (req, res) => {
     const APP_NAME = 'nus-booktrade'
     const email = req.body.userEmail;
     const password = req.body.password;
-    console.log('sending email to user')
+    //console.log('sending email to user')
     //email sent to user
     jwt.sign(
         {
@@ -89,7 +116,7 @@ router.post("/send-confirmation-email", (req, res) => {
             to: email,
             from: `${APP_NAME} <noreply@booktrade.netlify.com>`,
             subject: `CONFIRM EMAIL to sign up at ${APP_NAME}!`,
-            html: `Please click this link to confirm your email: <a href="${url}">${url}</a>`,
+            html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
           })
           .then(
             console.log('email sent to: '+ email)
