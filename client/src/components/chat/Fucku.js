@@ -29,7 +29,7 @@ const Fucku = (props) => {
     
     return ( 
         <div className='container'>
-            {chats && <div className='subtitle is-5 has-text-success'>Click on a chat to get started!</div>}
+            {(chatsArray.length > 0) && <div className='subtitle is-5 has-text-success'>Click on a chat to get started!</div>}
             {!connecting ? (
                 <>
                     {
