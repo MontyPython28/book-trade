@@ -49,7 +49,7 @@ const Header = (props) => {
 
             <Link to={currentUser ? "/create-book" : "/login"} className="navbar-item ">
                 <p className="title is-6 has-text-link">ADD LISTING</p>
-              </Link>)
+              </Link>
               <Link to="/all-books" className="navbar-item ">
                 <p className="title is-6 has-text-link">ALL BOOKS</p>
               </Link>
@@ -65,9 +65,6 @@ const Header = (props) => {
                 </span>
                 </div>
                 <div className="navbar-dropdown">
-                  <Link to="/dashboard" className="navbar-item">
-                    My Profile
-                  </Link>
                   <Link to='/wishlist' className="navbar-item" >
                     My Wishlist
                   </Link>
