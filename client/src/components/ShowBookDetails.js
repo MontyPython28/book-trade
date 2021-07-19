@@ -129,7 +129,7 @@ class showBookDetails extends Component {
                 </div>
               </div>
             <EditButtonTrio email={book.publisher} id={book._id} sold={book.sold} serverURL={this.serverURL} history={this.props.history}/>
-            <WishlistButton email={book.publisher} title={book.title} serverURL={this.serverURL} icon={true}/>
+            <WishlistButton email={book.publisher} id={book._id} serverURL={this.serverURL} icon={true}/>
             <Accordion title="Related Forum Threads: ">
               <div className="content"><ul> {moduleList} </ul></div>
             </Accordion>            

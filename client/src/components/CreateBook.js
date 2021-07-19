@@ -131,8 +131,8 @@ class CreateBook extends Component {
             </div>
 
 
-              <div className="column is-two-thirds">
-                <div className="box">
+          <div className="column is-two-thirds">
+            <div className="box">
             <div className="box">
             <div className="field">
                 <label className="label">

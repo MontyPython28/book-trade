@@ -7,7 +7,8 @@ import  Header from './Header';
 
 const UserListing = () => {
   const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-  //serverURL = 'http://localhost:4000';
+  // const serverURL = 'http://localhost:4000';
+
   const {currentUser} = useAuth();
   let [listedBooks, setListedBooks] = useState();
   const [loading, setLoading] = useState(true);

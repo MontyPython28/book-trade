@@ -15,7 +15,7 @@ const WishlistButton = (props) => {
 
   useEffect(() => {
     if (currentUser && (props.email !== currentUser.email)) {
-      const webName = props.serverURL + '/check-wishlist/' + props.title + '/' + currentUser.email;
+      const webName = props.serverURL + '/check-wishlist/' + props.id + '/' + currentUser.email;
       axios.get(webName)
       .then(res => {
         setWishlisted(res.data.count)
@@ -35,7 +35,7 @@ const WishlistButton = (props) => {
     event.preventDefault();
     setWishlistButtonClass('button is-success is-medium is-outlined is-fullwidth is-loading');
     const data = {
-      book_title: props.title
+      book_id: props.id
     };
 
     axios
@@ -57,7 +57,7 @@ const WishlistButton = (props) => {
     event.preventDefault();
     setWishlistButtonClass('button is-success is-medium is-outlined is-fullwidth is-loading');
     const data = {
-      book_title: props.title
+      book_id: props.id
     };
 
     axios

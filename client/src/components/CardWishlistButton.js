@@ -12,9 +12,11 @@ const CardWishlistButton = (props) => {
 
   const [wishlisted, setWishlisted] = useState(-1);
 
+  
+
   useEffect(() => {
     if (currentUser && (props.email !== currentUser.email)) {
-      const webName = props.serverURL + '/check-wishlist/' + props.title + '/' + currentUser.email;
+      const webName = props.serverURL + '/check-wishlist/' + props.id + '/' + currentUser.email;
       axios.get(webName)
       .then(res => {
         setWishlisted(res.data.count)
@@ -26,7 +28,7 @@ const CardWishlistButton = (props) => {
   const wishList = (event) => {
     event.preventDefault();
     const data = {
-      book_title: props.title
+      book_id: props.id
     };
 
     axios
@@ -42,7 +44,7 @@ const CardWishlistButton = (props) => {
   const unWishList = (event) => {
     event.preventDefault();
     const data = {
-      book_title: props.title
+      book_id: props.id
     };
 
     axios

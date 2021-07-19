@@ -46,7 +46,7 @@ const BookCard = (props) => {
                     {book.price.$numberDecimal} SGD</p>
                  </div>
                 </div>
-                <CardWishlistButton email={book.publisher} title={book.title} serverURL={serverURL}/>        
+                <CardWishlistButton email={book.publisher} id={book._id} serverURL={serverURL}/>        
             </div>
         </Link>
         </div>

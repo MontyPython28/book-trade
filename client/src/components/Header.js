@@ -1,9 +1,11 @@
 import React, { useState }  from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import LoginButton from './LoginButton';
 import '../App.css';
 
 const Header = (props) => {
+    const {currentUser} = useAuth();
 
     const [searchInput, setSearchInput] = useState('');
     const [isActive, setisActive] = useState(false);
@@ -41,28 +43,28 @@ const Header = (props) => {
           </div>
 
           <div id="navbarBasicExample" className={`navbar-menu ${isActive ? 'is-active' : ''}`}>
-            <div className="navbar-start">
-              
-            </div>
+            <div className="navbar-start"> </div>
 
             <div className="navbar-end">
 
+            {currentUser ? (
             <Link to="/create-book" className="navbar-item ">
                 <p className="title is-6 has-text-link">ADD LISTING</p>
-              </Link>
+              </Link>) : (<div></div>) }
               <Link to="/all-books" className="navbar-item ">
                 <p className="title is-6 has-text-link">ALL BOOKS</p>
               </Link>
               <Link to="/forum-threads" className="navbar-item ">
                 <p className="title is-6 has-text-link">FORUM</p>
               </Link>
+
+              {currentUser ?  (
               <div className="navbar-item has-dropdown is-hoverable">
                 <div className="navbar-link">
                 <span className="icon">
                   <i className="fas fa-user"></i>
                 </span>
                 </div>
-
                 <div className="navbar-dropdown">
                   <Link to="/dashboard" className="navbar-item">
                     My Profile
@@ -77,7 +79,7 @@ const Header = (props) => {
                     My Posts
                   </Link>
                 </div>
-              </div>
+              </div>) : (<div></div>) }
 
               <div className="navbar-item">
                   <LoginButton />

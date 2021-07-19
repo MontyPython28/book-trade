@@ -74,7 +74,7 @@ router.get('/:user/wishlist', (req, res) => {
   User.findOne({user_email: req.params.user})
     .then(user => {
       const wishlist = user.wishlist;
-      Book.find({title: { $in: wishlist }})
+      Book.find({_id : { $in: wishlist }})
         .then(books => res.json(books))
         .catch(err => res.status(404).json({ nobooksfound: 'No Books found' }));
     })

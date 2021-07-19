@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import Header from './Header';
 
 export default function Login() {
 
@@ -40,6 +41,8 @@ export default function Login() {
 
   // 
   return (
+    <>
+    <Header />
     <div className="hero-body">
       <div className="container">
         <div className="column is-4 is-offset-4">
@@ -84,5 +87,6 @@ export default function Login() {
         </div>
       </div>
     </div>
+    </>
   )
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import Header from "./Header";
 
 export default function ForgotPassword() {
   const { resetPassword } = useAuth();
@@ -27,6 +28,8 @@ export default function ForgotPassword() {
   }
 
   return (
+    <>
+    <Header />
     <div className="hero-body">
       <div className="container">
         <div className="column is-4 is-offset-4">
@@ -61,5 +64,6 @@ export default function ForgotPassword() {
         </div>
       </div>
     </div>
+    </>
   )
 }

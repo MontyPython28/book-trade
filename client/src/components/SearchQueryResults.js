@@ -49,8 +49,8 @@ class SearchQueryResults extends Component {
   
     let bookList;
     if(!newList1.length) {
-      bookList =
-      <p className="subtitle is-5 has-text-danger">Sorry, we cannot find any books that match your search.</p>;
+      bookList = <p className="title is-5 has-text-primary">
+        Sorry, we cannot find any books that match your search.</p>;
     } else {
       bookList = newList1.map((book, k) =>
         <BookCard book={book} key={k} size="is-one-fifth"/>

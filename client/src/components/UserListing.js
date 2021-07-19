@@ -6,7 +6,8 @@ import  Header from './Header';
 
 const UserListing = () => {
     const serverURL = 'https://nusbooktrade.herokuapp.com'; //CHANGE
-    //serverURL = 'http://localhost:4000';
+    // const serverURL = 'http://localhost:4000';
+
     const {currentUser} = useAuth();
     let [listedBooks, setListedBooks] = useState();
     const [setUp, setSetUp] = useState(false);
@@ -32,7 +33,7 @@ const UserListing = () => {
     let bookList;
 
     if(!listedBooks) {
-      bookList = "There is no book record!";
+      bookList = "You have not wishlisted anything yet!";
     } else {
       bookList = listedBooks.map((book, k) =>
         <BookCard book={book} key={k} size="is-one-fifth"/>

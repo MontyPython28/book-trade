@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import Header from "./Header";
 
 export default function Signup() {
   const { signup } = useAuth();
@@ -32,6 +33,8 @@ export default function Signup() {
   }
 
   return (
+  <>
+    <Header />
     <div className="hero-body">
       <div className="container">
         <div className="column is-4 is-offset-4">
@@ -78,5 +81,6 @@ export default function Signup() {
         </div>
       </div>
     </div>
+    </>
   )
 }
