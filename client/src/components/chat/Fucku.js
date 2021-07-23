@@ -7,7 +7,6 @@ const Fucku = (props) => {
         return selectedChat.people.find(p => p.person.username !== currentUsername)?.person?.username;
     };
 
-    
     const {connecting, chats, setActiveChat} = props;
     const {currentUser} = useAuth();
     
@@ -22,14 +21,13 @@ const Fucku = (props) => {
 
     const handlesubmit = (id) => {
         //console.log('setting active chat')
-        setActiveChat(id)
-        console.log('active chat set')
+        setActiveChat(id);
     }
 
     
     return ( 
         <div className='container'>
-            {(chatsArray.length > 0) && <div className='subtitle is-5 has-text-success'>Click on a chat to get started!</div>}
+            {(chatsArray.length > 0) && <div className='title is-5 is-uppercase has-text-success'>iNBOX</div>}
             {!connecting ? (
                 <>
                     {

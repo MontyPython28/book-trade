@@ -14,19 +14,21 @@ const Inbox = () => {
   return (
     <div>
       <Header title="Inbox"/>
-        <br />
-        <div className="container">
-      
-        <ChatEngine
-          userName={chatConfig.userName}
-          projectID={chatConfig.projectID}
-          userSecret={chatConfig.userSecret}
-          renderChatList={(chatAppState) => <Fucku  {...chatAppState} />}
-          renderChatFeed={(chatAppState) => <ChatFeed {...chatAppState}/>}
-          renderChatSettings={(chatAppState) => <Fucku2 {...chatAppState}/>}
-          offset={8}
-        />
-      
+      <br />
+      <div className="container">
+        <div className="column is-10 is-offset-1">
+          <div className="box">
+            <ChatEngine
+              userName={chatConfig.userName}
+              projectID={chatConfig.projectID}
+              userSecret={chatConfig.userSecret}
+              renderChatList={(chatAppState) => <Fucku  {...chatAppState} />}
+              renderChatFeed={(chatAppState) => <ChatFeed {...chatAppState}/>}
+              renderChatSettings={(chatAppState) => <Fucku2 {...chatAppState}/>}
+              offset={8}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -11,17 +11,14 @@ const StartChat = ({title, seller, history}) => {
       return new Promise( res => setTimeout(res, delay) );
     }
   
-    const [ChatButtonClass, setChatButtonClass] = useState('button is-success is-outlined is-fullwidth');
+    const [ChatButtonClass, setChatButtonClass] = useState('button is-warning is-fullwidth');
   
     const onSubmit = (event) => {
       var needNewChat = true;
       event.preventDefault();
-      setChatButtonClass('button is-success is-medium is-outlined is-fullwidth is-loading');
-      console.log(title)
-      console.log('sellers name '+seller)
+      setChatButtonClass('button is-warning is-medium is-fullwidth is-loading');
       const createChat = (permission) => {
         if(permission) {
-          console.log('2:'+ needNewChat);
           newChat(chatConfig, { title: title }, (data) => {
             //console.log(data);
             const chatId = data.id;
@@ -51,7 +48,7 @@ const StartChat = ({title, seller, history}) => {
       })
       
       history.push('/inbox');
-      //setChatButtonClass('button is-success is-outlined is-fullwidth');
+      //setChatButtonClass('button is-warning is-fullwidth');
     };
   
   
@@ -62,7 +59,7 @@ const StartChat = ({title, seller, history}) => {
     : (
       <div className="is-centred">
           <div className = "column has-text-centered is-third">
-              <button type="button" className={ChatButtonClass} onClick={onSubmit}>Chat with seller</button>
+              <button type="button" className={ChatButtonClass} onClick={onSubmit}>Chat with Seller</button>
           </div>
           {error && <div className="notification is-danger is-light">{error}</div>}
           {success && <div className="notification is-success is-light">{success}</div>}

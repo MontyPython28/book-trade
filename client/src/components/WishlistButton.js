@@ -80,7 +80,7 @@ const WishlistButton = (props) => {
   return currentUser
   ? (
     <div className="is-centred">
-        {wishlisted && (props.email !== currentUser.email) === 0 ? (
+        {wishlisted === 0 && (props.email !== currentUser.email) ? (
         <div className = "column has-text-centered is-third">
             <button type="button" className={WishlistButtonClass} 
               onClick={wishList}>Wishlist this book</button>
