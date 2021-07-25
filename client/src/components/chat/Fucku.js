@@ -3,6 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 
 const Fucku = (props) => {
+    //hi
     const notMe = (currentUsername, selectedChat) => {
         return selectedChat.people.find(p => p.person.username !== currentUsername)?.person?.username;
     };
