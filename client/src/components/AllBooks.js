@@ -58,6 +58,7 @@ class AllBooks extends Component {
             </div>
           </div>
         </div>
+        <br />
       </div>
     ) : <Header title="Browse Listings"/>;
   }

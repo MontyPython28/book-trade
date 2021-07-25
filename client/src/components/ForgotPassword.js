@@ -33,7 +33,7 @@ export default function ForgotPassword() {
     <div className="hero-body">
       <div className="container">
         <div className="column is-4 is-offset-4">
-          <h3 className="title is-3 has-text-centered has-text-white"> Reset Password </h3>
+          <h3 className="title is-3 has-text-centered has-text-link"> Reset Password </h3>
           {error && <div className="notification is-danger is-light">{error}</div>}
           {message && <div className="notification is-success is-light">{message}</div>}
           

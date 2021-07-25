@@ -18,7 +18,7 @@ class CreateBook extends Component {
       price:undefined,
 
       //for CSS of button
-      buttonClass: 'button is-success is-medium is-outlined is-fullwidth',
+      buttonClass: 'button is-success is-medium is-fullwidth',
 
       // for image uploading
       file: undefined,
@@ -36,7 +36,7 @@ class CreateBook extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     //for CSS of button
-    this.setState({buttonClass: 'button is-success is-medium is-outlined is-fullwidth is-loading'});
+    this.setState({buttonClass: 'button is-success is-medium is-fullwidth is-loading'});
 
     const data = new FormData();
     data.append('title', this.state.title);
@@ -114,7 +114,7 @@ class CreateBook extends Component {
                       <div {...getRootProps({ className: 'drop-zone' })} ref={this.state.dropRef}>
                         <input className="input" {...getInputProps()} />
                         <p className='box'>
-                          Drag and drop a file OR click here to select a file</p>
+                          Drag and drop a file OR click here to select an image</p>
                         {this.state.file && (
                           <div>
                             <strong>Selected file:</strong> {this.state.file.name}
@@ -181,7 +181,7 @@ class CreateBook extends Component {
 
               <div className="field">
                 <label className="label">
-                <p className="subtitle is-uppercase">Description</p></label>
+                <p className="subtitle is-uppercase">Additional Details</p></label>
                 <div className="control">
                   <textarea
                     type='text'
@@ -249,7 +249,7 @@ class CreateBook extends Component {
                 <br />
               <h1 className="subtitle is-4">Drag and Drop</h1>
               <h1 className="subtitle is-3"> OR </h1>
-              <h1 className="subtitle is-4">click here to select a file </h1>
+              <h1 className="subtitle is-4">click here to select an image of the textbook </h1>
               <br />
             </div>
                       </div>

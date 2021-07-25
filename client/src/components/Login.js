@@ -46,7 +46,7 @@ export default function Login() {
     <div className="hero-body">
       <div className="container">
         <div className="column is-4 is-offset-4">
-          <h3 className="title is-3 has-text-centered has-text-white"> Login </h3>
+          <h3 className="title is-3 has-text-centered has-text-link"> Login </h3>
           {error && <div className="notification is-danger is-light">{error}</div>}
           
           <form className="box" onSubmit={handleSubmit}>

@@ -88,7 +88,7 @@ class showBookDetails extends Component {
             <td>{ book.author }</td>
           </tr>
           <tr>
-            <th scope="row">Description</th>
+            <th scope="row">Additional Details</th>
             <td>{ book.description }</td>
           </tr>
           <tr>

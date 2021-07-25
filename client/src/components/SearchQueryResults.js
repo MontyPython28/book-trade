@@ -69,6 +69,7 @@ class SearchQueryResults extends Component {
             </div>
           </div>
         </div>
+        <br />
       </div>
       ) : (<Header title={"Search Results for '" + this.props.match.params.query + "'"}/>)
     );

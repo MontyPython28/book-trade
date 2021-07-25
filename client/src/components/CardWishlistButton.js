@@ -63,24 +63,49 @@ const CardWishlistButton = (props) => {
   ? (
     <div className="level">
         {(wishlisted === 0 && props.email !== currentUser.email)? (
-            <div type="button" onClick={wishList}>
-                <span className="icon has-text-danger">
-                    <i className="far fa-bookmark"></i>
-                </span>
+          <div className="level-left">
+            <div className="level-item">
+              <div type="button" onClick={wishList}>
+                  <span className="icon has-text-danger">
+                      <i className="far fa-lg fa-heart"></i>
+                  </span>
+              </div>
             </div>
+            <div className="level-item">
+              <div className="subtitle is-7">Add to Wishlist</div>
+            </div>
+          </div>
         ) : (wishlisted === 1 && props.email !== currentUser.email)? (
-            <div type="button" onClick={unWishList}>
-                <span className="icon has-text-danger">
-                    <i className="fas fa-bookmark"></i>
-                </span>
+          <div className="level-left">
+            <div className="level-item">
+              <div type="button" onClick={unWishList}>
+                  <span className="icon has-text-danger">
+                      <i className="fas fa-lg fa-heart"></i>
+                  </span>
+              </div>
             </div>
+            <div className="level-item">
+              <div className="subtitle is-7">Remove from Wishlist</div>
+            </div>
+          </div>
         ) : (<div></div>)}
         {error && <div className="notification is-danger is-light">{error}</div>}
     </div>
   ) : ( <Link to="/login">
-          <span className="icon has-text-danger">
-              <i className="far fa-bookmark"></i>
-          </span>
+        <div className="level">
+          <div className="level-left">
+            <div className="level-item">
+              <div type="button">
+                  <span className="icon has-text-danger">
+                      <i className="far fa-lg fa-heart"></i>
+                  </span>
+              </div>
+            </div>
+            <div className="level-item">
+              <div className="subtitle is-7">Add to Wishlist</div>
+            </div>
+          </div>
+        </div>
         </Link>);
 };
 

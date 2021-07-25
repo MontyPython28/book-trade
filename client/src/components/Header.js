@@ -57,7 +57,7 @@ const Header = (props) => {
                 <p className="title is-6 has-text-link">FORUM</p>
               </Link>
               <Link to="/inbox" className="navbar-item ">
-                <p className="title is-6 has-text-link">INBOX</p>
+                <p className="title is-6 has-text-link">CHAT</p>
               </Link>
 
               {currentUser ?  (
@@ -87,7 +87,7 @@ const Header = (props) => {
           </div>
         </nav>
         <br />
-        <div className="title has-text-centered has-text-white">{props.title}</div>
+        <div className="title has-text-centered has-text-link">{props.title}</div>
       </div>      
     )
 };

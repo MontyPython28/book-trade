@@ -115,11 +115,11 @@ router.post("/send-confirmation-email", (req, res) => {
           transporter.sendMail({
             to: email,
             from: `${APP_NAME} <noreply@booktrade.netlify.com>`,
-            subject: `CONFIRM EMAIL to sign up at ${APP_NAME}!`,
-            html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
+            subject: `Welcome to BookTrade!`,
+            html: `<p><strong>Welcome to BookTrade!</strong></p>Please verify your email address by clicking on this link:: <a href="${url}">${url}</a>`,
           })
           .then(
-            console.log('email sent to: '+ email)
+            console.log('Email sent to: '+ email)
           );
 
         }

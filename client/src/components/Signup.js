@@ -38,7 +38,7 @@ export default function Signup() {
     <div className="hero-body">
       <div className="container">
         <div className="column is-4 is-offset-4">
-          <h3 className="title is-3 has-text-centered has-text-white"> Sign Up </h3>
+          <h3 className="title is-3 has-text-centered has-text-link"> Sign Up </h3>
           {error && <div className="notification is-danger is-light">{error}</div>}
           
 
