@@ -28,7 +28,8 @@ const Fucku = (props) => {
     
     return ( 
         <div className='container'>
-            {(chatsArray.length > 0) && <div className='title is-5 is-uppercase has-text-success'>iNBOX</div>}
+            {chatsAvailable && <div className='title is-5 is-uppercase has-text-success'>iNBOX</div>}
+            {(!chatsArray.length) && <div className='title is-5 is-uppercase has-text-success'>You have 0 conversations!</div>}
             {!connecting ? (
                 <>
                     {
