@@ -17,7 +17,7 @@ const Inbox = () => {
     const count = 1
     const callback = (chats) => {
       if(chats) {
-        console.log('successfully found this chat: '+chat)
+        console.log(chats)
         setLatestChat(chats);
       }
     }
@@ -44,8 +44,8 @@ const Inbox = () => {
               userName={chatConfig.userName}
               projectID={chatConfig.projectID}
               userSecret={chatConfig.userSecret}
-              renderChatList={(chatAppState) => <Fucku  {...chatAppState} chatsAvailable={true}/>}
-              renderChatFeed={(chatAppState) => <ChatFeed {...chatAppState} activeChat={latestChat}/>}
+              renderChatList={(chatAppState) => <Fucku  {...chatAppState}/>}
+              renderChatFeed={(chatAppState) => <ChatFeed {...chatAppState} activeChat={latestChat[0].id}/>}
               renderChatSettings={(chatAppState) => <Fucku2 {...chatAppState}/>}
               offset={8}
                 />
@@ -53,7 +53,7 @@ const Inbox = () => {
               userName={chatConfig.userName}
               projectID={chatConfig.projectID}
               userSecret={chatConfig.userSecret}
-              renderChatList={(chatAppState) => <Fucku  {...chatAppState} chatsAvailable={false}/>}
+              renderChatList={(chatAppState) => <Fucku  {...chatAppState}/>}
               renderChatFeed={(chatAppState) => <ChatFeed {...chatAppState}/>}
               renderChatSettings={(chatAppState) => <Fucku2 {...chatAppState}/>}
               offset={8}
