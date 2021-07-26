@@ -116,7 +116,7 @@ router.post("/send-confirmation-email", (req, res) => {
             to: email,
             from: `${APP_NAME} <noreply@booktrade.netlify.com>`,
             subject: `Welcome to BookTrade!`,
-            html: `<p><strong>Welcome to BookTrade!</strong></p>Please verify your email address by clicking on this link:: <a href="${url}">${url}</a>`,
+            html: `<p><strong>Welcome to BookTrade!</strong></p>Please verify your email address by clicking on this link: <a href="${url}">Activate My Account</a>`,
           })
           .then(
             console.log('Email sent to: '+ email)
