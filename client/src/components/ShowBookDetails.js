@@ -137,7 +137,7 @@ class showBookDetails extends Component {
             
             <Accordion title="Related Forum Threads: ">
               <div className="content"> 
-              {moduleList.length <= 0 ? (<p>There are no books associated with this module</p>)
+              {moduleList.length <= 0 ? (<p>There are no forum threads associated with this book</p>)
               : (<ul> {moduleList} </ul>)} 
               </div>
             </Accordion>            

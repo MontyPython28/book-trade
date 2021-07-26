@@ -87,7 +87,7 @@ class Home extends Component {
         <div className="box">
         <div className="columns">
           <div className="column is-one-third has-text-centered">
-            <img src="/images/Logo.png" alt="Logo"/>
+            <img src="/images/Logo2.png" alt="Logo"/>
           </div>
           <div className="column">
             <h1 className="title has-text-centered is-2">Welcome to BookTrade!</h1>

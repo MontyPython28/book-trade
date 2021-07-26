@@ -35,7 +35,6 @@ const Inbox = () => {
       <Header title="Chat Inbox"/>
       <br />
       <div className="container has-text-centered">
-      <p className="subtitle has-text-white">PLEASE NOTE: Try clicking on a chat to make it load!</p>
         <div className="column is-10 is-offset-1">
    
           <div className="box">

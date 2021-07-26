@@ -114,7 +114,7 @@ class CreateBook extends Component {
                       <div {...getRootProps({ className: 'drop-zone' })} ref={this.state.dropRef}>
                         <input className="input" {...getInputProps()} />
                         <p className='box'>
-                          Drag and drop a file OR click here to select an image</p>
+                          Drag and drop OR click here to select an image</p>
                         {this.state.file && (
                           <div>
                             <strong>Selected file:</strong> {this.state.file.name}

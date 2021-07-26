@@ -31,7 +31,7 @@ const Header = (props) => {
               <span aria-hidden="true"></span>
             </div>
             <Link to="/" className="nav-bar item">
-              <img src="/images/LogoSide.png" width="200" height="50" alt="Logo"/>
+              <img src="/images/LogoSide2.png" width="200" height="50" alt="Logo"/>
             </Link>
             <div className="nav-bar item">
             <input className="input is-rounded mt-1" type="search" placeholder="Search"
