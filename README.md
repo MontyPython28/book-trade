@@ -1,6 +1,8 @@
 ## BookTrade
 
-BookTrade is an e-commerce site for NUS students to buy and sell textbooks. It includes a chat feature and a forum for discussion as well.
+BookTrade is an e-commerce site for NUS students to buy and sell textbooks. It includes a chat feature and a forum.
+
+Demo: https://booktrade.netlify.app/
 
 ![picture alt](https://res.cloudinary.com/dms8fhsiw/image/upload/v1629213180/Screenshot_71_bkm3by.png "Title is optional")
 
